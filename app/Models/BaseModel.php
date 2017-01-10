@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use DB;
 
-abstract class BaseModel extends Model
+abstract class BaseModel
 {
 //    protected $db;
     protected $pk;
+    protected $table;
 
     public function __construct()
     {
@@ -19,7 +19,6 @@ abstract class BaseModel extends Model
     // Получение списка
     public function getAll()
     {
-//        return $this->db->query("SELECT * FROM {$this->table} ORDER BY dt_edit DESC");
         return DB::table($this->table)
             ->orderBy('dt_edit', 'desc')
             ->get();

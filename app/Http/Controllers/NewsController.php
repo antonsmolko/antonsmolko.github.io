@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\UserModel;
-use App\NewsModel;
+use App\Models\UsersModel;
+use App\Models\NewsModel;
 
 class NewsController extends Controller
 {
