@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\UserModel;
-use App\NewsModel;
+use App\MyNew;
+use App\Models\UsersModel;
+use App\Models\NewsModel;
 
 class NewsController extends Controller
 {
@@ -18,46 +19,44 @@ class NewsController extends Controller
 
     public function indexAction()
     {
-        $mNews = NewsModel::Instance();
-        $news = $mNews->getAll();
+        $news = MyNew::where('id', '>', 0)
+            ->orderBy('updated_at', 'desk')
+            ->get();
 
         return view('pages.main', [
             'news' => $news,
             'title' => $this->title,
             'content' => 'pages.news'
         ]);
-
-//        $this->content = $this->tmpGenerate('view/v_news.php',[
-//            'news' => $news,
-//            'auth' => $this->mUsers->isAuth(),
-//            'add_edit' => UserModel::hasPermission('editor.add_edit'),
-//            'delete' => UserModel::hasPermission('moderator.delete_articles')
-//        ]);
     }
 
-    public function newAction()
+    public function newAction($id)
     {
-        if (!$this->request->getGet()['id']) {
-            $this->get404();
-        }
+//        if (!$this->request->getGet()['id']) {
+//            $this->get404();
+//        }
+//
+//        $cId = new Id();
+//        $id_new = $cId->setId($this->request->getGet()['id']);
+//
+//        $mNews = NewsModel::Instance();
+//        $new = $mNews->get($id_new);
 
-        $cId = new Id();
-        $id_new = $cId->setId($this->request->getGet()['id']);
+        $new = MyNew::findOrFail($id);
 
-        $mNews = NewsModel::Instance();
-        $new = $mNews->get($id_new);
-
-        if (!$new) {
-            $this->get404();
-        }
+//        if (!$new) {
+//            $this->get404();
+//        }
 
         $this->title = $new['title'];
 
-        $this->content = $this->tmpGenerate('view/v_new.php',[
+        return view('pages.main', [
             'new' => $new,
-            'auth' => $this->mUsers->isAuth(),
-            'add_edit' => UsersModel::hasPermission('editor.add_edit'),
-            'delete' => UsersModel::hasPermission('moderator.delete_articles')
+            'title' => $this->title,
+            'auth' => '',
+            'add_edit' => '',
+            'delete' => '',
+            'content' => 'pages.new'
         ]);
     }
 

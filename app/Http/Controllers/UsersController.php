@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     protected  $validator;
 

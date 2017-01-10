@@ -17,7 +17,15 @@
 
 Route::get('/', 'NewsController@indexAction');
 
-Route::get('/login', 'UserController@loginAction');
+Route::get('/login', 'UsersController@loginAction');
+
+Route::get('/new/{id}', function($id) {
+    $new = new \App\Http\Controllers\NewsController(new Illuminate\Http\Request);
+    return $new->newAction($id);
+})
+->where('id', '[0-9]+');
+
+
 
 //Route::get('/', function () {
 //    return "Helloooooooo!";
