@@ -8,8 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use DB;
-use App\UsersModel;
-use App\NewsModel;
+use App\Models\UsersModel;
+use App\Models\NewsModel;
 
 class Controller extends BaseController
 {

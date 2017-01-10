@@ -19,9 +19,10 @@ abstract class BaseModel
     // Получение списка
     public function getAll()
     {
-        return DB::table($this->table)
-            ->orderBy('dt_edit', 'desc')
-            ->get();
+//        return DB::table($this->table)
+//            ->orderBy('dt_edit', 'desc')
+//            ->get();
+
     }
 
 //    // Получение одной позиции

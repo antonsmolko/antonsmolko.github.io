@@ -1,15 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-class UserModel extends BaseModel
+use App\Models\BaseModel;
+
+class UsersModel extends BaseModel
 {
     protected static $instance = [];
 
     public static function Instance()
     {
         if (self::$instance == null) {
-            self::$instance = new UserModel();
+            self::$instance = new UsersModel();
         }
 
         return self::$instance;
