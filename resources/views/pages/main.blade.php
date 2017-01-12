@@ -14,7 +14,7 @@
         <div class="nav">
             {{--@if($auth)--}}
                 {{--@if ($add_edit)--}}
-                    {{--<a class="button button-dark" href="/add">Добавить статью</a>--}}
+                    <a class="button button-dark" href="/add">Добавить статью</a>
                 {{--@endif--}}
             {{--<a class="button button-dark" href="/logout">Выйти</a>--}}
             {{--<div class="user">--}}

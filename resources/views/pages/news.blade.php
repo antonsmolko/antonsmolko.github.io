@@ -2,7 +2,7 @@
     <div class="new">
         <h2>{{ $new->title }}</h2>
         <span class="new--dt note">
-            {{ $new->updated_at }}
+            {{ getRusDate($new->updated_at) }}
         </span>
         <div class="new--body">
             <p>
