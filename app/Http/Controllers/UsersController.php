@@ -11,12 +11,10 @@ class UsersController extends Controller
     public function  __construct(Request $request)
     {
         parent::__construct($request);
-//        $this->validator = new Validator();
     }
 
     public function loginAction()
     {
-//        $this->validator->loadRules('login_form');
         $loginError = '';
 
         if ($this->request->isMethod('post')) {
