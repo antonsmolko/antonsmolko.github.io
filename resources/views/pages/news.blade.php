@@ -16,7 +16,7 @@
                     <a class="new--edit button" href="/edit/{{ $new->id }}">Редактировать</a>
                 {{--@endif--}}
                 {{--@if ($delete)--}}
-                    <a class="new--delete button" href="/delete?id={{ $new->id }}">Удалить</a>
+                    <a class="new--delete button" href="/delete/{{ $new->id }}">Удалить</a>
                 {{--@endif--}}
             {{--@endif--}}
         </div>

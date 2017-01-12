@@ -29,7 +29,13 @@ Route::get('/new/{id}', 'NewsController@newAction')->where('id', '[0-9]+');
 
 Route::get('/add', 'NewsController@addAction');
 
-Route::get('/edit/{id}', 'NewsController@editAction')->where('id', '[0-9]+');;
+Route::post('/add', 'NewsController@addAction');
+
+Route::get('/edit/{id}', 'NewsController@editAction')->where('id', '[0-9]+');
+
+Route::post('/edit/{id}', 'NewsController@editAction')->where('id', '[0-9]+');
+
+Route::get('/delete/{id}', 'NewsController@deleteAction')->where('id', '[0-9]+');
 
 
 //Route::get('/', function () {

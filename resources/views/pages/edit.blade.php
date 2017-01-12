@@ -9,6 +9,7 @@
             <span class="edit-new--tag">Содержание статьи</span>
             <textarea class="edit-new--text" name="content">{{ $new_content }}</textarea>
         </div>
+        {{ csrf_field() }}
         <a class="button" href="/new/{{ $id }}">Отменить</a>
         <input class="button" type="submit" value="Сохранить">
     </form>

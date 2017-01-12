@@ -9,6 +9,7 @@
             <span class="add-new--tag">Содержание статьи</span>
             <textarea class="add-new--text" name="content">{{ $new_content }}</textarea>
         </div>
+        {{ csrf_field() }}
         <input class="button" type="submit" value="Сохранить">
         <a class="button" href="/">Отменить</a>
     </form>
