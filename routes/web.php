@@ -19,12 +19,23 @@ Route::get('/', 'NewsController@indexAction');
 
 Route::get('/login', 'UsersController@loginAction');
 
-Route::get('/new/{id}', function($id) {
-    $new = new \App\Http\Controllers\NewsController(new Illuminate\Http\Request);
-    return $new->newAction($id);
-})
-->where('id', '[0-9]+');
+//Route::get('/new/{id}', function($id) {
+//    $new = new \App\Http\Controllers\NewsController(new Illuminate\Http\Request);
+//    return $new->newAction($id);
+//})
+//->where('id', '[0-9]+');
 
+Route::get('/new/{id}', 'NewsController@newAction')->where('id', '[0-9]+');
+
+Route::get('/add', 'NewsController@addAction');
+
+Route::post('/add', 'NewsController@addAction');
+
+Route::get('/edit/{id}', 'NewsController@editAction')->where('id', '[0-9]+');
+
+Route::post('/edit/{id}', 'NewsController@editAction')->where('id', '[0-9]+');
+
+Route::get('/delete/{id}', 'NewsController@deleteAction')->where('id', '[0-9]+');
 
 
 //Route::get('/', function () {

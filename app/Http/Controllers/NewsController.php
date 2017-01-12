@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use App\MyNew;
 use App\Models\UsersModel;
 use App\Models\NewsModel;
@@ -13,7 +12,6 @@ class NewsController extends Controller
     public function __construct(Request $request)
     {
         parent::__construct($request);
-
 //        UserModel::loadRolesPrivileges($_SESSION['login']);
     }
 
@@ -22,7 +20,6 @@ class NewsController extends Controller
         $news = MyNew::where('id', '>', 0)
             ->orderBy('updated_at', 'desk')
             ->get();
-
         return view('pages.main', [
             'news' => $news,
             'title' => $this->title,
@@ -62,22 +59,34 @@ class NewsController extends Controller
 
     public function addAction()
     {
-        $errors = [];
+        //$errors = [];
 
-        $post = $this->request->getPost();
+        //$post = $this->request->getPost();
+        $method = $this->request->method();
 
-        if(count($post) > 0) {
+        if($this->request->isMethod('post')) {
+            if ($this->request->has(['title', 'content'])) {
+                $title = $this->request->input('title');
+                $content = $this->request->input('content');
+//                $title = htmlspecialchars(trim($this->request->input('title')));
+//                $content = htmlspecialchars(trim($this->request->input('content')));
 
-            $title = htmlspecialchars(trim($post['title']));
-            $content = htmlspecialchars(trim($post['content']));
-
-            $mNews = NewsModel::Instance();
-            $errors = $mNews->validate($title, $content);
-
-            if(empty($errors)) {
-                $mNews->add($title, $content);
-                $this->getRedirect('/');
+                //$mNews = NewsModel::Instance();
+                //$errors = $mNews->validate($title, $content);
+                $new = new myNew;
+                $new->title = $title;
+                $new->content = $content;
+                $new->save();
             }
+
+            return redirect('');
+//            if(empty($errors)) {
+//
+//
+//
+////                $mNews->add($title, $content);
+////                $this->getRedirect('/');
+//            }
         }
         else{
             $title = '';
@@ -86,76 +95,95 @@ class NewsController extends Controller
 
         $this->title = 'Новая статья';
 
-        $this->content = $this->tmpGenerate('view/v_add.php',[
-            'auth' => $this->mUsers->isAuth(),
-            'title' => $title,
-            'content' => $content,
-            'errors' => $errors,
-            'add_edit' => UsersModel::hasPermission('editor.add_edit')
+        return view('pages.main', [
+            'auth' => '',
+            'title' => $this->title,
+            'new_title' => $title,
+            'new_content' => $content,
+            'errors' => '',
+            'add_edit' => '',
+            'content' => 'pages.add'
         ]);
     }
 
-    public function editAction()
+    public function editAction($id)
     {
-        $cId = new Id();
-        $id_new = $cId->setId($this->request->getGet()['id']);
+//        $cId = new Id();
+//        $id_new = $cId->setId($this->request->getGet()['id']);
+//
+//        $errors = [];
+//
+//        $new = [];
+//
+//        $post = $this->request->getPost();
+//
+//        $mNews = NewsModel::Instance();
 
-        $errors = [];
+        if($this->request->isMethod('post')) {
 
-        $new = [];
+//            $title = htmlspecialchars(trim($post['title']));
+//            $content = htmlspecialchars(trim($post['content']));
+            $title = $this->request->input('title');
+            $content = $this->request->input('content');
 
-        $post = $this->request->getPost();
+            $new = MyNew::findOrFail($id);
+            $new->title = $title;
+            $new->content = $content;
+            $new->save();
 
-        $mNews = NewsModel::Instance();
-
-        if(count($_POST) > 0) {
-
-            $title = htmlspecialchars(trim($post['title']));
-            $content = htmlspecialchars(trim($post['content']));
-
-            $errors = $mNews->validate($title, $content);
-
-            if(empty($errors)) {
-                $mNews->edit($title, $content, $id_new);
-                $this->getRedirect("/new/$id_new");
-            }
+            return redirect('');
+//
+//            $errors = $mNews->validate($title, $content);
+//
+//            if(empty($errors)) {
+//                $mNews->edit($title, $content, $id_new);
+//                $this->getRedirect("/new/$id_new");
+//            }
         } else {
-            $new = $mNews->get($id_new);
+            $new = MyNew::findOrFail($id);
+            //$new = $mNews->get($id_new);
             $title = $new['title'];
             $content = $new['content'];
         }
 
         $this->title = $new['title'];
 
-        $this->content = $this->tmpGenerate('view/v_edit.php',[
-            'id_new' => $id_new,
-            'title' => $title,
-            'content' => $content,
-            'errors' => $errors,
-            'auth' => $this->mUsers->isAuth(),
-            'add_edit' => UsersModel::hasPermission('editor.add_edit'),
-            'delete' => UsersModel::hasPermission('moderator.delete_articles')
+        return view('pages.main', [
+            'auth' => '',
+            'id' => $id,
+            'title' => $this->title,
+            'new_title' => $title,
+            'new_content' => $content,
+            'errors' => '',
+            'add_edit' => '',
+            'delete' => '',
+            'content' => 'pages.edit'
         ]);
     }
 
-    public function deleteAction()
+    public function deleteAction($id)
     {
-        $cId = new Id();
-        $id_new = $cId->setId($this->request->getGet()['id']);
+        $new = MyNew::findOrFail($id);
+        $new->delete();
 
-        $mNews = NewsModel::Instance();
-        $new = $mNews->get($id_new);
+        return redirect('');
 
-        $this->title = $new['title'];
-
-        $this->content = $this->tmpGenerate('view/v_new.php',[
-            'new' => $new,
-            'auth' => $this->mUsers->isAuth(),
-            'delete' => UsersModel::hasPermission('moderator.delete_articles')
-        ]);
-
-        $mNews = NewsModel::Instance();
-        $mNews->delete($id_new);
-        $this->getRedirect('/');
+//        $cId = new Id();
+//        $id_new = $cId->setId($this->request->getGet()['id']);
+//
+//        $mNews = NewsModel::Instance();
+//        $new = $mNews->get($id_new);
+//
+//        $this->title = $new['title'];
+//
+//        $this->content = $this->tmpGenerate('view/v_new.php',[
+//            'new' => $new,
+//            'auth' => $this->mUsers->isAuth(),
+//            'delete' => UsersModel::hasPermission('moderator.delete_articles')
+//        ]);
+//
+//        $mNews = NewsModel::Instance();
+//        $mNews->delete($id_new);
+//        $this->getRedirect('/');
     }
 }

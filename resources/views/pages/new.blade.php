@@ -7,14 +7,15 @@
         <p>{{ $new['content'] }}</p>
     </div>
     <div class="new--control">
+        <a class="button" href="/">К списку новостей</a>
         {{--@if ($auth)--}}
-            {{--@if ($delete)--}}
-                <a class="button" href="/delete?id=<?=$new['id']?>">Удалить</a>
-            {{--@endif--}}
             {{--@if ($add_edit)--}}
-                <a class="button" href="/edit/<?=$new['id']?>">Редактировать</a>
+                <a class="button" href="/edit/{{ $new['id'] }}">Редактировать</a>
+            {{--@endif--}}
+            {{--@if ($delete)--}}
+                <a class="button" href="/delete/{{ $new['id'] }}">Удалить</a>
             {{--@endif--}}
         {{--@endif--}}
-        <a class="button" href="/">К списку новостей</a>
+
     </div>
 </div>
