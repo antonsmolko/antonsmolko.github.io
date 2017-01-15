@@ -23,7 +23,7 @@ class Controller extends BaseController
     {
         $this->request = $request;
         $this->title = 'Новости';
-        $this->mUsers = UsersModel::Instance();
+//        $this->mUsers = UsersModel::Instance();
     }
 
     public function get404()
@@ -42,9 +42,9 @@ class Controller extends BaseController
             'title' => $this->title,
             'auth' => $this->mUsers->isAuth(),
             'content' => $this->content,
-            'add_edit' => UsersModel::hasPermission('editor.add_edit'),
-            'user_name' => UsersModel::getUserName(),
-            'user_roles' => UsersModel::getUserRoles()
+//            'add_edit' => UsersModel::hasPermission('editor.add_edit'),
+//            'user_name' => UsersModel::getUserName(),
+//            'user_roles' => UsersModel::getUserRoles()
         ]);
     }
 

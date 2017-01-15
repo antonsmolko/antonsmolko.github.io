@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -64,5 +65,21 @@ class UsersController extends Controller
         setcookie('password', '', time() - 1);
 
         $this->getRedirect('/');
+    }
+
+    public function showUsers()
+    {
+        $users = User::all();
+
+        return view('admin.main', [
+            'title' => 'Пользователи',
+            'users' => $users,
+            'content' => 'admin.users'
+        ]);
+    }
+
+    public function checkPermission()
+    {
+        return redirect()->route('admin.users');
     }
 }

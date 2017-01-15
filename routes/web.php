@@ -10,20 +10,9 @@
 |
 */
 
-//Route::get('/', function () {
-//    $users = new \App\Http\Controllers\NewsController();
-//    $users->indexAction();
-//});
-
 Route::get('/', 'NewsController@indexAction');
 
 Route::get('/login', 'UsersController@loginAction');
-
-//Route::get('/new/{id}', function($id) {
-//    $new = new \App\Http\Controllers\NewsController(new Illuminate\Http\Request);
-//    return $new->newAction($id);
-//})
-//->where('id', '[0-9]+');
 
 Route::get('/new/{id}', 'NewsController@newAction')->where('id', '[0-9]+');
 
@@ -37,11 +26,6 @@ Route::post('/edit/{id}', 'NewsController@editAction')->where('id', '[0-9]+');
 
 Route::get('/delete/{id}', 'NewsController@deleteAction')->where('id', '[0-9]+');
 
+Route::get('/administrator', 'UsersController@checkPermission')->name('admin');
 
-//Route::get('/', function () {
-//    return "Helloooooooo!";
-//    $users = DB::table('users')->get();
-//    foreach ($users as $user) {
-//        echo $user->name;
-//    }
-//});
+Route::get('/administrator/users', 'UsersController@showUsers')->name('admin.users');

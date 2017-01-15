@@ -37,6 +37,7 @@ class NewsController extends Controller
             'title' => $this->title,
             'auth' => '',
             'add_edit' => '',
+            'add_edit' => '',
             'delete' => '',
             'content' => 'pages.new'
         ]);
@@ -93,7 +94,6 @@ class NewsController extends Controller
 
         } else {
             $new = MyNew::findOrFail($id);
-            //$new = $mNews->get($id_new);
             $title = $new['title'];
             $content = $new['content'];
         }

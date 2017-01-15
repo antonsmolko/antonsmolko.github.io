@@ -166,7 +166,9 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
         //
 
         /*
@@ -225,6 +227,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /**
+        * Aplication Facade
+        */
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 
