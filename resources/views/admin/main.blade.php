@@ -3,21 +3,24 @@
 @section('head')
     <title>{{ $title or '' }}</title>
     <meta charset="utf-8">
-    {{--<link rel="stylesheet" type="text/css" href="../css/styles.css">--}}
-    <link rel="stylesheet" type="text/css" href="../css/uikit.gradient.css">
-    <script src="../js/uikit.js"></script>
+    {{--<link rel="stylesheet" type="text/css" href="../css/resset.css">--}}
+    <link rel="stylesheet" type="text/css" href="/css/uikit.gradient.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/uikit.js"></script>
 @endsection
 
 @section('header')
-    <div class="uk-container uk-container-center">
-        <a href="" class="uk-navbar-brand">Brand</a>
-        <nav class="uk-navbar">
-            <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="">Блог</a></li>
-                <li class="uk-parent"><a href="">Пользователи</a></li>
-                <li class="uk-parent"><a href="">Роли</a></li>
-            </ul>
-        </nav>
+    <div class="wrapper">
+        <div class="header__logo">
+            <a href="/"><i class="header__icon icon--news"></i><span>Новости</span></a>
+        </div>
+        <div class="nav">
+            <div class="user">
+                <h3><i class="header__icon icon--user"></i>Гость</h3>
+                <span class="role">Добро пожаловать!</span>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -26,8 +29,18 @@
 @endsection
 
 @section('footer')
-@endsection
+    <div class="wrapper">
+        <div class="footer__logo">
+            <a href="/"><i class="footer__icon icon--news"></i><span>Новости</span></a>
+        </div>
     </div>
+    <div class="footer__copyright">
+        <div class="wrapper">
+            <i class="icon--copyright"></i><span>2016 Все права защищены</span>
+        </div>
+    </div>
+@endsection
+
 
 @push('scripts')
     <script src="../js/uikit.js"></script>
