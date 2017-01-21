@@ -2,98 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator;
 use App\User;
+use App\Models\UserModel;
 
 class UsersController extends Controller
 {
-    protected  $validator;
+    protected $mUsers;
 
     public function  __construct(Request $request)
     {
         parent::__construct($request);
-        $this->validator = new \Validator;
-    }
 
-//    public function loginAction()
-//    {
-//        $loginError = '';
-//
-//        if ($this->request->isMethod('post')) {
-//
-//            $this->validator->run($this->request->getPost());
-//
-//            if ($this->validator->isValid) {
-//
-//                if ($this->mUsers->checkPassword($this->validator->fields['login'], $this->validator->fields['password'])) {
-//                    $_SESSION['auth'] = true;
-//                    $_SESSION['login'] = $this->validator->fields['login'];
-//
-//                    // Если стоит галочка "Запомнить меня"
-//                    if(isset($this->request->post['remember'])) {
-//
-//                        setcookie('login', $this->validator->fields['login'], time() + 3600);
-//                        setcookie('password', md5($this->validator->fields['password']), time() + 3600);
-//                    }
-//
-//                    UsersModel::loadRolesPrivileges($this->validator->fields['login']);
-//
-//                    $this->getRedirect('/');
-//                } else {
-//                    $loginError = 'Неправильно указан логин или пароль';
-//                }
-//            }
-//
-//        }
-//
-//        $this->title = 'Авторизация';
-//
-//        return view('pages.main', [
-//            'title' => $this->title,
-//            'login' => '',
-//            'password' => '',
-//            'errors' => '',
-//            'loginError' => $loginError,
-//            'auth' => '',
-//            'content' => 'pages.login'
-//        ]);
-//    }
-//
-//    public function logoutAction()
-//    {
-//        unset($_SESSION['auth']);
-//        setcookie('login', '', time() - 1);
-//        setcookie('password', '', time() - 1);
-//
-//        $this->getRedirect('/');
-//    }
+        $this->mUsers = UserModel::instance();
+    }
 
     public function showUsers()
     {
         $users = User::all();
 
+        $roles = $this->mUsers->getRoles($users);
+
         return view('admin.main', [
             'title' => 'Пользователи',
             'users' => $users,
+            'roles' => $roles,
             'content' => 'admin.users'
         ]);
     }
 
     public function checkPermission()
     {
+        // Проверка привилегий
+
         return redirect()->route('admin.users');
     }
 
-//    public function moveAdd()
-//    {
-//        if ($this->request->has(['add'])) {
-//            return redirect()->route('admin.users.add');
-//        }
-//    }
-
     public function addGet()
     {
+        $roles = Role::all();
+
         return view('admin.main', [
             'name' => '',
             'login' => '',
@@ -101,6 +51,7 @@ class UsersController extends Controller
             'password2' => '',
             'email' => '',
             'activate' => '',
+            'roles' => $roles,
             'content' => 'admin.users_add'
         ]);
     }
@@ -116,12 +67,13 @@ class UsersController extends Controller
         ]);
 
         $user = new User;
-        $user->user_name = $this->request->input('name');
-        $user->user_login = $this->request->input('login');
-        $user->user_password = $this->request->input('password');
-        $user->user_email = $this->request->input('email');
-        $user->user_activate = $this->request->input('activate');
+        $user->name = $this->request->input('name');
+        $user->login = $this->request->input('login');
+        $user->password = $this->request->input('password');
+        $user->email = $this->request->input('email');
+        $user->activate = $this->request->input('activate');
         $user->save();
+        $user->roles()->attach($this->request->input('role_id'));
 
         return redirect()->route('admin.users');
     }
@@ -130,8 +82,23 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $users = User::all();
+
+        $userRoles = $this->mUsers->getRoles($users);
+
+        if (isset($userRoles[$user['id']])) {
+            $userRole = $userRoles[$user['id']];
+        } else {
+            $userRole = '';
+        }
+
+
+        $roles = Role::all();
+
         return view('admin.main', [
             'user' => $user,
+            'userRole' => $userRole,
+            'roles' => $roles,
             'content' => 'admin.users_edit'
         ]);
     }
@@ -148,12 +115,19 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users,email,'.$user->id.'|max:50'
         ]);
 
-        $user->user_name = $this->request->input('name');
-        $user->user_login = $this->request->input('login');
-        $user->user_password = $this->request->input('password');
-        $user->user_email = $this->request->input('email');
-        $user->user_activate = $this->request->input('activate');
+        $user->name = $this->request->input('name');
+        $user->login = $this->request->input('login');
+        $user->password = $this->request->input('password');
+        $user->email = $this->request->input('email');
+        $user->activate = $this->request->input('activate');
+        $user->roles()->detach();
+
+        if ($this->request->has('role')) {
+            $user->roles()->attach($this->request->input('role'));
+        }
+
         $user->save();
+
 
         return redirect()->route('admin.users');
     }

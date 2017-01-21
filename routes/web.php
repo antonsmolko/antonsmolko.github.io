@@ -39,3 +39,13 @@ Route::post('/administrator/users/add', 'UsersController@addPost')->name('admin.
 Route::get('/administrator/users/edit/{id}', 'UsersController@editGet')->where('id', '[0-9]+')->name('admin.users.edit');
 
 Route::post('/administrator/users/edit/{id}', 'UsersController@editPost')->where('id', '[0-9]+')->name('admin.users.edit');
+
+Route::get('/administrator/roles', 'RolesController@showRoles')->name('admin.roles');
+
+Route::get('/administrator/roles/add', 'RolesController@addGet')->name('admin.roles.add');
+
+Route::post('/administrator/roles/add', 'RolesController@addPost')->name('admin.roles.add');
+
+Route::get('/administrator/roles/edit/{id}', 'RolesController@editGet')->where('id', '[0-9]+')->name('admin.roles.edit');
+
+Route::post('/administrator/roles/edit/{id}', 'RolesController@editPost')->where('id', '[0-9]+')->name('admin.roles.edit');

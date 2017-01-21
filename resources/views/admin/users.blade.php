@@ -1,12 +1,12 @@
 <div class="">
     <nav class="uk-navbar">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="">Пользователи</a></li>
-            <li class="uk-parent"><a href="">Роли</a></li>
-            <li class="uk-parent"><a href="">Блог</a></li>
+            <li class="uk-active"><a href="/administrator/users">Пользователи</a></li>
+            <li class="uk-parent"><a href="/administrator/roles">Роли</a></li>
+            <li class="uk-parent"><a href="/administrator/blog">Блог</a></li>
         </ul>
     </nav>
-    <h2>Менеджер пользователей: список пользователя</h2>
+    <h2>Менеджер пользователей: список пользователей</h2>
     <div class="uk-grid uk-margin-top" data-uk-grid-margin>
         <div class="uk-width-medium-1-1">
             <form action="" method="post">
@@ -15,10 +15,6 @@
                     <i class="uk-icon-plus"></i>
                     Создать
                 </a>
-                {{--<button type="button" class="uk-button uk-button-primary" name="add">--}}
-                    {{--<i class="uk-icon-plus"></i>--}}
-                    {{--Создать--}}
-                {{--</button>--}}
                 <button type="submit" class="uk-button" name="edit">
                     <i class="uk-icon-edit"></i>
                     Изменить
@@ -56,20 +52,28 @@
                         <tr>
                             <td><input type="checkbox"></td>
                             <td>
-                                <a href="/administrator/users/edit/{{ $user['id'] }}">{{ $user['user_name'] }}</td></a>
-                            <td>{{ $user['user_login'] }}</td>
+                                <a href="/administrator/users/edit/{{ $user['id'] }}">{{ $user['name'] }}</a>
+                            </td>
+                            <td>{{ $user['login'] }}</td>
                             <td>
-                                @if($user['user_login'] == 'smol')
+                                @if($user['login'] == 'smol')
                                     <input type="checkbox" checked disabled>
-                                @elseif($user['user_activate'] == 1 && $user['user_login'] != 'smol')
+                                @elseif($user['activate'] == 1 && $user['login'] != SUPER_ADMIN)
                                     <input type="checkbox" checked>
                                 @else
                                     <input type="checkbox">
-                            @endif
-                            <td></td>
-                            <td>{{ $user['user_email'] }}</td>
-                            <td>{{ $user['user_last_visit_at'] }}</td>
-                            <td>{{ $user['user_created_at'] }}</td>
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($roles[$user['id']]))
+                                    {{ $roles[$user['id']] }}
+                                @else
+                                    Не назначена
+                                @endif
+                            </td>
+                            <td>{{ $user['email'] }}</td>
+                            <td>{{ $user['last_visit_at'] }}</td>
+                            <td>{{ $user['created_at'] }}</td>
                             <td>{{ $user['id'] }}</td>
                         </tr>
                     @endforeach

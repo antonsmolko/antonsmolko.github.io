@@ -60,10 +60,10 @@
             <div class="uk-form-row uk-form-select">
                 <label class="uk-form-label" for="form-sr">Назначить роль</label>
                 <div class="uk-form-controls">
-                    <select class="uk-form-width-medium" id="form-sr">
-                        {{--@foreach($roles as $role)--}}
-                            {{--<option value="{{ $role['id'] }}">{{ $role['name'] }}</option>--}}
-                        {{--@endforeach--}}
+                    <select class="uk-form-width-medium" id="form-sr" name="role_id">
+                        @foreach($roles as $role)
+                            <option value="{{ $role['id'] }}">{{ $role['display_name'] }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
