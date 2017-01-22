@@ -12,6 +12,8 @@ class NewsController extends Controller
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->title = 'Новости';
     }
 
     public function indexAction()
