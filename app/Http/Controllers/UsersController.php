@@ -23,7 +23,7 @@ class UsersController extends Controller
     {
         $users = User::all();
 
-        $roles = $this->mUsers->getRoles($users);
+        $roles = $this->mUsers->getSomeRequest($users, 'display_name', 'roles');
 
         return view('admin.main', [
             'title' => 'Пользователи',
@@ -73,7 +73,9 @@ class UsersController extends Controller
         $user->email = $this->request->input('email');
         $user->activate = $this->request->input('activate');
         $user->save();
-        $user->roles()->attach($this->request->input('role_id'));
+        if ($this->request->has('role')) {
+            $user->roles()->attach($this->request->input('role'));
+        }
 
         return redirect()->route('admin.users');
     }
@@ -84,10 +86,10 @@ class UsersController extends Controller
 
         $users = User::all();
 
-        $userRoles = $this->mUsers->getRoles($users);
+        $userRoles = $this->mUsers->getSomeRequest($users, 'display_name', 'roles');
 
         if (isset($userRoles[$user['id']])) {
-            $userRole = $userRoles[$user['id']];
+            $userRole = $userRoles[$user['id']][0];
         } else {
             $userRole = '';
         }

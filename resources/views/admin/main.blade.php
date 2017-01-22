@@ -3,11 +3,24 @@
 @section('head')
     <title>{{ $title or '' }}</title>
     <meta charset="utf-8">
-    {{--<link rel="stylesheet" type="text/css" href="../css/resset.css">--}}
     <link rel="stylesheet" type="text/css" href="/css/uikit.gradient.css">
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/codemirror/codemirror.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/uikit.js"></script>
+
+    <!-- Codemirror and marked dependencies -->
+    <script src="/js/codemirror/codemirror.js"></script>
+    <script src="/js/codemirror/markdown.js"></script>
+    <script src="/js/codemirror/overlay.js"></script>
+    <script src="/js/codemirror/xml.js"></script>
+    <script src="/js/codemirror/gfm.js"></script>
+    <script src="/js/marked/marked.min.js"></script>
+    <script src="/js/scripts.js"></script>
+
+    <!-- HTML editor CSS and JavaScript -->
+    <link rel="stylesheet" href="/css/htmleditor.gradient.min.css">
+    <script src="/js/htmleditor.min.js"></script>
 @endsection
 
 @section('header')

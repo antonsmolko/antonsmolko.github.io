@@ -6,7 +6,8 @@ use App\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator;
 use App\Role;
-use App\Models\Role as RoleModel;
+use App\Models\RoleModel;
+//use App\Models\Role;
 
 class RolesController extends Controller
 {
@@ -78,7 +79,7 @@ class RolesController extends Controller
 
         $roles = Role::all();
 
-        $rolesPermissions = $this->mRoles->getPermissions($roles);
+        $rolesPermissions = $this->mRoles->getSomeRequest($roles, 'name', 'permission');
 
         if (isset($rolesPermissions[$role['id']])) {
             $rolePermissions = $rolesPermissions[$role['id']];

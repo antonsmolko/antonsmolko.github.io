@@ -9,12 +9,15 @@ class Role extends EntrustRole
     {
         foreach ($roles as $role) {
             $perms = $role->permission;
-
             foreach ($perms as $key) {
                 $permissions[$role['id']][] = $key['name'];
             }
         }
 
-        return $permissions;
+        if (empty($permissions)) {
+            return false;
+        } else {
+            return $permissions;
+        }
     }
 }

@@ -66,7 +66,7 @@
                             </td>
                             <td>
                                 @if(isset($roles[$user['id']]))
-                                    {{ $roles[$user['id']] }}
+                                    {{ $roles[$user['id']][0] }}
                                 @else
                                     Не назначена
                                 @endif

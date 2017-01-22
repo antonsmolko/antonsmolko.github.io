@@ -62,8 +62,6 @@
                 <div class="uk-form-controls">
                     <select class="uk-form-width-medium" id="form-sr" name="role">
                         @if(!is_null($userRole))
-                            {{--<option value="{{ $userRole }}">{{ $userRole }}</option>--}}
-                        {{--@else--}}
                             <option value="">Не назначена</option>
                         @endif
                         @foreach($roles as $role)

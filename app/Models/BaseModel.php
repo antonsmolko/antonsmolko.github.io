@@ -4,16 +4,20 @@ namespace App\Models;
 
 abstract class BaseModel
 {
-    public function getSomeRequest($object, $name = 'name', $model)
+    public function getSomeRequest($objects, $name = 'name', $models)
     {
-        foreach ($object as $array) {
-            $model = $array->$model;
+        foreach ($objects as $object) {
+            $model = $object->$models;
 
             foreach ($model as $key) {
-                $respond[$array['id']] = $key['display_name'];
+                $respond[$object['id']][] = $key[$name];
             }
         }
 
-        return $respond;
+        if (empty($respond)) {
+            return false;
+        } else {
+            return $respond;
+        }
     }
 }

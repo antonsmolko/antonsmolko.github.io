@@ -25,12 +25,15 @@ class UserModel extends BaseModel
     {
         foreach ($users as $user) {
             $role = $user->roles;
-
             foreach ($role as $key) {
-                $roles[$user['id']] = $key['display_name'];
+                $roles[$user['id']][] = $key['display_name'];
             }
         }
 
-        return $roles;
+        if (empty($roles)) {
+            return false;
+        } else {
+            return $roles;
+        }
     }
 }
