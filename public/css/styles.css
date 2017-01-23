@@ -14,16 +14,12 @@ body {
     font-family: 'Exo2-Regular';
     color: #5c5c5c;
 }
-a {
-    text-decoration: none;
-    color: inherit;
-    margin: 0;
-    padding: 0;
-    -webkit-appearance: none;
-}
 p {
     margin: 20px 0;
     padding: 0;
+}
+.user h3 {
+    font-family: 'Exo2-Regular';
 }
 h1 {
     margin: 0;
@@ -34,15 +30,16 @@ h2 {
     line-height: 44px;
     font-weight: 100;
     color: #5c5c5c;
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
 }
 h3 {
     font-size: 27px;
     line-height: 34px;
     font-weight: 100;
     margin: 0 0 10px 0;
+    color: #ffffff;
 }
-input[type=text], textarea {
+.pages-iput {
     padding: 10px;
     outline: none;
     border: 1px solid #ddd;
@@ -50,9 +47,21 @@ input[type=text], textarea {
     font-size: 16px;
     color: #5c5c5c;
 }
-textarea {
+.textarea {
     height: 300px;
 }
+/*select {*/
+    /*!*-webkit-appearance: none;*!*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*z-index: 1;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*opacity: 0;*/
+    /*cursor: pointer;*/
+    /*left: 0;*/
+    /*-webkit-appearance: none;*/
+/*}*/
 .header {
     background: #4f5157;
     color: #ffffff;
@@ -63,6 +72,15 @@ textarea {
 .header__logo {
     font-size: 50px;
     padding: 20px 0;
+}
+
+.header__logo a, .footer__logo a {
+    сolor: #ffffff;
+    color: inherit;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
 }
 [class*='icon--'] {
   font-family: 'FontAwesome';
@@ -98,7 +116,7 @@ textarea {
 .edit-new--text, .add-new--text {
     flex-grow: 7;
 }
-.auth--login, .auth--password, .auth--remember {
+.auth-container, .auth--password, .auth--remember {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 20px;
@@ -106,9 +124,9 @@ textarea {
 .auth--tag {
     flex-basis: 200px;
 }
-input[type=checkbox] {
-    margin: 3px 0;
-}
+/*input[type=checkbox] {*/
+    /*margin: 3px 0;*/
+/*}*/
 .wrapper {
     max-width: 1280px;
     margin: 0 auto;
@@ -204,6 +222,12 @@ input[type=checkbox] {
     background: #d3343d;
     color: #ffffff;
     padding: 10px;
+    margin-left: 20px;
+}
+.auth_danger {
+    background: #d3343d;
+    color: #ffffff;
+    padding: 10px;
     margin-top: 20px;
 }
 .footer {
@@ -241,4 +265,8 @@ input[type=checkbox] {
 
 .user > span {
     font-size: 12px;
+}
+
+.content {
+    margin-bottom: 40px;
 }

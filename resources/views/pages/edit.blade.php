@@ -3,11 +3,11 @@
     <form method="post">
         <div class="edit-new--title">
             <span class="edit-new--tag">Название статьи</span>
-            <input class="edit-new--text" type="text" name="title" value="{{ $new_title }}">
+            <input class="edit-new--text pages-iput" type="text" name="title" value="{{ $new_title }}">
         </div>
         <div class="edit-new--content">
             <span class="edit-new--tag">Содержание статьи</span>
-            <textarea class="edit-new--text" name="content">{{ $new_content }}</textarea>
+            <textarea class="edit-new--text textarea pages-iput" name="content">{{ $new_content }}</textarea>
         </div>
         {{ csrf_field() }}
         <a class="button" href="/new/{{ $id }}">Отменить</a>
