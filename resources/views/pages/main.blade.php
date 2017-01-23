@@ -12,26 +12,26 @@
             <a href="/"><i class="header__icon icon--news"></i><span>Новости</span></a>
         </div>
         <div class="nav">
-            <a class="button button-dark" href="/administrator">Администратор</a>
-            <a class="button button-dark" href="/register">Регистрация</a>
-            @if(Auth::check())
-                <a class="button button-dark" href="/logout">Выйти</a>
-                <div class="user">
-                    <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
-                    {{--@foreach ($user_roles as $role)--}}
-                        {{--@if(!in_array($role, $roles))--}}
-                            {{--<span class="role"> [ {{ $role or '' }} ] </span>--}}
-                        {{--@endif--}}
-                    {{--@endforeach--}}
-                </div>
-
-            @else
+            {{--@if($auth)--}}
+                {{--@if ($add_edit)--}}
+                    <a class="button button-dark" href="/add">Добавить статью</a>
+                {{--@endif--}}
+            {{--<a class="button button-dark" href="/logout">Выйти</a>--}}
+            {{--<div class="user">--}}
+                {{--<h3><i class="header__icon icon--user"></i>{{ $user_name }}</h3>--}}
+                {{--@foreach ($user_roles as $role)--}}
+                    {{--@if(!in_array($role, $roles))--}}
+                        {{--<span class="role"> [ {{ $role or '' }} ] </span>--}}
+                    {{--@endif--}}
+                {{--@endforeach--}}
+            {{--</div>--}}
+            {{--@else--}}
             <a class="button button-dark" href="/login">Войти</a>
             <div class="user">
                 <h3><i class="header__icon icon--user"></i>Гость</h3>
                 <span class="role">Добро пожаловать!</span>
             </div>
-            @endif
+            {{--@endif--}}
         </div>
     </div>
 @endsection

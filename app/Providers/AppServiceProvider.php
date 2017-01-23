@@ -14,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         require_once (app_path() . '/helpers.php');
-        require_once (app_path() . '/settings.php');
     }
 
     /**
@@ -24,8 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() !== 'production') {
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-        }
     }
 }
