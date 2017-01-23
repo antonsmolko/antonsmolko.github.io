@@ -12,7 +12,6 @@
             <a href="/"><i class="header__icon icon--news"></i><span>Новости</span></a>
         </div>
         <div class="nav">
-            <a class="button button-dark" href="/administrator">Администратор</a>
             <a class="button button-dark" href="/register">Регистрация</a>
             @if(Auth::check())
                 <a class="button button-dark" href="/logout">Выйти</a>

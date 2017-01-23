@@ -31,7 +31,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ip">Пароль пользователя<sup>*</sup></label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-ip" type="password" name="password" value="{{ $user['password'] }}">
+                    <input class="uk-form-width-medium" id="form-ip" type="password" name="password" value="">
                     @if ($errors->has('password'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('password') }}</div>
                     @endif
@@ -40,7 +40,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ip2">Повтор пароля<sup>*</sup></label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-ip2" type="password" name="password2" value="{{ $user['password'] }}">
+                    <input class="uk-form-width-medium" id="form-ip2" type="password" name="password2" value="">
                     @if ($errors->has('password2'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('password2') }}</div>
                     @endif

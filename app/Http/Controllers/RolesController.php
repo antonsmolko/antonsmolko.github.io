@@ -105,7 +105,7 @@ class RolesController extends Controller
 
         $this->validate($this->request, [
             'role_name' => 'required|unique:roles,display_name,'.$role->id.'|min:2|max:50',
-            'role_alias' => 'required|unique:roles,name,'.$role->id.'|min:2|max:50|regex:/^[a-zA-Z0-9]+$/',
+            'role_alias' => 'required|unique:roles,name,'.$role->id.'|min:2|max:50|regex:/^[a-zA-Z0-9_\-]+$/',
             'role_description' => 'max:250'
         ]);
 
