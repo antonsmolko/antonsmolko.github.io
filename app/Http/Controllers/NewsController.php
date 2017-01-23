@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\MyNew;
 use App\Models\UsersModel;
 use App\Models\NewsModel;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
 {

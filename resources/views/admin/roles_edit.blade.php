@@ -31,7 +31,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-td">Описание</label>
                 <div class="uk-form-controls">
-                    <textarea class="uk-form-width-medium" cols="30" rows="5" id="form-h-td" type="text" name="role_description" value="{{ $role['description'] }}"></textarea>
+                    <textarea class="uk-form-width-medium" cols="30" rows="5" id="form-h-td" type="text" name="role_description">{{ $role['description'] }}</textarea>
                     @if ($errors->has('role_description'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('role_description') }}</div>
                     @endif

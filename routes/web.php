@@ -10,9 +10,8 @@
 |
 */
 
-Route::get('/', 'NewsController@indexAction');
-
-Route::get('/login', 'UsersController@loginAction');
+Route::get('/', 'NewsController@indexAction')
+    ->name('index');
 
 Route::get('/new/{id}', 'NewsController@newAction')
     ->where('id', '[0-9]+');
@@ -29,6 +28,23 @@ Route::post('/edit/{id}', 'NewsController@editAction')
 
 Route::get('/delete/{id}', 'NewsController@deleteAction')
     ->where('id', '[0-9]+');
+
+Route::get('/register', 'AuthController@register')
+    ->name('register');
+
+Route::post('/register', 'AuthController@registerPost')
+    ->name('register');
+
+Route::get('/login', 'AuthController@login')
+    ->name('login');
+
+Route::post('/login', 'AuthController@loginPost')
+    ->name('login');
+
+Route::get('/logout', 'AuthController@logout')
+    ->name('logout');
+
+// АДМИНКА
 
 Route::get('/administrator', 'UsersController@checkPermission')
     ->name('admin');

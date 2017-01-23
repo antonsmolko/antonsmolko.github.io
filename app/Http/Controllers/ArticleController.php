@@ -34,7 +34,7 @@ class ArticleController extends Controller
     public function addGet()
     {
         // Автор жестко указан с id = 44 (Иван Смолко)
-        $author = User::findOrFail(44);
+        $author = User::findOrFail(43);
 
         return view('admin.main', [
             'title' => '',
@@ -47,14 +47,14 @@ class ArticleController extends Controller
     public function addPost()
     {
         $this->validate($this->request, [
-            'title' => 'required|min:1|max:250',
+            'title' => 'required|unique:articles,title|min:1|max:250',
             'content' => 'required|min:1|max:5000'
         ]);
 
         $article = new Article;
-        $article->title = $this->request->input('title');
-        $article->content = $this->request->input('content');
-        $article->published = $this->request->input('publish');
+        $article->title = trim($this->request->input('title'));
+        $article->content = trim($this->request->input('content'));
+        $article->published = trim($this->request->input('publish'));
         $article->save();
         if ($this->request->has('author')) {
             $article->author()->attach($this->request->input('author'));
@@ -97,16 +97,16 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
 
         $this->validate($this->request, [
-            'title' => 'required|min:1|max:250',
+            'title' => 'required|unique:articles,title,'.$article->id.'|min:1|max:250',
             'content' => 'required|min:1|max:5000'
         ]);
 
         // Автор жестко указан с id = 44 (Иван Смолко)
         $author = User::findOrFail(43);
 
-        $article->title = $this->request->input('title');
-        $article->content = $this->request->input('content');
-        $article->published = $this->request->input('publish');
+        $article->title = trim($this->request->input('title'));
+        $article->content = trim($this->request->input('content'));
+        $article->published = trim($this->request->input('publish'));
         $article->save();
         $article->author()->detach();
 

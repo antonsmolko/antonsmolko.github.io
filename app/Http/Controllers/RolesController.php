@@ -59,9 +59,9 @@ class RolesController extends Controller
         }
 
         $role = new Role;
-        $role->display_name = $this->request->input('role_name');
-        $role->name = $this->request->input('role_alias');
-        $role->description = $this->request->input('role_description');
+        $role->display_name = trim($this->request->input('role_name'));
+        $role->name = strtolower(trim($this->request->input('role_alias')));
+        $role->description = trim($this->request->input('role_description'));
         $role->save();
 
         foreach ($permissions as $permission) {
@@ -109,9 +109,9 @@ class RolesController extends Controller
             'role_description' => 'max:250'
         ]);
 
-        $role->name = $this->request->input('role_alias');
-        $role->display_name = $this->request->input('role_name');
-        $role->description = $this->request->input('role_description');
+        $role->name = strtolower(trim($this->request->input('role_alias')));
+        $role->display_name = trim($this->request->input('role_name'));
+        $role->description = trim($this->request->input('role_description'));
         $role->permission()->detach();
 
         foreach ($permissions as $permission) {

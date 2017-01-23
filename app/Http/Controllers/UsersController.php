@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator;
 use App\User;
 use App\Models\UserModel;
+use Illuminate\Encryption\Encrypter;
 
 class UsersController extends Controller
 {
@@ -60,17 +61,17 @@ class UsersController extends Controller
     {
         $this->validate($this->request, [
             'name' => 'required|min:2|max:50',
-            'login' => 'required|unique:users|min:4|max:50|regex:/^[a-zA-Z0-9]+$/',
-            'password' => 'required|min:6|max:50|regex:/^[a-zA-Z0-9]+$/',
+            'login' => 'required|unique:users,login|min:4|max:50|regex:/^[a-zA-Z0-9]+$/',
+            'password' => 'required|min:6|max:150|regex:/^[a-zA-Z0-9]+$/',
             'password2' => 'required|same:password',
-            'email' => 'required|email|unique:users|max:50'
+            'email' => 'required|email|unique:users,email|max:50'
         ]);
 
         $user = new User;
-        $user->name = $this->request->input('name');
-        $user->login = $this->request->input('login');
-        $user->password = $this->request->input('password');
-        $user->email = $this->request->input('email');
+        $user->name = trim($this->request->input('name'));
+        $user->login = trim($this->request->input('login'));
+        $user->password = bcrypt(trim($this->request->input('password')));
+        $user->email = trim($this->request->input('email'));
         $user->activate = $this->request->input('activate');
         $user->save();
         if ($this->request->has('role')) {
@@ -94,7 +95,6 @@ class UsersController extends Controller
             $userRole = '';
         }
 
-
         $roles = Role::all();
 
         return view('admin.main', [
@@ -112,16 +112,17 @@ class UsersController extends Controller
         $this->validate($this->request, [
             'name' => 'required|min:2|max:50',
             'login' => 'required|unique:users,login,'.$user->id.'|min:4|max:50|regex:/^[a-zA-Z0-9]+$/',
-            'password' => 'required|min:6|max:50|regex:/^[a-zA-Z0-9]+$/',
+            'password' => 'required|min:6|max:150',
+//            'password' => 'required|min:6|max:150|regex:/^[a-zA-Z0-9]+$/',
             'password2' => 'required|same:password',
             'email' => 'required|email|unique:users,email,'.$user->id.'|max:50'
         ]);
 
-        $user->name = $this->request->input('name');
-        $user->login = $this->request->input('login');
-        $user->password = $this->request->input('password');
-        $user->email = $this->request->input('email');
-        $user->activate = $this->request->input('activate');
+        $user->name = trim($this->request->input('name'));
+        $user->login = trim($this->request->input('login'));
+        $user->password = bcrypt(trim($this->request->input('password')));
+        $user->email = trim($this->request->input('email'));
+        $user->activate = trim($this->request->input('activate'));
         $user->roles()->detach();
 
         if ($this->request->has('role')) {
