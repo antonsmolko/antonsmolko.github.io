@@ -28,10 +28,46 @@
     </form>
 </div>
 <div class="note">
-    // Пользователи
-    <br><br>
-    // login: tolik <br>
-    // password: 123456 <br>
-    // roles: SuperUser <br>
-
+    Пользователи<br><br>
+    <table border="0" cellpadding="5" width="400">
+        <thead>
+        <tr>
+            <td>Логин</td>
+            <td>Пароль</td>
+            <td>Роль</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>smol</td>
+            <td>qwerty</td>
+            <td>super_admin</td>
+        </tr>
+        <tr>
+            <td>tolik</td>
+            <td>123456</td>
+            <td>user</td>
+        </tr>
+        <tr>
+            <td>mika</td>
+            <td>qwerty</td>
+            <td>article_admin</td>
+        </tr>
+        <tr>
+            <td>vika</td>
+            <td>222222</td>
+            <td>user_admin</td>
+        </tr>
+        <tr>
+            <td>terkin</td>
+            <td>333333</td>
+            <td>author</td>
+        </tr>
+        <tr>
+            <td>ivan</td>
+            <td>444444</td>
+            <td>editor</td>
+        </tr>
+        </tbody>
+    </table>
 </div>

@@ -36,13 +36,6 @@ class UsersController extends Controller
         ]);
     }
 
-    public function checkPermission()
-    {
-        // Проверка привилегий
-
-        return redirect()->route('admin.users');
-    }
-
     public function addGet()
     {
         $roles = Role::all();

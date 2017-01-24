@@ -29,9 +29,14 @@
             <a href="/"><i class="header__icon icon--news"></i><span>Новости</span></a>
         </div>
         <div class="nav">
+            <a class="button button-dark" href="{{ route('logout') }}">Выйти</a>
             <div class="user">
-                <h3><i class="header__icon icon--user"></i>Гость</h3>
-                <span class="role">Добро пожаловать!</span>
+                <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
+                @foreach(Auth::user()->roles as $role)
+                    @if($role['name'])
+                        <span class="role"> [ {{ $role['display_name'] }} ] </span>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

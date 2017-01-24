@@ -171,18 +171,18 @@ h3 {
     color: #5c5c5c;
     display: inline-block;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 0 15px;
     background: #ffffff;
     vertical-align: middle;
     text-decoration: none;
     text-align: center;
-    box-shadow: 0 4px 8px 0px rgba(160, 165, 168, 0.5);
+    box-shadow: 0 2px 6px 0px rgba(160, 165, 168, 0.5);
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
-    min-height: 50px;
-    line-height: 50px;
-    font-size: 15px;
+    min-height: 40px;
+    line-height: 40px;
+    font-size: 13px;
     cursor: pointer;
 }
 .button:not(:last-child) {
@@ -191,15 +191,19 @@ h3 {
 .button:active {
     background-color: #f7f7f7;
 }
+.button:hover {
+    text-decoration: none;
+    color: inherit;
+}
 
 .button-dark {
     color: #ffffff;
     background: #4f5157;
-    box-shadow: 0 4px 8px 0px rgba(50, 55, 58, 1);
+    box-shadow: 0 2px 6px 0px rgba(50, 55, 58, 1);
 }
 .button-dark:active {
     background: #46474d;
-    box-shadow: 0 4px 8px 0px rgba(40, 45, 48, 1);
+    box-shadow: 0 2px 6px 0px rgba(40, 45, 48, 1);
 }
 
 .button-control {

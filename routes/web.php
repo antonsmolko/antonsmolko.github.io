@@ -46,7 +46,7 @@ Route::get('/logout', 'AuthController@logout')
 
 // АДМИНКА
 
-Route::get('/administrator', 'UsersController@checkPermission')
+Route::get('/administrator', 'AuthController@checkPermission')
     ->name('admin');
 
 Route::get('/administrator/users', 'UsersController@showUsers')
@@ -85,7 +85,7 @@ Route::post('/administrator/roles/edit/{id}', 'RolesController@editPost')
     ->where('id', '[0-9]+')
     ->name('admin.roles.edit');
 
-Route::get('/administrator/blog', 'ArticleController@showList')
+Route::get('/administrator/artircles', 'ArticleController@showList')
     ->name('admin.articles');
 
 Route::get('/administrator/articles/add', 'ArticleController@addGet')
