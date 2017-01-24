@@ -85,4 +85,15 @@ class AuthController extends Controller
 
         return redirect()->route('index');
     }
+
+    public function checkPermission()
+    {
+        if (!Auth::user()->can('admin_access')) {
+            return redirect()->route('index');
+        } elseif (Auth::user()->ability('super_admin,user_admin', 'view_users')) {
+            return redirect()->route('admin.users');
+        } else {
+            return redirect()->route('admin.articles');
+        }
+    }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+//use Validator;
 use Illuminate\Contracts\Validation\Validator;
 use App\User;
 use App\Models\UserModel;
@@ -34,13 +36,6 @@ class UsersController extends Controller
         ]);
     }
 
-    public function checkPermission()
-    {
-        // Проверка привилегий
-
-        return redirect()->route('admin.users');
-    }
-
     public function addGet()
     {
         $roles = Role::all();
@@ -62,7 +57,7 @@ class UsersController extends Controller
         $this->validate($this->request, [
             'name' => 'required|min:2|max:50',
             'login' => 'required|unique:users,login|min:4|max:50|regex:/^[a-zA-Z0-9]+$/',
-            'password' => 'required|min:6|max:150|regex:/^[a-zA-Z0-9]+$/',
+            'password' => 'required|min:6|max:50|regex:/^[a-zA-Z0-9]+$/',
             'password2' => 'required|same:password',
             'email' => 'required|email|unique:users,email|max:50'
         ]);
@@ -112,15 +107,16 @@ class UsersController extends Controller
         $this->validate($this->request, [
             'name' => 'required|min:2|max:50',
             'login' => 'required|unique:users,login,'.$user->id.'|min:4|max:50|regex:/^[a-zA-Z0-9]+$/',
-            'password' => 'required|min:6|max:150',
-//            'password' => 'required|min:6|max:150|regex:/^[a-zA-Z0-9]+$/',
-            'password2' => 'required|same:password',
+            'password' => 'sometimes|min:6|max:50|regex:/^[a-zA-Z0-9]+$/',
+            'password2' => 'required_with:password|same:password',
             'email' => 'required|email|unique:users,email,'.$user->id.'|max:50'
         ]);
 
         $user->name = trim($this->request->input('name'));
         $user->login = trim($this->request->input('login'));
-        $user->password = bcrypt(trim($this->request->input('password')));
+        if ($this->request->has('password')) {
+            $user->password = bcrypt(trim($this->request->input('password')));
+        }
         $user->email = trim($this->request->input('email'));
         $user->activate = trim($this->request->input('activate'));
         $user->roles()->detach();

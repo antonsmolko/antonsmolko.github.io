@@ -1,9 +1,15 @@
 <div class="">
     <nav class="uk-navbar">
         <ul class="uk-navbar-nav">
-            <li class="uk-parent"><a href="/administrator/users">Пользователи</a></li>
-            <li class="uk-parent"><a href="/administrator/roles">Роли</a></li>
-            <li class="uk-active"><a href="/administrator/blog">Блог</a></li>
+            @ability(['super_admin', 'user_admin'], 'view_users')
+            <li class="uk-parent"><a href="{{ route('admin.users') }}">Пользователи</a></li>
+            @endability
+            @ability('super_admin', 'create_edit_delete_roles')
+            <li class="uk-parent"><a href="{{ route('admin.roles') }}">Роли</a></li>
+            @endability
+            @ability(['super_admin','article_admin', 'author', 'editor'], ['creare_articles', 'edit_articles', 'publish_articles', 'delete_articles'])
+            <li class="uk-active"><a href="{{ route('admin.articles') }}">Блог</a></li>
+            @endability
         </ul>
     </nav>
     <h2>Менеджер статей: редактировать статью</h2>

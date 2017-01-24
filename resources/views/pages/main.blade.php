@@ -12,21 +12,23 @@
             <a href="/"><i class="header__icon icon--news"></i><span>Новости</span></a>
         </div>
         <div class="nav">
-            <a class="button button-dark" href="/administrator">Администратор</a>
-            <a class="button button-dark" href="/register">Регистрация</a>
+            @ability('super_admin', 'admin_access')
+                <a class="button button-dark" href="{{ route('admin') }}">Панель администратора</a>
+            @endability
             @if(Auth::check())
-                <a class="button button-dark" href="/logout">Выйти</a>
+                <a class="button button-dark" href="{{ route('logout') }}">Выйти</a>
                 <div class="user">
                     <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
-                    {{--@foreach ($user_roles as $role)--}}
-                        {{--@if(!in_array($role, $roles))--}}
-                            {{--<span class="role"> [ {{ $role or '' }} ] </span>--}}
-                        {{--@endif--}}
-                    {{--@endforeach--}}
+                    @foreach(Auth::user()->roles as $role)
+                        @if($role['name'])
+                            <span class="role"> [ {{ $role['display_name'] }} ] </span>
+                        @endif
+                    @endforeach
                 </div>
 
             @else
-            <a class="button button-dark" href="/login">Войти</a>
+            <a class="button button-dark" href="{{ route('register') }}">Регистрация</a>
+            <a class="button button-dark" href="{{ route('login') }}">Войти</a>
             <div class="user">
                 <h3><i class="header__icon icon--user"></i>Гость</h3>
                 <span class="role">Добро пожаловать!</span>

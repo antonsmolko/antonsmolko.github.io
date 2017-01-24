@@ -1,9 +1,15 @@
 <div class="">
     <nav class="uk-navbar">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="">Пользователи</a></li>
-            <li class="uk-parent"><a href="">Роли</a></li>
-            <li class="uk-parent"><a href="">Блог</a></li>
+            @ability(['super_admin', 'user_admin'], 'view_users')
+            <li class="uk-active"><a href="{{ route('admin.users') }}">Пользователи</a></li>
+            @endability
+            @ability('super_admin', 'create_edit_delete_roles')
+            <li class="uk-parent"><a href="{{ route('admin.roles') }}">Роли</a></li>
+            @endability
+            @ability(['super_admin','article_admin', 'author', 'editor'], ['creare_articles', 'edit_articles', 'publish_articles', 'delete_articles'])
+            <li class="uk-parent"><a href="{{ route('admin.articles') }}">Блог</a></li>
+            @endability
         </ul>
     </nav>
     <h2>Менеджер пользователей: редактировать пользователя</h2>
@@ -31,7 +37,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ip">Пароль пользователя<sup>*</sup></label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-ip" type="password" name="password" value="{{ $user['password'] }}">
+                    <input class="uk-form-width-medium" id="form-ip" type="password" name="password" value="">
                     @if ($errors->has('password'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('password') }}</div>
                     @endif
@@ -40,7 +46,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ip2">Повтор пароля<sup>*</sup></label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-ip2" type="password" name="password2" value="{{ $user['password'] }}">
+                    <input class="uk-form-width-medium" id="form-ip2" type="password" name="password2" value="">
                     @if ($errors->has('password2'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('password2') }}</div>
                     @endif
