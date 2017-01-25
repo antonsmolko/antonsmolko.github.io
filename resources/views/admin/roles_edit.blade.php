@@ -69,7 +69,7 @@
         </fieldset>
         <div class="uk-margin-top">
             <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Сохранить</button>
-            <a href="/administrator/roles" class="uk-button"><i class="uk-icon-remove"></i>Отменить</a>
+            <a href="{{ route('admin.roles') }}" class="uk-button"><i class="uk-icon-remove"></i>Отменить</a>
         </div>
     </form>
 </div>
