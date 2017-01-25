@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-//use Validator;
+use App\Http\Controllers\AuthController;
 use Illuminate\Contracts\Validation\Validator;
 use App\User;
 use App\Models\UserModel;
 use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
     protected $mUsers;
+    protected $auth;
 
     public function  __construct(Request $request)
     {
@@ -22,7 +24,7 @@ class UsersController extends Controller
         $this->mUsers = UserModel::instance();
     }
 
-    public function showUsers()
+    public function show()
     {
         $users = User::all();
 
@@ -36,7 +38,7 @@ class UsersController extends Controller
         ]);
     }
 
-    public function addGet()
+    public function create()
     {
         $roles = Role::all();
 
@@ -48,11 +50,11 @@ class UsersController extends Controller
             'email' => '',
             'activate' => '',
             'roles' => $roles,
-            'content' => 'admin.users_add'
+            'content' => 'admin.users_create'
         ]);
     }
 
-    public function addPost()
+    public function createPost()
     {
         $this->validate($this->request, [
             'name' => 'required|min:2|max:50',
@@ -76,25 +78,23 @@ class UsersController extends Controller
         return redirect()->route('admin.users');
     }
 
-    public function editGet($id)
+    public function edit($id)
     {
         $user = User::findOrFail($id);
 
-        $users = User::all();
+        foreach ($user->roles as $key) {
+            $role = $key['display_name'];
+        }
 
-        $userRoles = $this->mUsers->getSomeRequest($users, 'display_name', 'roles');
-
-        if (isset($userRoles[$user['id']])) {
-            $userRole = $userRoles[$user['id']][0];
-        } else {
-            $userRole = '';
+        if (!isset($role)) {
+            $role = '';
         }
 
         $roles = Role::all();
 
         return view('admin.main', [
             'user' => $user,
-            'userRole' => $userRole,
+            'role' => $role,
             'roles' => $roles,
             'content' => 'admin.users_edit'
         ]);

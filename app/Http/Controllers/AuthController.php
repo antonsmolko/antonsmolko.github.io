@@ -64,6 +64,14 @@ class AuthController extends Controller
         ]);
     }
 
+    public function showAdmin() {
+
+        return view('admin.main', [
+            'title' => 'Панель администратора',
+            'content' => 'admin.start'
+        ]);
+    }
+
     public function loginPost()
     {
         $remember = $this->request->input('remember') ? true : false;
@@ -84,16 +92,5 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect()->route('index');
-    }
-
-    public function checkPermission()
-    {
-        if (!Auth::user()->can('admin_access')) {
-            return redirect()->route('index');
-        } elseif (Auth::user()->ability('super_admin,user_admin', 'view_users')) {
-            return redirect()->route('admin.users');
-        } else {
-            return redirect()->route('admin.articles');
-        }
     }
 }

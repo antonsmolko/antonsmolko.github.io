@@ -46,29 +46,52 @@ Route::get('/logout', 'AuthController@logout')
 
 // АДМИНКА
 
-Route::get('/administrator', 'AuthController@checkPermission')
-    ->name('admin');
+Route::group(['prefix' => 'administrator', 'middleware' => ['permission:admin_access']], function() {
 
-Route::get('/administrator/users', 'UsersController@showUsers')
-    ->name('admin.users');
+    Route::get('/', 'AuthController@showAdmin')
+        ->name('admin');
+
+    Route::get('/users', ['middleware' => ['ability:super_admin|user_admin,view_users'], 'uses' => 'UsersController@show'])
+        ->name('admin.users');
+
+    Route::get('/users/create', ['middleware' => ['ability:super_admin|user_admin,create_users'], 'uses' => 'UsersController@create'])
+        ->name('admin.users.create');
+
+    Route::post('/users/create', ['middleware' => ['ability:super_admin|user_admin,create_users'], 'uses' => 'UsersController@createPost'])
+        ->name('admin.users.create.post');
+
+    Route::get('/users/edit/{id}', ['middleware' => ['ability:super_admin|user_admin,edit_users'], 'uses' => 'UsersController@edit'])
+        ->where('id', '[0-9]+')
+        ->name('admin.users.edit');
+
+    Route::post('/users/edit/{id}', ['middleware' => ['ability:super_admin|user_admin,edit_users'], 'uses' => 'UsersController@editPost'])
+        ->where('id', '[0-9]+')
+        ->name('admin.users.edit.post');
+});
+
+//Route::get('/administrator', 'AuthController@checkAuth')
+//    ->name('admin');
+
+//Route::get('/administrator/users', 'UsersController@show')
+//    ->name('admin.users');
 
 //Route::post('/administrator/users', 'UsersController@moveAdd')->name('admin.users');
 
-Route::get('/administrator/users/add', 'UsersController@addGet')
-    ->name('admin.users.add');
+//Route::get('/administrator/users/add', 'UsersController@addGet')
+//    ->name('admin.users.add');
 
-Route::post('/administrator/users/add', 'UsersController@addPost')
-    ->name('admin.users.add');
+//Route::post('/administrator/users/add', 'UsersController@addPost')
+//    ->name('admin.users.add');
 
-Route::get('/administrator/users/edit/{id}', 'UsersController@editGet')
-    ->where('id', '[0-9]+')
-    ->name('admin.users.edit');
+//Route::get('/administrator/users/edit/{id}', 'UsersController@editGet')
+//    ->where('id', '[0-9]+')
+//    ->name('admin.users.edit');
 
-Route::post('/administrator/users/edit/{id}', 'UsersController@editPost')
-    ->where('id', '[0-9]+')
-    ->name('admin.users.edit');
+//Route::post('/administrator/users/edit/{id}', 'UsersController@editPost')
+//    ->where('id', '[0-9]+')
+//    ->name('admin.users.edit');
 
-Route::get('/administrator/roles', 'RolesController@showRoles')
+Route::get('/administrator/roles', 'RolesController@show')
     ->name('admin.roles');
 
 Route::get('/administrator/roles/add', 'RolesController@addGet')
@@ -85,7 +108,7 @@ Route::post('/administrator/roles/edit/{id}', 'RolesController@editPost')
     ->where('id', '[0-9]+')
     ->name('admin.roles.edit');
 
-Route::get('/administrator/artircles', 'ArticleController@showList')
+Route::get('/administrator/articles', 'ArticleController@showList')
     ->name('admin.articles');
 
 Route::get('/administrator/articles/add', 'ArticleController@addGet')

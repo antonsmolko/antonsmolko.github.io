@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator;
 use App\Role;
 use App\Models\RoleModel;
+use Illuminate\Support\Facades\Auth;
 //use App\Models\Role;
 
 class RolesController extends Controller
@@ -20,8 +21,12 @@ class RolesController extends Controller
         $this->mRoles = new RoleModel;
     }
 
-    public function showRoles()
+    public function show()
     {
+        if (!Auth::check()) {
+            return redirect()->route('index');
+        }
+
         $roles = Role::all();
 
         return view('admin.main', [
@@ -53,10 +58,6 @@ class RolesController extends Controller
         ]);
 
         $permissions = Permission::all();
-
-        if ($this->request->has('perm')) {
-             dd($this->request->input('perm'));
-        }
 
         $role = new Role;
         $role->display_name = trim($this->request->input('role_name'));
