@@ -5,12 +5,8 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\AuthController;
 use Illuminate\Contracts\Validation\Validator;
 use App\User;
-use App\Models\UserModel;
-use Illuminate\Encryption\Encrypter;
-use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -20,20 +16,22 @@ class UsersController extends Controller
     public function  __construct(Request $request)
     {
         parent::__construct($request);
-
-        $this->mUsers = UserModel::instance();
     }
 
     public function show()
     {
         $users = User::all();
 
-        $roles = $this->mUsers->getSomeRequest($users, 'display_name', 'roles');
+        foreach($users as $user) {
+            foreach($user->roles as $key) {
+                $role[$user->id] = $key;
+            }
+        }
 
         return view('admin.main', [
             'title' => 'Пользователи',
             'users' => $users,
-            'roles' => $roles,
+            'role' => $role,
             'content' => 'admin.users'
         ]);
     }
@@ -43,6 +41,7 @@ class UsersController extends Controller
         $roles = Role::all();
 
         return view('admin.main', [
+            'title' => 'Новый пользователь',
             'name' => '',
             'login' => '',
             'password' => '',
@@ -81,18 +80,15 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $roles = Role::all();
+        $role = false;
 
         foreach ($user->roles as $key) {
-            $role = $key['display_name'];
+            $role = $key;
         }
-
-        if (!isset($role)) {
-            $role = '';
-        }
-
-        $roles = Role::all();
 
         return view('admin.main', [
+            'title' => 'Редактор пользователя',
             'user' => $user,
             'role' => $role,
             'roles' => $roles,

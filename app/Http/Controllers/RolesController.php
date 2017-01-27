@@ -6,50 +6,40 @@ use App\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator;
 use App\Role;
-use App\Models\RoleModel;
-use Illuminate\Support\Facades\Auth;
-//use App\Models\Role;
 
 class RolesController extends Controller
 {
-    protected $mRoles;
-
     public function  __construct(Request $request)
     {
         parent::__construct($request);
-
-        $this->mRoles = new RoleModel;
     }
 
     public function show()
     {
-        if (!Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $roles = Role::all();
 
         return view('admin.main', [
-            'title' => 'Роли',
+            'title' => 'Менеджер ролей',
             'roles' => $roles,
             'content' => 'admin.roles'
         ]);
     }
 
-    public function addGet()
+    public function create()
     {
         $permissions = Permission::all();
 
         return view('admin.main', [
+            'title' => 'Новая роль',
             'name' => '',
             'alias' => '',
             'description' => '',
             'permissions' => $permissions,
-            'content' => 'admin.roles_add'
+            'content' => 'admin.roles_create'
         ]);
     }
 
-    public function addPost()
+    public function createPost()
     {
         $this->validate($this->request, [
             'role_name' => 'required|unique:roles,display_name|min:2|max:50',
@@ -66,33 +56,27 @@ class RolesController extends Controller
         $role->save();
 
         foreach ($permissions as $permission) {
-            if ($this->request->has($permission['name'])) {
-                $role->permission()->attach($permission['id']);
+            if ($this->request->has($permission->name)) {
+                $role->permission()->attach($permission->id);
             }
         }
 
         return redirect()->route('admin.roles');
     }
 
-    public function editGet($id)
+    public function edit($id)
     {
         $role = Role::findOrFail($id);
-
-        $roles = Role::all();
-
-        $rolesPermissions = $this->mRoles->getSomeRequest($roles, 'name', 'permission');
-
-        if (isset($rolesPermissions[$role['id']])) {
-            $rolePermissions = $rolesPermissions[$role['id']];
-        } else {
-            $rolePermissions = '';
-        }
-
         $permissions = Permission::all();
 
+        foreach($role->permission as $key) {
+            $permission[$key->id] = $key;
+        }
+
         return view('admin.main', [
+            'title' => 'Редактор роли',
             'role' => $role,
-            'rolePermissions' => $rolePermissions,
+            'permission' => $permission,
             'permissions' => $permissions,
             'content' => 'admin.roles_edit'
         ]);
@@ -101,7 +85,6 @@ class RolesController extends Controller
     public function editPost($id)
     {
         $role = Role::findOrFail($id);
-
         $permissions = Permission::all();
 
         $this->validate($this->request, [

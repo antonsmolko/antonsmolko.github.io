@@ -53,7 +53,7 @@
                 <select class="uk-form-width-medium" id="form-sr" name="role">
                     <option value="">Не назначена</option>
                     @foreach($roles as $role)
-                        <option value="{{ $role['id'] }}">{{ $role['display_name'] }}</option>
+                        <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -64,12 +64,7 @@
                 <input id="form-ia" type="checkbox" name="activate" value="1">
             </div>
         </div>
-        <button class="uk-button uk-button-primary" type="submit">
-            <i class="uk-icon-plus"></i>
-            Создать</button>
-        <a href="{{ route('admin.users') }}" class="uk-button">
-            <i class="uk-icon-remove"></i>
-            Отменить
-        </a>
+        <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Создать</button>
+        <a href="{{ route('admin.users') }}" class="uk-button"><i class="uk-icon-remove"></i>Отменить</a>
     </fieldset>
 </form>

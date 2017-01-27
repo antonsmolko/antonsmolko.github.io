@@ -34,8 +34,8 @@
                 <div class="user">
                     <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
                     @foreach(Auth::user()->roles as $key)
-                        @if($key['name'])
-                            <span class="role"> [ {{ $key['display_name'] }} ] </span>
+                        @if($key->name)
+                            <span class="role"> [ {{ $key->display_name }} ] </span>
                         @endif
                     @endforeach
                 </div>

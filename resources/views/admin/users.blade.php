@@ -44,29 +44,29 @@
                     <tr>
                         <td><input type="checkbox"></td>
                         <td>
-                            <a href="/administrator/users/edit/{{ $user['id'] }}">{{ $user['name'] }}</a>
+                            <a href="/administrator/users/edit/{{ $user->id }}">{{ $user->name }}</a>
                         </td>
-                        <td>{{ $user['login'] }}</td>
+                        <td>{{ $user->login }}</td>
                         <td>
-                            @if($user['login'] == 'smol')
+                            @if($user->login == SUPER_ADMIN)
                                 <input type="checkbox" checked disabled>
-                            @elseif($user['activate'] == 1 && $user['login'] != SUPER_ADMIN)
+                            @elseif($user->activate == 1 && $user->login != SUPER_ADMIN)
                                 <input type="checkbox" checked>
                             @else
                                 <input type="checkbox">
                             @endif
                         </td>
                         <td>
-                            @if(isset($roles[$user['id']]))
-                                {{ $roles[$user['id']][0] }}
+                            @if(isset($role[$user->id]))
+                                {{ $role[$user->id]['display_name'] }}
                             @else
                                 Не назначена
                             @endif
                         </td>
-                        <td>{{ $user['email'] }}</td>
-                        <td>{{ $user['last_visit_at'] }}</td>
-                        <td>{{ $user['created_at'] }}</td>
-                        <td>{{ $user['id'] }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->last_visit_at }}</td>
+                        <td>{{ $user->created_at }}</td>
+                        <td>{{ $user->id }}</td>
                     </tr>
                 @endforeach
                 </tbody>
