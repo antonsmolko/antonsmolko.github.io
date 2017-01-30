@@ -10,24 +10,12 @@
 |
 */
 
-Route::get('/', 'NewsController@indexAction')
+Route::get('/', 'ArticleController@showAll')
     ->name('index');
 
-Route::get('/new/{id}', 'NewsController@newAction')
-    ->where('id', '[0-9]+');
-
-Route::get('/add', 'NewsController@addAction');
-
-Route::post('/add', 'NewsController@addAction');
-
-Route::get('/edit/{id}', 'NewsController@editAction')
-    ->where('id', '[0-9]+');
-
-Route::post('/edit/{id}', 'NewsController@editAction')
-    ->where('id', '[0-9]+');
-
-Route::get('/delete/{id}', 'NewsController@deleteAction')
-    ->where('id', '[0-9]+');
+Route::get('/article/{id}', 'ArticleController@showOne')
+    ->where('id', '[0-9]+')
+    ->name('article');
 
 Route::get('/register', 'AuthController@register')
     ->name('register');

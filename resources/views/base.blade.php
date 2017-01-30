@@ -5,9 +5,15 @@
 <head>
     @section('head')
     @show
+    @stack('styles')
+    @stack('script')
 </head>
 
 <body>
+    <div class="navbar">
+        @section('navbar')
+        @show
+    </div>
     <div class="header">
         @section('header')
         @show

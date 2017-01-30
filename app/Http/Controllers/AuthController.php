@@ -18,14 +18,13 @@ class AuthController extends Controller
     public function register() {
 
 
-        return view('pages.main', [
+        return view('pages.register', [
             'title' => $this->title,
             'name' => '',
             'login' => '',
             'password' => '',
             'password2' => '',
-            'email' => '',
-            'content' => 'pages.register'
+            'email' => ''
         ]);
     }
 
@@ -55,12 +54,11 @@ class AuthController extends Controller
 
         $this->title = 'Авторизация';
 
-        return view('pages.main', [
+        return view('pages.login', [
             'title' => $this->title,
             'login' => '',
             'password' => '',
-            'auth' => '',
-            'content' => 'pages.login'
+            'auth' => ''
         ]);
     }
 

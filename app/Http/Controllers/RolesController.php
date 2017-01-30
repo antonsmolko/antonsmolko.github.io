@@ -18,10 +18,9 @@ class RolesController extends Controller
     {
         $roles = Role::all();
 
-        return view('admin.main', [
+        return view('admin.roles', [
             'title' => 'Менеджер ролей',
-            'roles' => $roles,
-            'content' => 'admin.roles'
+            'roles' => $roles
         ]);
     }
 
@@ -29,13 +28,12 @@ class RolesController extends Controller
     {
         $permissions = Permission::all();
 
-        return view('admin.main', [
+        return view('admin.roles_create', [
             'title' => 'Новая роль',
             'name' => '',
             'alias' => '',
             'description' => '',
-            'permissions' => $permissions,
-            'content' => 'admin.roles_create'
+            'permissions' => $permissions
         ]);
     }
 
@@ -73,12 +71,11 @@ class RolesController extends Controller
             $permission[$key->id] = $key;
         }
 
-        return view('admin.main', [
+        return view('admin.roles_edit', [
             'title' => 'Редактор роли',
             'role' => $role,
             'permission' => $permission,
-            'permissions' => $permissions,
-            'content' => 'admin.roles_edit'
+            'permissions' => $permissions
         ]);
     }
 

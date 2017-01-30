@@ -15,3 +15,12 @@ function getRusDate($dateTime, $format = '%DAYWEEK%, d %MONTH% Y H:i', $offset =
     $format = preg_replace($findArray, $replaceArray, $format);
     return date($format, $timestamp);
 }
+
+function cutText($string)
+{
+    $string = strip_tags($string);
+    $string = substr($string, 0, 250);
+    $string = rtrim($string, "!,.-");
+    $string = substr($string, 0, strrpos($string, ' '));
+    return $string."… ";
+}

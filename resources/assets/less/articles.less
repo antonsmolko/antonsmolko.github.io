@@ -1,0 +1,36 @@
+@import 'styles';
+
+body {
+  .content {
+    margin-top: -100px;
+    background-image: url("../images/background/body_bg.jpg");
+    background-size: 70%;
+    .wrapper {
+      .article {
+        width: 100%;
+        .row-flex();
+        border-radius: 2px;
+        box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
+        background: #ffffff;
+        margin-bottom: 30px;
+        z-index: 1001;
+        .article-preview {
+          padding: 30px;
+          .col();
+          .col-6();
+          .article-author {
+            display: block;
+            color: #adadae;
+          }
+        }
+        .article-image {
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          .col-padding();
+          .col-6();
+        }
+      }
+    }
+  }
+}

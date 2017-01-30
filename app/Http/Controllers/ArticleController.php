@@ -13,6 +13,41 @@ class ArticleController extends Controller
         parent::__construct($request);
     }
 
+    public function showAll()
+    {
+        $articles = Article::all();
+        $author = false;
+
+        foreach($articles as $article) {
+            foreach($article->author as $key) {
+                $author[$article->id] = $key;
+            }
+        }
+
+        return view('pages.articles', [
+            'title' => 'MOON',
+            'articles' => $articles,
+            'author' => $author
+        ]);
+    }
+
+    public function showOne($id)
+    {
+        $article = Article::findOrFail($id);
+
+        $author = false;
+
+        foreach ($article->author as $key) {
+            $author = $key;
+        }
+
+        return view('pages.article', [
+            'title' => 'Просмотр статьи',
+            'article' => $article,
+            'author' => $author
+        ]);
+    }
+
     public function show()
     {
         $articles = Article::all();
@@ -23,11 +58,10 @@ class ArticleController extends Controller
             }
         }
 
-        return view('admin.main', [
+        return view('admin.articles', [
             'title' => 'Менеджер статей',
             'articles' => $articles,
-            'author' => $author,
-            'content' => 'admin.articles'
+            'author' => $author
         ]);
     }
 
@@ -35,12 +69,11 @@ class ArticleController extends Controller
     {
         $author = Auth::user();
 
-        return view('admin.main', [
+        return view('admin.articles_create', [
             'title' => 'Новая статья',
             'article_title' => '',
             'article_content' => '',
-            'author' => $author,
-            'content' => 'admin.articles_create'
+            'author' => $author
         ]);
     }
 
@@ -72,11 +105,10 @@ class ArticleController extends Controller
             $author = $key;
         }
 
-        return view('admin.main', [
+        return view('admin.articles_edit', [
             'title' => 'Редактор статьи',
             'article' => $article,
-            'author' => $author,
-            'content' => 'admin.articles_edit'
+            'author' => $author
         ]);
     }
 

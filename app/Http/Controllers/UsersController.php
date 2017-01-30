@@ -28,11 +28,10 @@ class UsersController extends Controller
             }
         }
 
-        return view('admin.main', [
+        return view('admin.users', [
             'title' => 'Пользователи',
             'users' => $users,
-            'role' => $role,
-            'content' => 'admin.users'
+            'role' => $role
         ]);
     }
 
@@ -40,7 +39,7 @@ class UsersController extends Controller
     {
         $roles = Role::all();
 
-        return view('admin.main', [
+        return view('admin.users_create', [
             'title' => 'Новый пользователь',
             'name' => '',
             'login' => '',
@@ -48,8 +47,7 @@ class UsersController extends Controller
             'password2' => '',
             'email' => '',
             'activate' => '',
-            'roles' => $roles,
-            'content' => 'admin.users_create'
+            'roles' => $roles
         ]);
     }
 
@@ -87,12 +85,11 @@ class UsersController extends Controller
             $role = $key;
         }
 
-        return view('admin.main', [
+        return view('admin.users_edit', [
             'title' => 'Редактор пользователя',
             'user' => $user,
             'role' => $role,
-            'roles' => $roles,
-            'content' => 'admin.users_edit'
+            'roles' => $roles
         ]);
     }
 

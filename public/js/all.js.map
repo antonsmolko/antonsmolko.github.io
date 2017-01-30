@@ -1,0 +1,1 @@
+{"version":3,"sources":["article.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA","file":"all.js","sourcesContent":["/**\n * Created by antonsmolko on 30.01.17.\n */\n"]}ss('height', window.innerWidth / 3.496503496503497);\n\n    $( window ).resize(function() {\n        $(\".header\").css(\"height\", window.innerWidth / 3.496503496503497);\n    });\n});"]}

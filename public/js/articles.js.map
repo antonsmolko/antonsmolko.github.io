@@ -1,0 +1,1 @@
+{"version":3,"sources":["articles.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA","file":"articles.js","sourcesContent":["$(function () {\n    $(\".header\").css('height', window.innerWidth / 3.496503496503497);\n\n    $( window ).resize(function() {\n        $(\".header\").css(\"height\", window.innerWidth / 3.496503496503497);\n    });\n});"]}

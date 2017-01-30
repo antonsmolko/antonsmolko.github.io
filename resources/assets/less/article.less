@@ -1,0 +1,37 @@
+@import 'styles';
+
+body {
+  .header {
+    height: 10px;
+    background: #FFFFFF;
+    margin-bottom: 0;
+  }
+  .content {
+    background-image: url("../images/background/body_bg.jpg");
+    background-size: 70%;
+    .article {
+      .article-image {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        padding: 80px;
+        box-sizing: border-box;
+        .row-flex();
+        .flex-direction(column);
+        h2 {
+          color: #ffffff;
+          text-transform: uppercase;
+        }
+        .article-author {
+          color: #adadae;
+        }
+      }
+      .article-content {
+        .row-flex();
+        background: #ffffff;
+        padding: 30px;
+      }
+    }
+
+  }
+}
