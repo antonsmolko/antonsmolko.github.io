@@ -4,7 +4,7 @@
     <title>{{ $title or '' }}</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/uikit.gradient.css">
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <link rel="stylesheet" type="text/css" href="/css/codemirror/codemirror.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/uikit.js"></script>
@@ -23,10 +23,10 @@
     <script src="/js/htmleditor.min.js"></script>
 @endsection
 
-@section('header')
+@section('navbar')
     <div class="wrapper">
-        <div class="header__logo">
-            <a href="/"><i class="header__icon icon--news"></i><span>Новости</span></a>
+        <div class="logo">
+            <a href="{{ route('index') }}"></a>
         </div>
         <div class="nav">
             @if(Auth::check())
@@ -34,8 +34,8 @@
                 <div class="user">
                     <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
                     @foreach(Auth::user()->roles as $key)
-                        @if($key['name'])
-                            <span class="role"> [ {{ $key['display_name'] }} ] </span>
+                        @if($key->name)
+                            <span class="role"> [ {{ $key->display_name }} ] </span>
                         @endif
                     @endforeach
                 </div>
@@ -44,8 +44,11 @@
     </div>
 @endsection
 
+@section('header')
+@endsection
+
 @section('admin_navbar')
-    <nav class="uk-navbar">
+    <nav class="uk-navbar uk-width-1-1">
         <ul class="uk-navbar-nav">
             @ability(['super_admin', 'user_admin'], 'view_users')
             <li class="uk-parent"><a href="{{ route('admin.users') }}">Пользователи</a></li>
@@ -61,17 +64,15 @@
 @endsection
 
 @section('content')
-    @include($content)
+    <h2>Панель администратора</h2>
 @endsection
 
 @section('footer')
     <div class="wrapper">
-        <div class="footer__logo">
-            <a href="/"><i class="footer__icon icon--news"></i><span>Новости</span></a>
+        <div class="footer-logo">
+            <a href="{{ route('index') }}"></a>
         </div>
-    </div>
-    <div class="footer__copyright">
-        <div class="wrapper">
+        <div class="copyright">
             <i class="icon--copyright"></i><span>2016 Все права защищены</span>
         </div>
     </div>

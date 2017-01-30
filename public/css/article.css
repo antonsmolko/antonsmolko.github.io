@@ -390,5 +390,45 @@ h3 {
 .content {
   margin-bottom: 40px;
 }
+body .header {
+  height: 10px;
+  background: #FFFFFF;
+  margin-bottom: 0;
+}
+body .content {
+  background-image: url("../images/background/body_bg.jpg");
+  background-size: 70%;
+}
+body .content .article .article-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 80px;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+}
+body .content .article .article-image h2 {
+  color: #ffffff;
+  text-transform: uppercase;
+}
+body .content .article .article-image .article-author {
+  color: #adadae;
+}
+body .content .article .article-content {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+  background: #ffffff;
+  padding: 30px;
+}
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=article.css.map */

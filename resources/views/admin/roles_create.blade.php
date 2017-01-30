@@ -1,17 +1,6 @@
-<div class="">
-    <nav class="uk-navbar">
-        <ul class="uk-navbar-nav">
-            @ability(['super_admin', 'user_admin'], 'view_users')
-                <li class="uk-parent"><a href="{{ route('admin.users') }}">Пользователи</a></li>
-            @endability
-            @ability('super_admin', 'create_edit_delete_roles')
-                <li class="uk-active"><a href="{{ route('admin.roles') }}">Роли</a></li>
-            @endability
-            @ability(['super_admin','article_admin', 'author', 'editor'], ['creare_articles', 'edit_articles', 'publish_articles', 'delete_articles'])
-                <li class="uk-parent"><a href="{{ route('admin.articles') }}">Блог</a></li>
-            @endability
-        </ul>
-    </nav>
+@extends('admin.main')
+
+@section('content')
     <h2>Менеджер ролей: создать роль</h2>
     <form class="uk-form uk-form-horizontal" action="" method="post">
         {{ csrf_field() }}
@@ -48,24 +37,24 @@
             <legend>Назначить привилегии</legend>
                 @foreach($permissions as $permission)
                     <div class="uk-form-row">
-                        <label class="uk-form-label" style="width: 400px" for="form-p-{{ $permission['id'] }}">
-                            <a href="#modal-{{ $permission['id'] }}" data-uk-modal>{{ $permission['display_name'] }}</a>
-                            <div id="modal-{{ $permission['id'] }}" class="uk-modal" aria-hidden="true" style="display: none; overflow-y: auto;">
+                        <label class="uk-form-label" style="width: 400px" for="form-p-{{ $permission->id }}">
+                            <a href="#modal-{{ $permission->id }}" data-uk-modal>{{ $permission->display_name }}</a>
+                            <div id="modal-{{ $permission->id }}" class="uk-modal" aria-hidden="true" style="display: none; overflow-y: auto;">
                                 <div class="uk-modal-dialog">
                                     <a href="" class="uk-modal-close uk-close"></a>
-                                    <p>{{ $permission['description'] }}</p>
+                                    <p>{{ $permission->description }}</p>
                                 </div>
                             </div>
                         </label>
                         <div class="uk-form-controls">
-                            <input id="form-p{{ $permission['id'] }}" type="checkbox" name="{{ $permission['name'] }}" value="1">
+                            <input id="form-p{{ $permission->id }}" type="checkbox" name="{{ $permission->name }}" value="1">
                         </div>
                     </div>
                 @endforeach
         </fieldset>
         <div class="uk-margin-top">
             <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Создать</button>
-            <a href="/administrator/roles" class="uk-button"><i class="uk-icon-remove"></i>Отменить</a>
+            <a href="{{ route('admin.roles') }}" class="uk-button"><i class="uk-icon-remove"></i>Отменить</a>
         </div>
     </form>
-</div>
+@endsection

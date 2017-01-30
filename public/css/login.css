@@ -390,5 +390,31 @@ h3 {
 .content {
   margin-bottom: 40px;
 }
+body .header {
+  height: 10px;
+  background: #FFFFFF;
+  margin-bottom: 0;
+}
+body .content {
+  background-image: url("../images/background/body_bg.jpg");
+  background-size: 70%;
+  padding: 100px 0;
+}
+body .content .wrapper .auth {
+  box-sizing: border-box;
+  margin-left: 15px;
+  margin-right: 15px;
+  word-wrap: break-word;
+  width: calc(100% - 30px);
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+  flex-wrap: nowrap;
+  background: #ffffff;
+  padding: 30px;
+  box-sizing: content-box;
+}
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=login.css.map */

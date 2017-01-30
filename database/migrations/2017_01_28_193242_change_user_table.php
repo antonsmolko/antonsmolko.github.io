@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMembersTable extends Migration
+class ChangeUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('user', function (Blueprint $table) {
+            $table->enum('activate', [0, 1])->default(0)->after('password');
+            $table->timestamp('last_visit_at')->after('remember_token');
         });
     }
 
@@ -26,6 +26,8 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::table('user', function (Blueprint $table) {
+            //
+        });
     }
 }

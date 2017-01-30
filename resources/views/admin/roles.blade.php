@@ -1,23 +1,12 @@
-<div class="">
-    <nav class="uk-navbar">
-        <ul class="uk-navbar-nav">
-            @ability(['super_admin', 'user_admin'], 'view_users')
-            <li class="uk-parent"><a href="{{ route('admin.users') }}">Пользователи</a></li>
-            @endability
-            @ability('super_admin', 'create_edit_delete_roles')
-            <li class="uk-active"><a href="{{ route('admin.roles') }}">Роли</a></li>
-            @endability
-            @ability(['super_admin','article_admin', 'author', 'editor'], ['creare_articles', 'edit_articles', 'publish_articles', 'delete_articles'])
-            <li class="uk-parent"><a href="{{ route('admin.articles') }}">Блог</a></li>
-            @endability
-        </ul>
-    </nav>
+@extends('admin.main')
+
+@section('content')
     <h2>Менеджер ролей: список ролей</h2>
     <div class="uk-grid uk-margin-top" data-uk-grid-margin>
         <div class="uk-width-medium-1-1">
             <form action="" method="post">
                 {{ csrf_field() }}
-                <a href="/administrator/roles/add" class="uk-button uk-button-primary">
+                <a href="{{ route('admin.roles.create') }}" class="uk-button uk-button-primary">
                     <i class="uk-icon-plus"></i>
                     Создать
                 </a>
@@ -46,11 +35,11 @@
                         <tr>
                             <td><input type="checkbox"></td>
                             <td>
-                                <a href="/administrator/roles/edit/{{ $role['id'] }}">{{ $role['display_name'] }}</a>
+                                <a href="{{ route('admin.roles.edit', ['id' => $role['id']]) }}">{{ $role->display_name }}</a>
                             </td>
-                            <td>{{ $role['name'] }}</td>
-                            <td>{{ $role['description'] }}</td>
-                            <td>{{ $role['id'] }}</td>
+                            <td>{{ $role->name }}</td>
+                            <td>{{ $role->description }}</td>
+                            <td>{{ $role->id }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -58,4 +47,4 @@
             </form>
         </div>
     </div>
-</div>
+@endsection

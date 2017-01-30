@@ -1,8 +1,13 @@
 {
+  "name": "laravel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
   "private": true,
   "scripts": {
     "prod": "gulp --production",
-    "dev": "gulp watch"
+    "dev": "gulp watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
@@ -16,6 +21,13 @@
     "vue-resource": "^1.0.3"
   },
   "dependencies": {
-    "marked": "^0.3.6"
-  }
+    "marked": "^0.3.6",
+    "browser-sync": "^2.17.5",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-group-css-media-queries": "^1.2.0",
+    "gulp-less": "^3.1.0"
+  },
+  "author": "",
+  "license": "ISC"
 }

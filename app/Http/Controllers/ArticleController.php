@@ -3,48 +3,81 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\User;
 use Illuminate\Http\Request;
-use App\Models\ArticleModel;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
-    protected $mArticle;
-    protected $articles;
-
     public function  __construct(Request $request)
     {
         parent::__construct($request);
-        $this->mArticle = new ArticleModel();
-        $this->articles = Article::all();
     }
 
-    public function showList()
+    public function showAll()
     {
-        $author = $this->mArticle->getSomeRequest($this->articles, 'name', 'author');
+        $articles = Article::all();
+        $author = false;
 
-        return view('admin.main', [
-            'title' => 'Блог',
-            'articles' => $this->articles,
-            'author' => $author,
-            'content' => 'admin.articles'
+        foreach($articles as $article) {
+            foreach($article->author as $key) {
+                $author[$article->id] = $key;
+            }
+        }
+
+        return view('pages.articles', [
+            'title' => 'MOON',
+            'articles' => $articles,
+            'author' => $author
         ]);
     }
 
-    public function addGet()
+    public function showOne($id)
     {
-        // Автор жестко указан с id = 44 (Иван Смолко)
-        $author = User::findOrFail(43);
+        $article = Article::findOrFail($id);
 
-        return view('admin.main', [
-            'title' => '',
+        $author = false;
+
+        foreach ($article->author as $key) {
+            $author = $key;
+        }
+
+        return view('pages.article', [
+            'title' => 'Просмотр статьи',
+            'article' => $article,
+            'author' => $author
+        ]);
+    }
+
+    public function show()
+    {
+        $articles = Article::all();
+
+        foreach($articles as $article) {
+            foreach($article->author as $key) {
+                $author[$article->id] = $key;
+            }
+        }
+
+        return view('admin.articles', [
+            'title' => 'Менеджер статей',
+            'articles' => $articles,
+            'author' => $author
+        ]);
+    }
+
+    public function create()
+    {
+        $author = Auth::user();
+
+        return view('admin.articles_create', [
+            'title' => 'Новая статья',
+            'article_title' => '',
             'article_content' => '',
-            'author' => $author,
-            'content' => 'admin.articles_add'
+            'author' => $author
         ]);
     }
 
-    public function addPost()
+    public function createPost()
     {
         $this->validate($this->request, [
             'title' => 'required|unique:articles,title|min:1|max:250',
@@ -63,32 +96,19 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles');
     }
 
-    public function editGet($id)
+    public function edit($id)
     {
         $article = Article::findOrFail($id);
+        $author = false;
 
-        $authors = $this->mArticle->getSomeRequest($this->articles, 'name', 'author');
-
-        if (isset($authors[$article['id']])) {
-            $author = $authors[$article['id']][0];
-        } else {
-            $author = '';
+        foreach($article->author as $key) {
+            $author = $key;
         }
 
-        //Получение ID автора статьи
-        $authorsID = $this->mArticle->getSomeRequest($this->articles, 'id', 'author');
-
-        if (isset($authorsID[$article['id']])) {
-            $authorID = $authorsID[$article['id']][0];
-        } else {
-            $authorID = '';
-        }
-
-        return view('admin.main', [
+        return view('admin.articles_edit', [
+            'title' => 'Редактор статьи',
             'article' => $article,
-            'author' => $author,
-            'authorID' => $authorID,
-            'content' => 'admin.articles_edit'
+            'author' => $author
         ]);
     }
 
@@ -100,9 +120,6 @@ class ArticleController extends Controller
             'title' => 'required|unique:articles,title,'.$article->id.'|min:1|max:250',
             'content' => 'required|min:1|max:5000'
         ]);
-
-        // Автор жестко указан с id = 44 (Иван Смолко)
-        $author = User::findOrFail(43);
 
         $article->title = trim($this->request->input('title'));
         $article->content = trim($this->request->input('content'));
