@@ -1,5 +1,13 @@
 @extends('admin.main')
 
+@push('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush
+
+@push('script')
+    <script src="../js/admin.articles.js"></script>
+@endpush
+
 @section('content')
     <h2>Менеджер статей: список статей</h2>
         <div class="uk-grid uk-margin-top" data-uk-grid-margin>
@@ -10,50 +18,38 @@
                         <i class="uk-icon-plus"></i>
                         Создать
                     </a>
-                    <button type="submit" class="uk-button" name="edit">
-                        <i class="uk-icon-edit"></i>
-                        Изменить
-                    </button>
-                    <button type="submit" class="uk-button" name="publish">
-                        <i class="uk-icon-check"></i>
-                        Опубликовать
-                    </button>
-                    <button type="submit" class="uk-button" name="unpublish">
-                        <i class="uk-icon-ban"></i>
-                        Снять с публикации
-                    </button>
-                    <button type="submit" class="uk-button" name="delete">
-                        <i class="uk-icon-remove"></i>
-                        Удалить
-                    </button>
                     <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
                         <thead>
                         <tr>
-                            <th>
-                                <input type="checkbox">
-                            </th>
-                            <th>Состояние</th>
+                            <th>#</th>
                             <th>Заголовок</th>
+                            <th>Состояние</th>
                             <th>Автор</th>
                             <th>Дата</th>
-                            <th>Количество просмотров</th>
+                            <th>Просмотры</th>
                             <th>ID</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach($articles as $article)
                             <tr>
-                                <td><input type="checkbox"></td>
-                                <td>
-                                    @if($article->published == 1)
-                                        <input type="checkbox" checked value="1" name="published">
-                                    @else
-                                        <input type="checkbox" value="1" name="published">
-                                    @endif
-                                </td>
-
+                                <td>{!! $i++ !!}</td>
                                 <td>
                                     <a href="{{ route('admin.articles.edit', ['id' => $article->id]) }}">{{ $article->title }}</a>
+                                </td>
+                                <td>
+                                    <div class="status uk-button-group" id="{{ $article->id }}">
+                                    @if($article->published == 1)
+                                        <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
+                                        <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
+                                    @else
+                                        <button class="uk-button button-on"><i class="uk-icon-check"></i></button>
+                                        <button class="uk-button uk-active button-off"><i class="uk-icon-ban"></i></button>
+                                    @endif
+                                    </div>
                                 </td>
                                 <td>
                                     @if(isset($author[$article->id]))

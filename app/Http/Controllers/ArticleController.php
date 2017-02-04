@@ -41,6 +41,9 @@ class ArticleController extends Controller
             $author = $key;
         }
 
+        $article->views += 1;
+        $article->save();
+
         return view('pages.article', [
             'title' => 'Просмотр статьи',
             'article' => $article,
@@ -51,6 +54,17 @@ class ArticleController extends Controller
     public function show()
     {
         $articles = Article::all();
+
+        if (!is_null($this->request->input('id')) && !is_null($this->request->input('activate'))) {
+            $id = $this->request->input('id');
+
+            $article = Article::findOrFail($id);
+
+            $article->published = $this->request->input('activate');
+            $article->save();
+        }
+
+
 
         foreach($articles as $article) {
             foreach($article->author as $key) {
@@ -65,14 +79,21 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function getStatus()
+    {
+//        $data = $request->all();
+        //return $input;
+//        if($request->ajax()){
+//            echo 124124242;
+//        }
+    }
+
     public function create()
     {
         $author = Auth::user();
 
         return view('admin.articles_create', [
             'title' => 'Новая статья',
-            'article_title' => '',
-            'article_content' => '',
             'author' => $author
         ]);
     }

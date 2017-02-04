@@ -30,9 +30,6 @@ class RolesController extends Controller
 
         return view('admin.roles_create', [
             'title' => 'Новая роль',
-            'name' => '',
-            'alias' => '',
-            'description' => '',
             'permissions' => $permissions
         ]);
     }

@@ -5,6 +5,7 @@
 <head>
     @section('head')
     @show
+    @stack('meta')
     @stack('styles')
     @stack('script')
 </head>

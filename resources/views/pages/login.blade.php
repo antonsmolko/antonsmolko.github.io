@@ -14,14 +14,14 @@
             {{ csrf_field() }}
             <div class="auth-container">
                 <span class="auth--tag">Логин</span>
-                <input class="pages-iput" type="text" name="login" value="{{ $login }}">
+                <input class="pages-iput" type="text" name="login" value="{{ old('login') }}">
                 @if ($errors->has('login'))
                     <div class="danger"><span>{{ $errors->first('login') }}</span></div>
                 @endif
             </div>
             <div class="auth-container">
                 <span class="auth--tag">Пароль</span>
-                <input class="pages-iput" type="password" name="password" value="{{ $password }}">
+                <input class="pages-iput" type="password" name="password">
                 @if ($errors->has('password'))
                     <div class="danger"><span>{{ $errors->first('password') }}</span></div>
                 @endif
