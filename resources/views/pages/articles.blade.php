@@ -12,24 +12,25 @@
 
 @section('content')
     @foreach($articles as $article)
-        <div class="article">
-            <div class="article-preview">
-                <h2>{{ $article->title }}</h2>
-                <span class="note">
-                    {{ getRusDate($article->updated_at) }}
-                </span>
-                @if($author)
-                    <span class="article-author">Автор статьи: {{ $author[$article->id]->name }}</span>
-                @endif
-                <div class="article-text">
-                    <p>
-                        {!! cutText($article->content) !!}
-                    </p>
+        @if($article->published == 1)
+            <div class="article">
+                <div class="article-preview">
+                    <h2>{{ $article->title }}</h2>
+                    <span class="note">
+                        {{ getRusDate($article->updated_at) }}
+                    @if($author)
+                        <span class="article-author">Автор статьи: {{ $author[$article->id]->name }}</span>
+                    @endif
+                    <div class="article-text">
+                        <p>
+                            {!! cutText($article->content) !!}
+                        </p>
+                    </div>
+                    <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
                 </div>
-                <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
+                <div class="article-image" style="background-image: url('../images/articles/002.jpg')">
+                </div>
             </div>
-            <div class="article-image" style="background-image: url('../images/articles/002.jpg')">
-            </div>
-        </div>
+        @endif
     @endforeach
 @endsection

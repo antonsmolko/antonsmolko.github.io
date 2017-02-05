@@ -76,6 +76,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['permission:admin_ac
     Route::get('/articles', ['middleware' => ['ability:super_admin|article_admin|author|editor,create_articles|edit_articles|publish_articles|delete_articles'], 'uses' => 'ArticleController@show'])
         ->name('admin.articles');
 
+//    Route::post('/articles', ['middleware' => ['ability:super_admin|article_admin,publish_articles'], 'uses' => 'ArticleController@getStatus'])
+//        ->name('admin.articles.post.ajax');
+
     Route::get('/articles/create', ['middleware' => ['ability:super_admin|article_admin|author,create_articles'], 'uses' => 'ArticleController@create'])
         ->name('admin.articles.create');
 

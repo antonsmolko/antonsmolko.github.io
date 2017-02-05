@@ -34,8 +34,13 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.less('uikit.theme.less');
+});
+
+elixir(function(mix) {
     mix.scripts(['articles.js'], 'public/js/articles.js')
-        .scripts(['article.js'], 'public/js/article.js');
+        .scripts(['article.js'], 'public/js/article.js')
+        .scripts(['admin.articles.js'], 'public/js/admin.articles.js');
 });
 
 

@@ -8,7 +8,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-in">Название статьи<sup>*</sup></label>
                 <div class="uk-form-controls">
-                    <input class="uk-width-1-1" id="form-h-in" type="text" name="title" value="{{ $article_title }}">
+                    <input class="uk-width-1-1" id="form-h-in" type="text" name="title" value="{{ old('title') }}">
                     @if ($errors->has('title'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('title') }}</div>
                     @endif
@@ -18,12 +18,18 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-td">Содержание статьи</label>
                 <div class="uk-form-controls">
-                    <textarea data-uk-htmleditor class="" id="form-h-td" type="text" name="content">value="{{ $article_content }}"</textarea>
+                    <textarea data-uk-htmleditor class="" id="form-h-td" type="text" name="content">{{ old('content') }}</textarea>
                     @if ($errors->has('content'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('content') }}</div>
                     @endif
                 </div>
             </div>
+
+            <div class="uk-form-custom" uk-form-custom>
+                <input type="file" multiple>
+                <button class="uk-button uk-button-default" type="button" tabindex="-1">Select</button>
+            </div>
+
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ip">Опубликовать</label>
                 <div class="uk-form-controls">

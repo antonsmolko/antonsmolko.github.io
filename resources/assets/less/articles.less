@@ -1,5 +1,9 @@
 @import 'styles';
 
+.debug{
+  .debug(rgba(0,0,0,0.5), #ff0);
+}
+
 body {
   .content {
     margin-top: -100px;
@@ -7,20 +11,28 @@ body {
     background-size: 70%;
     .wrapper {
       .article {
-        width: 100%;
         .row-flex();
         border-radius: 2px;
         box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
         background: #ffffff;
         margin-bottom: 30px;
-        z-index: 1001;
+        position: relative;
+        z-index: 6001;
         .article-preview {
-          padding: 30px;
-          .col();
+          padding: 15px;
+          .col-padding();
           .col-6();
+          padding-left: 0;
+          margin-left: @offset / 2;
           .article-author {
             display: block;
             color: #adadae;
+          }
+          .article-text {
+            p {
+              font-size: 16px;
+              color: #777777;
+            }
           }
         }
         .article-image {

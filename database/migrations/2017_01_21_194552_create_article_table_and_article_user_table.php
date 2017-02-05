@@ -16,8 +16,8 @@ class CreateArticleTableAndArticleUserTable extends Migration
         // Create table for storing articles
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 100)->nullable();
-            $table->string('content', 1000)->nullable();
+            $table->string('title', 250)->nullable();
+            $table->string('content', 100000)->nullable();
             $table->enum('published', [0, 1])->default(0);
             $table->timestamps();
         });

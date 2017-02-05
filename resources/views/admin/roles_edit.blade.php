@@ -8,7 +8,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-in">Название роли<sup>*</sup></label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-h-in" type="text" name="role_name" value="{{ $role->display_name }}">
+                    <input class="uk-form-width-medium" id="form-h-in" type="text" name="role_name" value="{{ old('role_name') }}">
                     @if ($errors->has('role_name'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('role_name') }}</div>
                     @endif
@@ -17,7 +17,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-ia">Алиас<sup>*</sup></label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-h-ia" type="text" name="role_alias" value="{{ $role->name }}">
+                    <input class="uk-form-width-medium" id="form-h-ia" type="text" name="role_alias" value="{{ old('role_alias') }}">
                     @if ($errors->has('role_alias'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('role_alias') }}</div>
                     @endif
@@ -26,7 +26,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-td">Описание</label>
                 <div class="uk-form-controls">
-                    <textarea class="uk-form-width-medium" cols="30" rows="5" id="form-h-td" type="text" name="role_description">{{ $role->description }}</textarea>
+                    <textarea class="uk-form-width-medium" cols="30" rows="5" id="form-h-td" type="text" name="role_description">{{ old('role_description') }}</textarea>
                     @if ($errors->has('role_description'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('role_description') }}</div>
                     @endif

@@ -19,12 +19,7 @@ class AuthController extends Controller
 
 
         return view('pages.register', [
-            'title' => $this->title,
-            'name' => '',
-            'login' => '',
-            'password' => '',
-            'password2' => '',
-            'email' => ''
+            'title' => $this->title
         ]);
     }
 
@@ -55,10 +50,7 @@ class AuthController extends Controller
         $this->title = 'Авторизация';
 
         return view('pages.login', [
-            'title' => $this->title,
-            'login' => '',
-            'password' => '',
-            'auth' => ''
+            'title' => $this->title
         ]);
     }
 
