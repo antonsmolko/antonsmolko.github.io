@@ -13,7 +13,7 @@ class ChangeUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->enum('activate', [0, 1])->default(0)->after('password');
             $table->timestamp('last_visit_at')->after('remember_token');
         });

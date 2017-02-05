@@ -14,7 +14,7 @@ class ChangeTableArticles extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('views')->nullable()->afte('published');
+            $table->string('views')->nullable()->after('published');
         });
     }
 

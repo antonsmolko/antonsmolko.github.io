@@ -1,5 +1,13 @@
 @extends('admin.main')
 
+@push('meta')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush
+
+@push('script')
+<script src="../js/admin.users.js"></script>
+@endpush
+
 @section('content')
     <h2>Менеджер пользователей: список пользователей</h2>
     <div class="uk-grid uk-margin-top" data-uk-grid-margin>
@@ -10,28 +18,10 @@
                     <i class="uk-icon-plus"></i>
                     Создать
                 </a>
-                <button type="submit" class="uk-button" name="edit">
-                    <i class="uk-icon-edit"></i>
-                    Изменить
-                </button>
-                <button type="submit" class="uk-button" name="activate">
-                    <i class="uk-icon-check"></i>
-                    Активировать
-                </button>
-                <button type="submit" class="uk-button" name="block">
-                    <i class="uk-icon-ban"></i>
-                    Блокировать
-                </button>
-                <button type="submit" class="uk-button" name="delete">
-                    <i class="uk-icon-remove"></i>
-                    Удалить
-                </button>
                 <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
                     <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox">
-                        </th>
+                        <th>#</th>
                         <th>Имя</th>
                         <th>Логин</th>
                         <th>Активация</th>
@@ -40,23 +30,39 @@
                         <th>Дата последнего входа</th>
                         <th>Дата регистрации</th>
                         <th>ID</th>
+                        <th>Удаление</th>
                     </tr>
                     </thead>
                     <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
                     @foreach($users as $user)
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td>{!! $i++ !!}</td>
                             <td>
-                                <a href="/administrator/users/edit/{{ $user->id }}">{{ $user->name }}</a>
+                                @if($user->login == SUPER_ADMIN)
+                                    <span>{{ $user->name }}</span>
+                                @else
+                                    <a href="/administrator/users/edit/{{ $user->id }}">{{ $user->name }}</a>
+                                @endif
                             </td>
                             <td>{{ $user->login }}</td>
                             <td>
                                 @if($user->login == SUPER_ADMIN)
-                                    <input type="checkbox" checked disabled>
+                                <div class="activate" id="{{ $user->id }}">
+                                    <button class="uk-button uk-active" disabled><i class="uk-icon-check"></i></button>
+                                </div>
                                 @elseif($user->activate == 1 && $user->login != SUPER_ADMIN)
-                                    <input type="checkbox" checked>
+                                <div class="activate uk-button-group" id="{{ $user->id }}">
+                                    <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
+                                    <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
+                                </div>
                                 @else
-                                    <input type="checkbox">
+                                <div class="activate uk-button-group" id="{{ $user->id }}">
+                                    <button class="uk-button button-on"><i class="uk-icon-check"></i></button>
+                                    <button class="uk-button uk-active button-off"><i class="uk-icon-ban"></i></button>
+                                </div>
                                 @endif
                             </td>
                             <td>
@@ -70,8 +76,23 @@
                             <td>{{ $user->last_visit_at }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->id }}</td>
+                            <td>
+                                @if($user->login == SUPER_ADMIN)
+                                    <div>
+                                        <button class="uk-button" disabled><i class="uk-icon-close"></i></button>
+                                    </div>
+                                @else
+                                    <div class="delete" id="{{ $user->id }}">
+                                        <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
+                    <script>
+                        var url_activate = '{{ route('admin.users.activate') }}';
+                        var url_delete = '{{ route('admin.users.delete') }}';
+                    </script>
                     </tbody>
                 </table>
             </form>

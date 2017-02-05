@@ -6,7 +6,7 @@
         {{ csrf_field() }}
         <fieldset data-uk-margin>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-h-in">Имя пользователя<sup>*</sup></label>
+                <label class="uk-form-label" for="form-h-in">Имя пользователя</label>
                 <div class="uk-form-controls">
                     <input class="uk-form-width-medium" id="form-h-in" type="text"name="name" value="{{ $user->name }}">
                     @if ($errors->has('name'))
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-il">Логин пользователя<sup>*</sup></label>
+                <label class="uk-form-label" for="form-il">Логин пользователя</label>
                 <div class="uk-form-controls">
                     <input class="uk-form-width-medium" id="form-il" type="text" name="login" value="{{ $user->login }}">
                     @if ($errors->has('login'))
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-ip">Пароль пользователя<sup>*</sup></label>
+                <label class="uk-form-label" for="form-ip">Пароль пользователя</label>
                 <div class="uk-form-controls">
                     <input class="uk-form-width-medium" id="form-ip" type="password" name="password" value="">
                     @if ($errors->has('password'))
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-ip2">Повтор пароля<sup>*</sup></label>
+                <label class="uk-form-label" for="form-ip2">Повтор пароля</label>
                 <div class="uk-form-controls">
                     <input class="uk-form-width-medium" id="form-ip2" type="password" name="password2" value="">
                     @if ($errors->has('password2'))
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-ie">E-mail пользователя<sup>*</sup></label>
+                <label class="uk-form-label" for="form-ie">E-mail пользователя</label>
                 <div class="uk-form-controls">
                     <input class="uk-form-width-medium" id="form-ie" type="text" name="email" value="{{ $user->email }}">
                     @if ($errors->has('email'))
@@ -86,9 +86,12 @@
                     @endif
                 </div>
             </div>
-            <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Сохранить</button>
-            <a href="{{ route('admin.users') }}" class="uk-button"><i class="uk-icon-remove"></i>Отменить
-            </a>
+            @if($user->login == SUPER_ADMIN)
+                <a href="{{ route('admin.users') }}" class="uk-button"><i class="uk-icon-arrow-left"></i>Назад</a>
+            @else
+                <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Сохранить</button>
+                <a href="{{ route('admin.users') }}" class="uk-button"><i class="uk-icon-remove"></i>Отменить</a>
+            @endif
         </fieldset>
     </form>
 @endsection

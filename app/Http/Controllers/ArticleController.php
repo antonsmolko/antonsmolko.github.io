@@ -55,17 +55,6 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 
-        if (!is_null($this->request->input('id')) && !is_null($this->request->input('activate'))) {
-            $id = $this->request->input('id');
-
-            $article = Article::findOrFail($id);
-
-            $article->published = $this->request->input('activate');
-            $article->save();
-        }
-
-
-
         foreach($articles as $article) {
             foreach($article->author as $key) {
                 $author[$article->id] = $key;
@@ -79,13 +68,24 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function getStatus()
+    public function activate()
     {
-//        $data = $request->all();
-        //return $input;
-//        if($request->ajax()){
-//            echo 124124242;
-//        }
+        if (!is_null($this->request->input('id')) && !is_null($this->request->input('activate'))) {
+            $id = $this->request->input('id');
+
+            $article = Article::findOrFail($id);
+
+            $article->published = $this->request->input('activate');
+            $article->save();
+        }
+    }
+
+    public function delete() {
+        if (!is_null($this->request->input('id'))) {
+            $id = $this->request->input('id');
+
+            Article::destroy($id);
+        }
     }
 
     public function create()
@@ -100,6 +100,11 @@ class ArticleController extends Controller
 
     public function createPost()
     {
+        if (isset($_FILES['file'])) {
+            $fileName = uploadImage($_FILES['file']);
+        }
+
+
         $this->validate($this->request, [
             'title' => 'required|unique:articles,title|min:1|max:250',
             'content' => 'required|min:1|max:5000'
@@ -108,6 +113,10 @@ class ArticleController extends Controller
         $article = new Article;
         $article->title = trim($this->request->input('title'));
         $article->content = trim($this->request->input('content'));
+        if (isset($_FILES['file'])) {
+            $article->image_full = UPLOAD_DIR . FULL_DIR . $fileName;
+            $article->image_thumb = UPLOAD_DIR . THUMB_DIR . $fileName;
+        }
         $article->published = trim($this->request->input('publish'));
         $article->save();
         if ($this->request->has('author')) {
@@ -137,6 +146,10 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
+        if (isset($_FILES['file'])) {
+            $fileName = uploadImage($_FILES['file']);
+        }
+
         $this->validate($this->request, [
             'title' => 'required|unique:articles,title,'.$article->id.'|min:1|max:250',
             'content' => 'required|min:1|max:5000'
@@ -144,6 +157,10 @@ class ArticleController extends Controller
 
         $article->title = trim($this->request->input('title'));
         $article->content = trim($this->request->input('content'));
+        if (isset($_FILES['file'])) {
+            $article->image_full = UPLOAD_DIR . FULL_DIR . $fileName;
+            $article->image_thumb = UPLOAD_DIR . THUMB_DIR . $fileName;
+        }
         $article->published = trim($this->request->input('publish'));
         $article->save();
         $article->author()->detach();

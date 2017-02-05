@@ -28,7 +28,7 @@
                     </div>
                     <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
                 </div>
-                <div class="article-image" style="background-image: url('../images/articles/002.jpg')">
+                <div class="article-image" style="background-image: url('../{{ $article->image_thumb }}')">
                 </div>
             </div>
         @endif

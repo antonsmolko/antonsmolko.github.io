@@ -488,7 +488,7 @@ h3 {
   max-width: 1220px;
   margin: 0 auto;
 }
-.status {
+.activate {
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
@@ -497,13 +497,17 @@ h3 {
   -webkit-box-pack: center;
   justify-content: center;
 }
-.status .button-on.uk-active {
-  color: #82bb42;
+.activate .button-on.uk-active {
+  background: #82bb42;
+  text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.3);
+  color: #ffffff;
 }
-.status .button-off.uk-active {
-  color: #d32c46;
+.activate .button-off.uk-active {
+  background: #d32c46;
+  color: #ffffff;
+  text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.3);
 }
-.status .uk-active {
+.activate .uk-active {
   cursor: default;
 }
 body .header {

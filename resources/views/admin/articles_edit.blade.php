@@ -2,11 +2,11 @@
 
 @section('content')
     <h2>Менеджер статей: редактировать статью</h2>
-    <form class="uk-form uk-form-horizontal" action="" method="post">
+    <form class="uk-form uk-form-horizontal" enctype="multipart/form-data" action="" method="post">
         {{ csrf_field() }}
         <fieldset data-uk-margin>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-h-in">Название статьи<sup>*</sup></label>
+                <label class="uk-form-label" for="form-h-in">Название статьи</label>
                 <div class="uk-form-controls">
                     <input class="uk-width-1-1" id="form-h-in" type="text" name="title" value="{{ $article->title }}">
                     @if ($errors->has('title'))
@@ -24,6 +24,18 @@
                     @endif
                 </div>
             </div>
+
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-if">Выбирите изображение</label>
+                <div class="uk-form-controls">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
+                    <input type="file" name="file" id="form-h-if">
+                    @if ($errors->has('content'))
+                        <div class="uk-badge uk-badge-danger">{{ $errors->first('fupload') }}</div>
+                    @endif
+                </div>
+            </div>
+
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ip">Опубликовать</label>
                 <div class="uk-form-controls">

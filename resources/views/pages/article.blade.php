@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="article">
-        <div class="article-image" style="background-image: url('../images/articles/002.jpg')">
+        <div class="article-image" style="background-image: url('../{{ $article->image_full }}')">
             <h2>{{ $article->title }}</h2>
             <span class="new--dt note">
                 {{ getRusDate($article->updated_at) }}
