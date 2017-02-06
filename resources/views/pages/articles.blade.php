@@ -1,9 +1,14 @@
 @extends('pages.main')
 
 @push('styles')
+    <link rel="stylesheet" type="text/css" href="../css/animate.min.css">
     <link rel="stylesheet" type="text/css" href="../css/articles.css">
 @endpush
 @push('script')
+    <script src="../js/imagesloaded.pkgd.min.js"></script>
+    <script src="../js/imagefill.js"></script>
+    <script src="../js/masonry.pkgd.min.js"></script>
+    <script src="../js/wow.min.js"></script>
     <script src="../js/articles.js"></script>
 @endpush
 
@@ -11,26 +16,29 @@
 @endsection
 
 @section('content')
-    @foreach($articles as $article)
-        @if($article->published == 1)
-            <div class="article">
-                <div class="article-preview">
-                    <h2>{{ $article->title }}</h2>
-                    <span class="note">
+    <div class="articles-list">
+        @foreach($articles as $article)
+            @if($article->published == 1)
+                <div class="article" data-wow-offset="10">
+                    <div class="article-image">
+                        <img src="{{ $article->image_thumb }}" alt="">
+                    </div>
+                    <div class="article-preview">
+                        <h3>{{ $article->title }}</h3>
+                        <span class="note">
                         {{ getRusDate($article->updated_at) }}
-                    @if($author)
-                        <span class="article-author">Автор статьи: {{ $author[$article->id]->name }}</span>
-                    @endif
-                    <div class="article-text">
+                            @if($author)
+                                <span class="article-author">Автор статьи: {{ $author[$article->id]->name }}</span>
+                            @endif
+                            <div class="article-text">
                         <p>
                             {!! cutText($article->content) !!}
                         </p>
                     </div>
                     <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
+                    </div>
                 </div>
-                <div class="article-image" style="background-image: url('../{{ $article->image_thumb }}')">
-                </div>
-            </div>
-        @endif
-    @endforeach
+            @endif
+        @endforeach
+    </div>
 @endsection

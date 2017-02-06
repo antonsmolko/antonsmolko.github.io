@@ -5,7 +5,7 @@
 @endpush
 
 @push('script')
-<script src="../js/article.js"></script>
+    <script src="../js/article.js"></script>
 @endpush
 
 @section('header')

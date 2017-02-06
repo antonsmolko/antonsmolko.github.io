@@ -6,7 +6,6 @@
     @section('head')
     @show
     @stack('styles')
-    @stack('script')
 </head>
 
 <body>
@@ -31,5 +30,5 @@
         @show
     </div>
 </body>
-
+    @stack('script')
 </html>
