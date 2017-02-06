@@ -6,7 +6,7 @@
         {{ csrf_field() }}
         <fieldset data-uk-margin>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-h-in">Название роли<sup>*</sup></label>
+                <label class="uk-form-label" for="form-h-in">Название роли</label>
                 <div class="uk-form-controls">
                     <input class="uk-form-width-medium" id="form-h-in" type="text" name="role_name" value="{{ old('role_name') }}">
                     @if ($errors->has('role_name'))
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="uk-form-row">
-                <label class="uk-form-label" for="form-h-ia">Алиас<sup>*</sup></label>
+                <label class="uk-form-label" for="form-h-ia">Алиас</label>
                 <div class="uk-form-controls">
                     <input class="uk-form-width-medium" id="form-h-ia" type="text" name="role_alias" value="{{ old('role_alias') }}">
                     @if ($errors->has('role_alias'))

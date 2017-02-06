@@ -42,6 +42,12 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['permission:admin_ac
     Route::get('/users', ['middleware' => ['ability:super_admin|user_admin,view_users'], 'uses' => 'UsersController@show'])
         ->name('admin.users');
 
+    Route::post('/users/activate', ['middleware' => ['ability:super_admin|user_admin,activate_users'], 'uses' => 'UsersController@activate'])
+        ->name('admin.users.activate');
+
+    Route::post('/users/delete', ['middleware' => ['ability:super_admin|user_admin,delete_users'], 'uses' => 'UsersController@delete'])
+        ->name('admin.users.delete');
+
     Route::get('/users/create', ['middleware' => ['ability:super_admin|user_admin,create_users'], 'uses' => 'UsersController@create'])
         ->name('admin.users.create');
 
@@ -58,6 +64,9 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['permission:admin_ac
 
     Route::get('/roles', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RolesController@show'])
         ->name('admin.roles');
+
+    Route::post('/roles/delete', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RolesController@delete'])
+        ->name('admin.roles.delete');
 
     Route::get('/roles/create', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RolesController@create'])
         ->name('admin.roles.create');
@@ -76,8 +85,11 @@ Route::group(['prefix' => 'administrator', 'middleware' => ['permission:admin_ac
     Route::get('/articles', ['middleware' => ['ability:super_admin|article_admin|author|editor,create_articles|edit_articles|publish_articles|delete_articles'], 'uses' => 'ArticleController@show'])
         ->name('admin.articles');
 
-//    Route::post('/articles', ['middleware' => ['ability:super_admin|article_admin,publish_articles'], 'uses' => 'ArticleController@getStatus'])
-//        ->name('admin.articles.post.ajax');
+    Route::post('/articles/activate', ['middleware' => ['ability:super_admin|article_admin,publish_articles'], 'uses' => 'ArticleController@activate'])
+        ->name('admin.articles.activate');
+
+    Route::post('/articles/delete', ['middleware' => ['ability:super_admin|article_admin,publish_articles'], 'uses' => 'ArticleController@delete'])
+        ->name('admin.articles.delete');
 
     Route::get('/articles/create', ['middleware' => ['ability:super_admin|article_admin|author,create_articles'], 'uses' => 'ArticleController@create'])
         ->name('admin.articles.create');

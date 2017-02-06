@@ -1,15 +1,9 @@
 $(document).ready(function(){
 
-    $(".status > button").on("click", function (event) {
+    $(".activate > button").on("click", function (event) {
        event.preventDefault();
 
        $(this).addClass("uk-active").siblings().removeClass("uk-active");
-
-       if ($(this).hasClass("button-on")) {
-           $(this).css("color", "#82bb42").siblings().css("color", "inherit");
-       } else if ($(this).hasClass('button-off')) {
-           $(this).css("color", "#d32c46").siblings().css("color", "inherit");
-       }
     });
 
     $.ajaxSetup({
@@ -19,7 +13,7 @@ $(document).ready(function(){
         }
     });
 
-    $(".status > button").on("click",(function(){
+    $(".activate > button").on("click",(function(){
 
         if ($(this).hasClass("button-on")) {
             var activate = 1;
@@ -30,11 +24,24 @@ $(document).ready(function(){
         var id = $(this).parent().attr('id');
 
         $.ajax({
-            url: "articles/",
-            type: "get",
-            data: {activate: activate, id: id},
-            dataType: "JSON"
+            url: url_activate,
+            type: "post",
+            data: {activate: activate, id: id}
         });
     }));
 
+    $(".delete > button").on("click", (function (event) {
+        event.preventDefault();
+
+        var id = $(this).parent().attr('id');
+
+        if (confirm('Подтвердите удаление статьи!')) {
+
+            $.ajax({
+                url: url_delete,
+                type: "post",
+                data: {id: id}
+            }).done(location.reload());
+        }
+    }));
 });

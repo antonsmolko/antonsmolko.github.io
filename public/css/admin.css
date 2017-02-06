@@ -102,7 +102,7 @@ main {
   display: block;
 }
 .wrapper {
-  max-width: 1200px;
+  max-width: 1280px;
   padding-left: 30px;
   padding-right: 30px;
   margin: 0 auto;
@@ -204,6 +204,7 @@ body .header {
 }
 body .content {
   margin-bottom: 0;
+  padding-bottom: 20px;
 }
 body .footer {
   background: #4f5157;
@@ -211,10 +212,16 @@ body .footer {
   text-transform: uppercase;
 }
 body .footer .wrapper {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
   -webkit-box-pack: justify;
   justify-content: space-between;
   -webkit-box-align: center;
   align-items: center;
+  margin: 0 auto;
 }
 body .footer .wrapper .footer-logo {
   box-sizing: border-box;
@@ -488,7 +495,7 @@ h3 {
   max-width: 1220px;
   margin: 0 auto;
 }
-.status {
+.activate {
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
@@ -497,13 +504,17 @@ h3 {
   -webkit-box-pack: center;
   justify-content: center;
 }
-.status .button-on.uk-active {
-  color: #82bb42;
+.activate .button-on.uk-active {
+  background: #82bb42;
+  text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.3);
+  color: #ffffff;
 }
-.status .button-off.uk-active {
-  color: #d32c46;
+.activate .button-off.uk-active {
+  background: #d32c46;
+  color: #ffffff;
+  text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.3);
 }
-.status .uk-active {
+.activate .uk-active {
   cursor: default;
 }
 body .header {

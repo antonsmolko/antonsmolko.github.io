@@ -40,6 +40,8 @@ elixir(function(mix) {
 elixir(function(mix) {
     mix.scripts(['articles.js'], 'public/js/articles.js')
         .scripts(['article.js'], 'public/js/article.js')
+        .scripts(['admin.users.js'], 'public/js/admin.users.js')
+        .scripts(['admin.roles.js'], 'public/js/admin.roles.js')
         .scripts(['admin.articles.js'], 'public/js/admin.articles.js');
 });
 

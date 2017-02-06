@@ -28,6 +28,7 @@
                             <th>Дата</th>
                             <th>Просмотры</th>
                             <th>ID</th>
+                            <th>Удаление</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,7 +42,7 @@
                                     <a href="{{ route('admin.articles.edit', ['id' => $article->id]) }}">{{ $article->title }}</a>
                                 </td>
                                 <td>
-                                    <div class="status uk-button-group" id="{{ $article->id }}">
+                                    <div class="activate us uk-button-group" id="{{ $article->id }}">
                                     @if($article->published == 1)
                                         <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
                                         <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
@@ -61,6 +62,11 @@
                                 <td>{{ $article->created_at }}</td>
                                 <td>{{ $article->views }}</td>
                                 <td>{{ $article->id }}</td>
+                                <td>
+                                    <div class="delete" id="{{ $article->id }}">
+                                        <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -69,4 +75,8 @@
             </div>
         </div>
     </div>
+    <script>
+        var url_activate = '{{ route('admin.articles.activate') }}';
+        var url_delete = '{{ route('admin.articles.delete') }}';
+    </script>
 @endsection

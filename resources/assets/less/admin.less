@@ -5,17 +5,28 @@
   margin: 0 auto;
 }
 
-.status {
+.activate {
   .row-flex();
   .justify-content(center);
   .button-on.uk-active {
-    color: #82bb42;
+    background: #82bb42;
+    text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.3);
+    color: #ffffff;
   }
   .button-off.uk-active {
-    color: #d32c46;
+    background: #d32c46;
+    color: #ffffff;
+    text-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.3);
   }
   .uk-active{
     cursor: default;
+  }
+}
+
+.delete {
+  button {
+    //color: inherit;
+    //text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
   }
 }
 

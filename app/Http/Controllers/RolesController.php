@@ -24,6 +24,16 @@ class RolesController extends Controller
         ]);
     }
 
+    public function delete() {
+
+        if (!is_null($this->request->input('id'))) {
+
+            $id = $this->request->input('id');
+
+            Role::destroy($id);
+        }
+    }
+
     public function create()
     {
         $permissions = Permission::all();
