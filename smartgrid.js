@@ -6,7 +6,7 @@ var settings = {
     columns: 12, /* number of grid columns */
     offset: "30px", /* gutter width px || % */
     container: {
-        maxWidth: '1200px', /* max-width оn very large screen */
+        maxWidth: '1280px', /* max-width оn very large screen */
         fields: '30px' /* side fields */
     },
     breakPoints: {
