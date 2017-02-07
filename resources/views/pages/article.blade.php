@@ -1,37 +1,42 @@
 @extends('pages.main')
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="../css/article.css">
+<link rel="stylesheet" type="text/css" href="../css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="../css/articles.css">
 @endpush
-
 @push('script')
-    <script src="../js/article.js"></script>
+<script src="../js/imagesloaded.pkgd.min.js"></script>
+<script src="../js/imagefill.js"></script>
+<script src="../js/masonry.pkgd.min.js"></script>
+<script src="../js/wow.min.js"></script>
+<script src="../js/articles.js"></script>
 @endpush
 
 @section('header')
 @endsection
 
 @section('content')
-    <div class="article">
-        <div class="article-image" style="background-image: url('../{{ $article->image_full }}')">
-            <h2>{{ $article->title }}</h2>
-            <span class="new--dt note">
-                {{ getRusDate($article->updated_at) }}
-            </span>
-            @if($author)
-                <span class="article-author">
-                    Автор статьи: {{ $author->name }}
-                </span>
+    <div class="articles-list">
+        @foreach($articles as $article)
+            @if($article->published == 1)
+                <div class="article">
+                    <img src="{{ $article->image_thumb }}" alt="">
+                    <div class="article-preview">
+                        <h3>{{ $article->title }}</h3>
+                        <span class="note">
+                        {{ getRusDate($article->updated_at) }}
+                            @if($author)
+                                <span class="article-author">Автор статьи: {{ $author[$article->id]->name }}</span>
+                            @endif
+                            <div class="article-text">
+                        <p>
+                            {!! cutText($article->content) !!}
+                        </p>
+                    </div>
+                    <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
+                    </div>
+                </div>
             @endif
-        </div>
-        <div class="article-content">
-
-            <div class="new--body">
-                <p>{!! $article['content'] !!}</p>
-            </div>
-            <div class="new--control">
-                <a class="button" href="{{ route('index') }}">К списку новостей</a>
-            </div>
-        </div>
+        @endforeach
     </div>
 @endsection

@@ -5,3 +5,5 @@
 Homestead.json
 Homestead.yaml
 .env
+/node_modules/
+/.env

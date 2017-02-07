@@ -6,6 +6,7 @@ use App\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator;
 use App\Role;
+use DB;
 
 class RolesController extends Controller
 {
@@ -26,11 +27,19 @@ class RolesController extends Controller
 
     public function delete() {
 
+        dump(Role::all());
+
         if (!is_null($this->request->input('id'))) {
 
             $id = $this->request->input('id');
 
-            Role::destroy($id);
+//            Role::destroy($id);
+
+            // ! ! ! К О С Т Ы Л Ь ! ! ! //
+
+            DB::table('roles')->where('id', $id)->delete();
+
+            // ! ! ! К О С Т Ы Л Ь ! ! ! //
         }
     }
 

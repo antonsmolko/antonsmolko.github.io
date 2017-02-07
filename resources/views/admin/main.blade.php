@@ -16,7 +16,6 @@
     <script src="/js/codemirror/xml.js"></script>
     <script src="/js/codemirror/gfm.js"></script>
     <script src="/js/marked/marked.min.js"></script>
-    <script src="/js/scripts.js"></script>
 
     <!-- HTML editor CSS and JavaScript -->
     <link rel="stylesheet" href="/css/htmleditor.gradient.min.css">

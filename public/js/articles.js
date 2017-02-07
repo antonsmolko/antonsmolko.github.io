@@ -8,7 +8,7 @@ $(function () {
         });
     });
 
-    $('.article').addClass('wow fadeInUp');
+    $('.article').addClass('wow fadeIn');
 
     $(".header").css('height', window.innerWidth / 3.496503496503497);
 
