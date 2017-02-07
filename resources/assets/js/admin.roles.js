@@ -18,7 +18,7 @@ $(document).ready(function(){
                 url: url_delete,
                 type: "post",
                 data: {id: id}
-            }).done(location.reload());
+            }).done(window.location.reload());
         }
     }));
 });

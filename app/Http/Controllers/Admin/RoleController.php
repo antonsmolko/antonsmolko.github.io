@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Permission;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Contracts\Validation\Validator;
 use App\Role;
+use App\Permission;
 use DB;
 
-class RolesController extends Controller
+class RoleController extends AdminController
 {
     public function  __construct(Request $request)
     {
