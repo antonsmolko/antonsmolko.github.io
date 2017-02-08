@@ -50,7 +50,7 @@
                         </tr>
                     @endforeach
                     <script>
-                        var url_delete = '{{ route('admin.roles.delete') }}';
+                        var url_delete = '{{ route('api.role.delete') }}';
                     </script>
                     </tbody>
                 </table>

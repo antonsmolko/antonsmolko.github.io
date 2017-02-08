@@ -66,8 +66,8 @@
                                 @endif
                             </td>
                             <td>
-                                @if(isset($role[$user->id]))
-                                    {{ $role[$user->id]['display_name'] }}
+                                @if(isset($user->role[0]->display_name))
+                                    {{ $user->role[0]->display_name }}
                                 @else
                                     Не назначена
                                 @endif
@@ -90,8 +90,8 @@
                         </tr>
                     @endforeach
                     <script>
-                        var url_activate = '{{ route('admin.users.activate') }}';
-                        var url_delete = '{{ route('admin.users.delete') }}';
+                        var url_activate = '{{ route('api.user.activate') }}';
+                        var url_delete = '{{ route('api.user.delete') }}';
                     </script>
                     </tbody>
                 </table>

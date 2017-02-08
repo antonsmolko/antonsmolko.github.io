@@ -27,8 +27,8 @@
                         <h3>{{ $article->title }}</h3>
                         <span class="note">
                         {{ getRusDate($article->updated_at) }}
-                            @if($author)
-                                <span class="article-author">Автор статьи: {{ $author[$article->id]->name }}</span>
+                            @if($article->author[0]->name)
+                                <span class="article-author">Автор статьи: {{ $article->author[0]->name }}</span>
                             @endif
                             <div class="article-text">
                         <p>

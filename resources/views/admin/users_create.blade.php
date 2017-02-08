@@ -8,7 +8,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-in">Имя пользователя</label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-h-in" type="text"name="name" value="{{ $name }}">
+                    <input class="uk-form-width-medium" id="form-h-in" type="text" name="name" value="{{ old('name') }}">
                     @if ($errors->has('name'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('name') }}</div>
                     @endif
@@ -17,7 +17,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-il">Логин пользователя</label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-il" type="text" name="login" value="{{ $login }}">
+                    <input class="uk-form-width-medium" id="form-il" type="text" name="login" value="{{ old('login') }}">
                     @if ($errors->has('login'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('login') }}</div>
                     @endif
@@ -44,7 +44,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ie">E-mail пользователя</label>
                 <div class="uk-form-controls">
-                    <input class="uk-form-width-medium" id="form-ie" type="text" name="email" value="{{ $email }}">
+                    <input class="uk-form-width-medium" id="form-ie" type="text" name="email" value="{{ old('email') }}">
                     @if ($errors->has('email'))
                         <div class="uk-badge uk-badge-danger">{{ $errors->first('email') }}</div>
                     @endif

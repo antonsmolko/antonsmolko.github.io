@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,18 +16,10 @@ class ArticleController extends Controller
     public function showAll()
     {
         $articles = Article::all();
-        $author = false;
-
-        foreach($articles as $article) {
-            foreach($article->author as $key) {
-                $author[$article->id] = $key;
-            }
-        }
 
         return view('pages.articles', [
             'title' => 'MOON',
-            'articles' => $articles,
-            'author' => $author
+            'articles' => $articles
         ]);
     }
 
@@ -35,19 +27,12 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        $author = false;
-
-        foreach ($article->author as $key) {
-            $author = $key;
-        }
-
         $article->views += 1;
         $article->save();
 
         return view('pages.article', [
             'title' => 'Просмотр статьи',
-            'article' => $article,
-            'author' => $author
+            'article' => $article
         ]);
     }
 }

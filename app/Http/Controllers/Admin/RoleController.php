@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Contracts\Validation\Validator;
 use App\Role;
 use App\Permission;
-use DB;
 
 class RoleController extends AdminController
 {
@@ -16,7 +15,7 @@ class RoleController extends AdminController
         parent::__construct($request);
     }
 
-    public function show()
+    public function showAll()
     {
         $roles = Role::all();
 
@@ -24,24 +23,6 @@ class RoleController extends AdminController
             'title' => 'Менеджер ролей',
             'roles' => $roles
         ]);
-    }
-
-    public function delete() {
-
-        dump(Role::all());
-
-        if (!is_null($this->request->input('id'))) {
-
-            $id = $this->request->input('id');
-
-//            Role::destroy($id);
-
-            // ! ! ! К О С Т Ы Л Ь ! ! ! //
-
-            DB::table('roles')->where('id', $id)->delete();
-
-            // ! ! ! К О С Т Ы Л Ь ! ! ! //
-        }
     }
 
     public function create()
@@ -84,6 +65,8 @@ class RoleController extends AdminController
         $role = Role::findOrFail($id);
         $permissions = Permission::all();
 
+        // Пока не нашел более рационального решения
+
         foreach($role->permission as $key) {
             $permission[$key->id] = $key;
         }
@@ -110,14 +93,14 @@ class RoleController extends AdminController
         $role->name = strtolower(trim($this->request->input('role_alias')));
         $role->display_name = trim($this->request->input('role_name'));
         $role->description = trim($this->request->input('role_description'));
-        $role->permission()->detach();
 
         foreach ($permissions as $permission) {
             if ($this->request->has($permission['name'])) {
-                $role->permission()->attach($permission['id']);
+                $rolePermissions[] = $permission['id'];
             }
         }
 
+        $role->permission()->sync($rolePermissions);
         $role->save();
 
         return redirect()->route('admin.roles');

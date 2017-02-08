@@ -15,41 +15,14 @@ class UserController extends AdminController
         parent::__construct($request);
     }
 
-    public function show()
+    public function showAll()
     {
         $users = User::all();
-
-        foreach($users as $user) {
-            foreach($user->roles as $key) {
-                $role[$user->id] = $key;
-            }
-        }
 
         return view('admin.users', [
             'title' => 'Пользователи',
             'users' => $users,
-            'role' => $role
         ]);
-    }
-
-    public function activate()
-    {
-        if (!is_null($this->request->input('id')) && !is_null($this->request->input('activate'))) {
-            $id = $this->request->input('id');
-
-            $user = User::findOrFail($id);
-
-            $user->activate = $this->request->input('activate');
-            $user->save();
-        }
-    }
-
-    public function delete() {
-        if (!is_null($this->request->input('id'))) {
-            $id = $this->request->input('id');
-
-            User::destroy($id);
-        }
     }
 
     public function create()
@@ -58,12 +31,6 @@ class UserController extends AdminController
 
         return view('admin.users_create', [
             'title' => 'Новый пользователь',
-            'name' => '',
-            'login' => '',
-            'password' => '',
-            'password2' => '',
-            'email' => '',
-            'activate' => '',
             'roles' => $roles
         ]);
     }
@@ -96,16 +63,10 @@ class UserController extends AdminController
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
-        $role = false;
-
-        foreach ($user->roles as $key) {
-            $role = $key;
-        }
 
         return view('admin.users_edit', [
             'title' => 'Редактор пользователя',
             'user' => $user,
-            'role' => $role,
             'roles' => $roles
         ]);
     }
@@ -124,19 +85,19 @@ class UserController extends AdminController
 
         $user->name = trim($this->request->input('name'));
         $user->login = trim($this->request->input('login'));
+
         if ($this->request->has('password')) {
             $user->password = bcrypt(trim($this->request->input('password')));
         }
+
         $user->email = trim($this->request->input('email'));
         $user->activate = trim($this->request->input('activate'));
-        $user->roles()->detach();
 
-        if ($this->request->has('role')) {
-            $user->roles()->attach($this->request->input('role'));
+        if ($this->request->has('roleId')) {
+            $user->roles()->sync([$this->request->input('roleId')]);
         }
 
         $user->save();
-
 
         return redirect()->route('admin.users');
     }

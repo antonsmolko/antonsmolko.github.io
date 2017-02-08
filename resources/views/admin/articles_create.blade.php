@@ -29,9 +29,9 @@
                 <label class="uk-form-label" for="form-h-if">Выбирите изображение</label>
                 <div class="uk-form-controls">
                     <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
-                    <input type="file" name="file" id="form-h-if" value="{{ old('file') }}">
-                    @if ($errors->has('content'))
-                        <div class="uk-badge uk-badge-danger">{{ $errors->first('file') }}</div>
+                    <input type="file" name="image" id="form-h-if" value="{{ old('image') }}">
+                    @if ($errors->has('image'))
+                        <div class="uk-badge uk-badge-danger">{{ $errors->first('image') }}</div>
                     @endif
                 </div>
             </div>
@@ -42,7 +42,7 @@
                     <input id="form-ip" type="checkbox" name="publish" value="1">
                 </div>
             </div>
-            <input type="hidden" name="author" value="{{ $author->id }}">
+            <input type="hidden" name="authorId" value="{{ Auth::user()->id }}">
         </fieldset>
         <div class="uk-margin-top">
             <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Создать</button>

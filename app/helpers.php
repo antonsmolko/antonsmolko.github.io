@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Permission;
+use Illuminate\Support\Facades\File;
 
 function getRusDate($dateTime, $format = '%DAYWEEK%, d %MONTH% Y H:i', $offset = 0)
 {
@@ -95,22 +93,22 @@ function resizeImage($file_input, $file_output, $w_o, $h_o) {
 
 function uploadImage($file)
 {
-    if(!validateImage($file))
-        return false;
-    else
-    {
-        $mime = $file['type'];
+//    if(!validateImage($file))
+//        return false;
+//    else
+//    {
+        $mime = $file->getMimeType();
         $parts = explode("/", $mime);
         $ext = $parts[1];
 
 
         $file_name = sha1(microtime(true));
 //        copy($file['tmp_name'], UPLOAD_DIR . FULL_DIR . $file_name . $mime);
-        resizeImage($file['tmp_name'], UPLOAD_DIR . FULL_DIR . $file_name, 2500, 0);
-        resizeImage($file['tmp_name'], UPLOAD_DIR . THUMB_DIR . $file_name, 600, 0);
+        resizeImage($file, UPLOAD_DIR . FULL_DIR . $file_name, 2500, 0);
+        resizeImage($file, UPLOAD_DIR . THUMB_DIR . $file_name, 600, 0);
 
         return $file_name . "." . $ext;
-    }
+//    }
 }
 
 

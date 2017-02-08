@@ -53,8 +53,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @if(isset($author[$article->id]))
-                                        {{ $author[$article->id]->name }}
+                                    @if(isset($article->author[0]->name))
+                                        {{ $article->author[0]->name }}
                                     @else
                                         Нет автора
                                     @endif
@@ -76,7 +76,7 @@
         </div>
     </div>
     <script>
-        var url_activate = '{{ route('admin.articles.activate') }}';
-        var url_delete = '{{ route('admin.articles.delete') }}';
+        var url_activate = '{{ route('api.article.activate') }}';
+        var url_delete = '{{ route('api.article.delete') }}';
     </script>
 @endsection

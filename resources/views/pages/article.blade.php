@@ -18,9 +18,9 @@
             <span class="new--dt note">
                 {{ getRusDate($article->updated_at) }}
             </span>
-            @if($author)
+            @if($article->author[0]->name)
                 <span class="article-author">
-                    Автор статьи: {{ $author->name }}
+                    Автор статьи: {{ $article->author[0]->name }}
                 </span>
             @endif
         </div>

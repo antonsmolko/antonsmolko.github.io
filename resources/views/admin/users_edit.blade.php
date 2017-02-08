@@ -55,19 +55,19 @@
             <div class="uk-form-row uk-form-select">
                 <label class="uk-form-label" for="form-sr">Назначить роль</label>
                 <div class="uk-form-controls">
-                    <select class="uk-form-width-medium" id="form-sr" name="role">
-                        @if(!$role)
+                    <select class="uk-form-width-medium" id="form-sr" name="roleId">
+                        @if(!$user->role[0]->display_name)
                             <option value="" selected>Не назначена</option>
-                            @foreach($roles as $key)
-                                <option value="{{ $key->id }}">{{ $key->display_name }}</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                             @endforeach
                         @else
                             <option value="">Не назначена</option>
-                            @foreach($roles as $key)
-                                @if($role->display_name == $key->display_name)
-                                    <option value="{{ $key->id }}" selected>{{ $key->display_name }}</option>
+                            @foreach($roles as $role)
+                                @if($user->role[0]->display_name == $role->display_name)
+                                    <option value="{{ $role->id }}" selected>{{ $role->display_name }}</option>
                                 @else
-                                    <option value="{{ $key->id }}">{{ $key->display_name }}</option>
+                                    <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                                 @endif
                             @endforeach
                         @endif

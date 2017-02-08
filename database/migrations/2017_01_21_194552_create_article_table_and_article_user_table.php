@@ -43,7 +43,7 @@ class CreateArticleTableAndArticleUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
         Schema::dropIfExists('article_user');
+        Schema::dropIfExists('articles');
     }
 }
