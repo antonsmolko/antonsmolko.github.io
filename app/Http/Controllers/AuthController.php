@@ -56,10 +56,15 @@ class AuthController extends Controller
 
     public function showAdmin() {
 
-        return view('admin.main', [
-            'title' => 'Панель администратора',
-            'content' => 'admin.start'
-        ]);
+        if (Auth::user()->ability('super_admin,user_admin', 'view_users,create_users,edit_users,activate_users,delete_users')) {
+            return redirect()->route('admin.users');
+        } elseif (Auth::user()->ability('super_admin', 'create_edit_delete_roles')) {
+            return redirect()->route('admin.roles');
+        } elseif (Auth::user()->ability('super_admin,articles_admin,author,editor', 'view_vip_articles,create_articles,edit_articles,publish_articles,delete_articles')) {
+            return redirect()->route('admin.articles');
+        } else {
+            return redirect()->route('index');
+        }
     }
 
     public function loginPost()

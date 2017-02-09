@@ -536,6 +536,21 @@ body .content .wrapper .articles-list .article {
     width: calc(100% - 30px);
   }
 }
+body .content .wrapper .articles-list .article .article-image {
+  overflow: hidden;
+}
+body .content .wrapper .articles-list .article .article-image img {
+  width: 100%;
+  display: block;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+body .content .wrapper .articles-list .article .article-image img:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
 body .content .wrapper .articles-list .article .article-preview {
   padding: 30px;
 }
@@ -546,10 +561,6 @@ body .content .wrapper .articles-list .article .article-preview .article-author 
 body .content .wrapper .articles-list .article .article-preview .article-text p {
   font-size: 16px;
   color: #777777;
-}
-body .content .wrapper .articles-list .article img {
-  width: 100%;
-  display: block;
 }
 
 /*# sourceMappingURL=articles.css.map */

@@ -11,6 +11,7 @@ class ArticleController extends AdminController
 {
     public function activate()
     {
+
         if (!is_null($this->request->input('id')) && !is_null($this->request->input('activate'))) {
 
             $id = $this->request->input('id');

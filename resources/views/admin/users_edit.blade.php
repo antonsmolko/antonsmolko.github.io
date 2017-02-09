@@ -77,16 +77,16 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ia">Активировать</label>
                 <div class="uk-form-controls">
-                    @if($user->login == SUPER_ADMIN)
+                    @if($user->login == SUPER_ADMIN_LOGIN)
                         <input id="form-ia" type="checkbox" name="activate" value="1" checked disabled>
-                    @elseif($user->activate == 1 && $user->login != SUPER_ADMIN)
+                    @elseif($user->activate == 1 && $user->login != SUPER_ADMIN_LOGIN)
                         <input id="form-ia" type="checkbox" name="activate" checked value="1">
                     @else
                         <input id="form-ia" type="checkbox" name="activate" value="1">
                     @endif
                 </div>
             </div>
-            @if($user->login == SUPER_ADMIN)
+            @if($user->login == SUPER_ADMIN_LOGIN)
                 <a href="{{ route('admin.users') }}" class="uk-button"><i class="uk-icon-arrow-left"></i>Назад</a>
             @else
                 <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Сохранить</button>

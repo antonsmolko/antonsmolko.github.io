@@ -22,6 +22,18 @@ body {
           margin-bottom: 30px;
           position: relative;
           z-index: 6001;
+          .article-image {
+            overflow: hidden;
+            img {
+              width: 100%;
+              display: block;
+              transition: 0.5s;
+              &:hover {
+                transform: scale(1.2);
+                transition: 0.5s;
+              }
+            }
+          }
           .article-preview {
             padding: 30px;
             .article-author {
@@ -34,10 +46,6 @@ body {
                 color: #777777;
               }
             }
-          }
-          img {
-            width: 100%;
-            display: block;
           }
         }
       }

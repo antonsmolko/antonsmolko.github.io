@@ -20,9 +20,9 @@
         @foreach($articles as $article)
             @if($article->published == 1)
                 <div class="article" data-wow-offset="10">
-                    <div class="article-image">
+                    <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
                         <img src="{{ $article->image_thumb }}" alt="">
-                    </div>
+                    </a>
                     <div class="article-preview">
                         <h3>{{ $article->title }}</h3>
                         <span class="note">
