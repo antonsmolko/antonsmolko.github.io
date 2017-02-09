@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    $('#articles').addClass('uk-active');
+
     $(".activate > button").on("click", function (event) {
        event.preventDefault();
 
@@ -41,7 +43,7 @@ $(document).ready(function(){
                 url: url_delete,
                 type: "post",
                 data: {id: id}
-            }).done(location.reload());
+            }).done(document.location.reload());
         }
     }));
 });

@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    $('#roles').addClass('uk-active');
+
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -18,7 +20,7 @@ $(document).ready(function(){
                 url: url_delete,
                 type: "post",
                 data: {id: id}
-            });
+            }).done(document.location.reload());
         }
     }));
 });

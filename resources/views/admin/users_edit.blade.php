@@ -55,19 +55,19 @@
             <div class="uk-form-row uk-form-select">
                 <label class="uk-form-label" for="form-sr">Назначить роль</label>
                 <div class="uk-form-controls">
-                    <select class="uk-form-width-medium" id="form-sr" name="role">
-                        @if(!$role)
+                    <select class="uk-form-width-medium" id="form-sr" name="roleId">
+                        @if(!$user->role[0]->display_name)
                             <option value="" selected>Не назначена</option>
-                            @foreach($roles as $key)
-                                <option value="{{ $key->id }}">{{ $key->display_name }}</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                             @endforeach
                         @else
                             <option value="">Не назначена</option>
-                            @foreach($roles as $key)
-                                @if($role->display_name == $key->display_name)
-                                    <option value="{{ $key->id }}" selected>{{ $key->display_name }}</option>
+                            @foreach($roles as $role)
+                                @if($user->role[0]->display_name == $role->display_name)
+                                    <option value="{{ $role->id }}" selected>{{ $role->display_name }}</option>
                                 @else
-                                    <option value="{{ $key->id }}">{{ $key->display_name }}</option>
+                                    <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                                 @endif
                             @endforeach
                         @endif
@@ -77,16 +77,16 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-ia">Активировать</label>
                 <div class="uk-form-controls">
-                    @if($user->login == SUPER_ADMIN)
+                    @if($user->login == SUPER_ADMIN_LOGIN)
                         <input id="form-ia" type="checkbox" name="activate" value="1" checked disabled>
-                    @elseif($user->activate == 1 && $user->login != SUPER_ADMIN)
+                    @elseif($user->activate == 1 && $user->login != SUPER_ADMIN_LOGIN)
                         <input id="form-ia" type="checkbox" name="activate" checked value="1">
                     @else
                         <input id="form-ia" type="checkbox" name="activate" value="1">
                     @endif
                 </div>
             </div>
-            @if($user->login == SUPER_ADMIN)
+            @if($user->login == SUPER_ADMIN_LOGIN)
                 <a href="{{ route('admin.users') }}" class="uk-button"><i class="uk-icon-arrow-left"></i>Назад</a>
             @else
                 <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Сохранить</button>

@@ -16,7 +16,6 @@
     <script src="/js/codemirror/xml.js"></script>
     <script src="/js/codemirror/gfm.js"></script>
     <script src="/js/marked/marked.min.js"></script>
-    <script src="/js/scripts.js"></script>
 
     <!-- HTML editor CSS and JavaScript -->
     <link rel="stylesheet" href="/css/htmleditor.gradient.min.css">
@@ -51,20 +50,19 @@
     <nav class="uk-navbar uk-width-1-1">
         <ul class="uk-navbar-nav">
             @ability(['super_admin', 'user_admin'], 'view_users')
-            <li class="uk-parent"><a href="{{ route('admin.users') }}">Пользователи</a></li>
+            <li class="uk-parent" id="users"><a href="{{ route('admin.users') }}">Пользователи</a></li>
             @endability
             @ability('super_admin', 'create_edit_delete_roles')
-            <li class="uk-parent"><a href="{{ route('admin.roles') }}">Роли</a></li>
+            <li class="uk-parent" id="roles"><a href="{{ route('admin.roles') }}">Роли</a></li>
             @endability
             @ability(['super_admin','article_admin', 'author', 'editor'], ['creare_articles', 'edit_articles', 'publish_articles', 'delete_articles'])
-            <li class="uk-parent"><a href="{{ route('admin.articles') }}">Блог</a></li>
+            <li class="uk-parent" id="articles"><a href="{{ route('admin.articles') }}">Блог</a></li>
             @endability
         </ul>
     </nav>
 @endsection
 
 @section('content')
-    <h2>Панель администратора</h2>
 @endsection
 
 @section('footer')

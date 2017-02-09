@@ -491,96 +491,34 @@ h3 {
 .content {
   margin-bottom: 40px;
 }
-.debug {
-  height: 100vh;
-  position: fixed;
-  width: 100%;
-}
-.debug > div {
-  height: inherit;
-  max-width: 1280px;
-  padding-left: 30px;
-  padding-right: 30px;
-  margin: 0 auto;
-  font-family: 'Exo2-Regular', Arial;
-}
-@media screen and (max-width: 1100px) {
-  .debug > div {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-}
-@media screen and (max-width: 960px) {
-  .debug > div {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media screen and (max-width: 780px) {
-  .debug > div {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media screen and (max-width: 560px) {
-  .debug > div {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media screen and (max-width: 1100px) {
-  .debug > div {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-}
-@media screen and (max-width: 960px) {
-  .debug > div {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media screen and (max-width: 780px) {
-  .debug > div {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media screen and (max-width: 560px) {
-  .debug > div {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-.debug > div > div {
-  height: inherit;
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.debug > div > div > div {
-  box-sizing: border-box;
-  margin-left: 15px;
-  margin-right: 15px;
-  word-wrap: break-word;
-  width: calc(8.333333333333334% - 30px);
-  height: inherit;
-  outline: #ff0;
-  background: rgba(0, 0, 0, 0.5);
-}
 body .content {
   margin-top: -100px;
   background-image: url("../images/background/body_bg.jpg");
   background-size: 70%;
 }
-body .content .wrapper .article {
+body .content .wrapper .articles-list {
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
   margin-left: -15px;
   margin-right: -15px;
+  -webkit-box-align: start;
+  align-items: start;
+}
+body .content .wrapper .articles-list .article {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-left: 15px;
+  margin-right: 15px;
+  word-wrap: break-word;
+  width: calc(33.333333333333336% - 30px);
   border-radius: 2px;
   box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
   background: #ffffff;
@@ -588,31 +526,41 @@ body .content .wrapper .article {
   position: relative;
   z-index: 6001;
 }
-body .content .wrapper .article .article-preview {
-  padding: 15px;
-  padding-left: 15px;
-  padding-right: 15px;
-  word-wrap: break-word;
-  width: calc(50% - 30px);
-  padding-left: 0;
-  margin-left: 15px;
+@media screen and (max-width: 1100px) {
+  body .content .wrapper .articles-list .article {
+    width: calc(50% - 30px);
+  }
 }
-body .content .wrapper .article .article-preview .article-author {
+@media screen and (max-width: 780px) {
+  body .content .wrapper .articles-list .article {
+    width: calc(100% - 30px);
+  }
+}
+body .content .wrapper .articles-list .article .article-image {
+  overflow: hidden;
+}
+body .content .wrapper .articles-list .article .article-image img {
+  width: 100%;
+  display: block;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+body .content .wrapper .articles-list .article .article-image img:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+body .content .wrapper .articles-list .article .article-preview {
+  padding: 30px;
+}
+body .content .wrapper .articles-list .article .article-preview .article-author {
   display: block;
   color: #adadae;
 }
-body .content .wrapper .article .article-preview .article-text p {
+body .content .wrapper .articles-list .article .article-preview .article-text p {
   font-size: 16px;
   color: #777777;
-}
-body .content .wrapper .article .article-image {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  padding-left: 15px;
-  padding-right: 15px;
-  word-wrap: break-word;
-  width: calc(50% - 30px);
 }
 
 /*# sourceMappingURL=articles.css.map */

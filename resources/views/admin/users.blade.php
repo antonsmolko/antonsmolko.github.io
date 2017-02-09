@@ -41,7 +41,7 @@
                         <tr>
                             <td>{!! $i++ !!}</td>
                             <td>
-                                @if($user->login == SUPER_ADMIN)
+                                @if($user->login == SUPER_ADMIN_LOGIN)
                                     <span>{{ $user->name }}</span>
                                 @else
                                     <a href="/administrator/users/edit/{{ $user->id }}">{{ $user->name }}</a>
@@ -49,11 +49,11 @@
                             </td>
                             <td>{{ $user->login }}</td>
                             <td>
-                                @if($user->login == SUPER_ADMIN)
+                                @if($user->login == SUPER_ADMIN_LOGIN)
                                 <div class="activate" id="{{ $user->id }}">
                                     <button class="uk-button uk-active" disabled><i class="uk-icon-check"></i></button>
                                 </div>
-                                @elseif($user->activate == 1 && $user->login != SUPER_ADMIN)
+                                @elseif($user->activate == 1 && $user->login != SUPER_ADMIN_LOGIN)
                                 <div class="activate uk-button-group" id="{{ $user->id }}">
                                     <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
                                     <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
@@ -66,8 +66,8 @@
                                 @endif
                             </td>
                             <td>
-                                @if(isset($role[$user->id]))
-                                    {{ $role[$user->id]['display_name'] }}
+                                @if(isset($user->role[0]->display_name))
+                                    {{ $user->role[0]->display_name }}
                                 @else
                                     Не назначена
                                 @endif
@@ -77,7 +77,7 @@
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->id }}</td>
                             <td>
-                                @if($user->login == SUPER_ADMIN)
+                                @if($user->login == SUPER_ADMIN_LOGIN)
                                     <div>
                                         <button class="uk-button" disabled><i class="uk-icon-close"></i></button>
                                     </div>
@@ -90,8 +90,8 @@
                         </tr>
                     @endforeach
                     <script>
-                        var url_activate = '{{ route('admin.users.activate') }}';
-                        var url_delete = '{{ route('admin.users.delete') }}';
+                        var url_activate = '{{ route('api.user.activate') }}';
+                        var url_delete = '{{ route('api.user.delete') }}';
                     </script>
                     </tbody>
                 </table>

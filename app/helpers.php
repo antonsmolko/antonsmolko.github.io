@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Permission;
+use Illuminate\Support\Facades\File;
 
 function getRusDate($dateTime, $format = '%DAYWEEK%, d %MONTH% Y H:i', $offset = 0)
 {
@@ -23,45 +21,6 @@ function cutText($string)
     $string = rtrim($string, "!,.-");
     $string = substr($string, 0, strrpos($string, ' '));
     return $string."… ";
-}
-
-
-function validateImage($file)
-{
-    if ($file['name'] == '')
-    {
-        return false;
-    }
-
-    $blacklist = array(".php", ".phtml", ".php3", ".php4");
-    foreach ($blacklist as $item) {
-        if(preg_match("/$item\$/i", $file['name'])) {
-            return false;
-        }
-    }
-
-    $imageinfo = getimagesize($file['tmp_name']);
-
-    if($imageinfo['mime'] != 'image/png' && $imageinfo['mime'] != 'image/jpeg' && $imageinfo['mime'] != 'image/gif') {
-        return false;
-    }
-
-    if ($file['size'] > (10 * 1024 * 1024)) {
-        return false;
-    }
-
-    return true;
-
-
-
-//    $uploadfile = UPLOAD_DIR . FULL_DIR . basename($_FILES['userfile']['name']);
-
-//    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-//        echo "File is valid, and was successfully uploaded.\n";
-//    } else {
-//        echo "File uploading failed.\n";
-//    }
-
 }
 
 function resizeImage($file_input, $file_output, $w_o, $h_o) {
@@ -95,22 +54,15 @@ function resizeImage($file_input, $file_output, $w_o, $h_o) {
 
 function uploadImage($file)
 {
-    if(!validateImage($file))
-        return false;
-    else
-    {
-        $mime = $file['type'];
+        $mime = $file->getMimeType();
         $parts = explode("/", $mime);
         $ext = $parts[1];
 
-
         $file_name = sha1(microtime(true));
-//        copy($file['tmp_name'], UPLOAD_DIR . FULL_DIR . $file_name . $mime);
-        resizeImage($file['tmp_name'], UPLOAD_DIR . FULL_DIR . $file_name, 2500, 0);
-        resizeImage($file['tmp_name'], UPLOAD_DIR . THUMB_DIR . $file_name, 600, 0);
+        resizeImage($file, UPLOAD_DIR . FULL_DIR . $file_name, 2500, 0);
+        resizeImage($file, UPLOAD_DIR . THUMB_DIR . $file_name, 600, 0);
 
         return $file_name . "." . $ext;
-    }
 }
 
 

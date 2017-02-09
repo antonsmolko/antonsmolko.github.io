@@ -37,20 +37,30 @@
                         <tr>
                             <td>{!! $i++ !!}</td>
                             <td>
-                                <a href="{{ route('admin.roles.edit', ['id' => $role['id']]) }}">{{ $role->display_name }}</a>
+                                @if($role->name == SUPER_ADMIN_LOGIN)
+                                    <span>{{ $role->display_name }}</span>
+                                @else
+                                    <a href="{{ route('admin.roles.edit', ['id' => $role['id']]) }}">{{ $role->display_name }}</a>
+                                @endif
                             </td>
                             <td>{{ $role->name }}</td>
                             <td>{{ $role->description }}</td>
                             <td>{{ $role->id }}</td>
                             <td>
-                                <div class="delete" id="{{ $role->id }}">
-                                    <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
-                                </div>
+                                @if($role->name == SUPER_ADMIN_ROLE_NAME)
+                                    <div>
+                                        <button class="uk-button" disabled><i class="uk-icon-close"></i></button>
+                                    </div>
+                                @else
+                                    <div class="delete" id="{{ $role->id }}">
+                                        <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
                     <script>
-                        var url_delete = '{{ route('admin.roles.delete') }}';
+                        var url_delete = '{{ route('api.role.delete') }}';
                     </script>
                     </tbody>
                 </table>
