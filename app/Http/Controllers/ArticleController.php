@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
@@ -16,10 +17,12 @@ class ArticleController extends Controller
     public function showAll()
     {
         $articles = Article::all();
+        Cache::put('articles', $articles, 10);
+        $articlesCash = Cache::get('articles');
 
         return view('pages.articles', [
             'title' => 'MOON',
-            'articles' => $articles
+            'articles' => $articlesCash
         ]);
     }
 

@@ -18,31 +18,29 @@
 @section('content')
     <div class="articles-list">
         @foreach($articles as $article)
-            @if($article->published == 1)
-                <div class="article" data-wow-offset="10">
-                    <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
-                        @if(file_exists($article->image_thumb))
-                            <img src="{{ $article->image_thumb }}" alt="">
-                        @else
-                            <img src="http://placehold.it/600x400" alt="">
+            <div class="article" data-wow-offset="10">
+                <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
+                    @if(file_exists($article->image_thumb))
+                        <img src="{{ $article->image_thumb }}" alt="">
+                    @else
+                        <img src="http://placehold.it/600x400" alt="">
+                    @endif
+                </a>
+                <div class="article-preview">
+                    <h3>{{ $article->title }}</h3>
+                    <span class="note">
+                    {{ getRusDate($article->updated_at) }}
+                        @if($article->author[0]->name)
+                            <span class="article-author">Автор статьи: {{ $article->author[0]->name }}</span>
                         @endif
-                    </a>
-                    <div class="article-preview">
-                        <h3>{{ $article->title }}</h3>
-                        <span class="note">
-                        {{ getRusDate($article->updated_at) }}
-                            @if($article->author[0]->name)
-                                <span class="article-author">Автор статьи: {{ $article->author[0]->name }}</span>
-                            @endif
-                            <div class="article-text">
-                        <p>
-                            {!! cutText($article->content) !!}
-                        </p>
-                    </div>
-                    <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
-                    </div>
+                        <div class="article-text">
+                    <p>
+                        {!! cutText($article->content) !!}
+                    </p>
                 </div>
-            @endif
+                <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
+                </div>
+            </div>
         @endforeach
     </div>
 @endsection
