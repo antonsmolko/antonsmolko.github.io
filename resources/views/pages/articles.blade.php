@@ -21,7 +21,11 @@
             @if($article->published == 1)
                 <div class="article" data-wow-offset="10">
                     <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
-                        <img src="{{ $article->image_thumb }}" alt="">
+                        @if(file_exists($article->image_thumb))
+                            <img src="{{ $article->image_thumb }}" alt="">
+                        @else
+                            <img src="http://placehold.it/600x400" alt="">
+                        @endif
                     </a>
                     <div class="article-preview">
                         <h3>{{ $article->title }}</h3>
