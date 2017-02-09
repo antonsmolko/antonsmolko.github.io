@@ -34,7 +34,7 @@ Route::get('/logout', 'AuthController@logout')
 
 // АДМИНКА
 
-Route::get('administrator/', 'AuthController@showAdmin')
+Route::get('administrator/', ['middleware' => ['ability:super_admin,admin_access'], 'uses' => 'AuthController@showAdmin'])
     ->name('admin');
 
 Route::group(['prefix' => 'administrator', 'namespace' => 'Admin', 'middleware' => ['permission:admin_access']], function() {

@@ -56,7 +56,7 @@ class AuthController extends Controller
 
     public function showAdmin() {
 
-        if (Auth::user()->ability('super_admin,user_admin', 'view_users,create_users,edit_users,activate_users,delete_users')) {
+        if (Auth::user()->ability('super_admin|user_admin', 'view_users|create_users|edit_users|activate_users|delete_users')) {
             return redirect()->route('admin.users');
         } elseif (Auth::user()->ability('super_admin', 'create_edit_delete_roles')) {
             return redirect()->route('admin.roles');
