@@ -20,7 +20,7 @@ class CreateArticleTableAndArticleUserTable extends Migration
             $table->string('content', 100000)->nullable();
             $table->string('image_full');
             $table->string('image_thumb');
-            $table->enum('published', [0, 1])->default(0);
+            $table->integer('published')->default(0);
             $table->string('views')->nullable();
             $table->timestamps();
         });

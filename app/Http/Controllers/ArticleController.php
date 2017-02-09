@@ -16,7 +16,11 @@ class ArticleController extends Controller
 
     public function showAll()
     {
-        $articles = Article::all();
+      $articles = Article::where('published', 1)
+          ->orderBy('created_at', 'DESC')
+          ->get();
+
+//        $articles = Article::all();
         Cache::put('articles', $articles, 10);
         $articlesCash = Cache::get('articles');
 

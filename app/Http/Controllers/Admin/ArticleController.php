@@ -16,8 +16,12 @@ class ArticleController extends AdminController
 
     public function showAll()
     {
-        $articles = Article::all();
+//        $articles = Article::all();
 
+        $articles = Article::where('published', 1)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
         return view('admin.articles', [
             'title' => 'Менеджер статей',
             'articles' => $articles
@@ -39,7 +43,9 @@ class ArticleController extends AdminController
             'image' => 'file|image|mimes:jpeg,bmp,png,gif,tiff|min:10|max:10240'
         ]);
 
-        $fileName = uploadImage($this->request->file('image'));
+        if ($this->request->hasFile('image') && $this->request->file('image')->isValid()) {
+            $fileName = uploadImage($this->request->file('image'));
+        }
 
         $article = new Article;
         $article->title = trim($this->request->input('title'));
@@ -77,7 +83,9 @@ class ArticleController extends AdminController
             'image' => 'file|image|mimes:jpeg,bmp,png,gif,tiff|min:10|max:10240'
         ]);
 
-        $fileName = uploadImage($this->request->file('image'));
+        if ($this->request->hasFile('image') && $this->request->file('image')->isValid()) {
+            $fileName = uploadImage($this->request->file('image'));
+        }
 
         $article->title = trim($this->request->input('title'));
         $article->content = trim($this->request->input('content'));

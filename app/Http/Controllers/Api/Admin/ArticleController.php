@@ -29,10 +29,12 @@ class ArticleController extends AdminController
 
             $article = Article::findOrFail($id);
 //            Article::destroy($id);
-
-            Storage::delete([$article->image_full, $article->image_thumb]);
+//            Storage::delete([$article->image_full, $article->image_thumb]);
 
             $article->delete();
+
+            unlink($article->image_full);
+            unlink($article->image_thumb);
         }
     }
 }
