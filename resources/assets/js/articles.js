@@ -10,20 +10,11 @@ $(function () {
 
     $('.article').addClass('wow fadeIn');
 
-    $(".header").css('height', window.innerWidth / 3.496503496503497);
+    $(".header").css('height', window.innerWidth / 3,987538940809969);
 
     $( window ).resize(function() {
-        $(".header").css("height", window.innerWidth / 3.496503496503497);
+        $(".header").css("height", window.innerWidth / 3,987538940809969);
     });
-
-    // $.fn.extend({
-    //     animateCss: function (animationName) {
-    //         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-    //         this.addClass('animated ' + animationName).one(animationEnd, function() {
-    //             $(this).removeClass('animated ' + animationName);
-    //         });
-    //     }
-    // });
 
     new WOW().init();
 

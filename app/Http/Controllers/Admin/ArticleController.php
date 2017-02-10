@@ -16,11 +16,11 @@ class ArticleController extends AdminController
 
     public function showAll()
     {
-//        $articles = Article::all();
+        $articles = Article::all();
 
-        $articles = Article::where('published', 1)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+//        $articles = Article::where('published', 1)
+//            ->orderBy('created_at', 'DESC')
+//            ->get();
         
         return view('admin.articles', [
             'title' => 'Менеджер статей',

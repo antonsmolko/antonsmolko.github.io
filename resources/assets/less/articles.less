@@ -1,12 +1,36 @@
 @import 'styles';
 
 body {
-  .content {
-    margin-top: -100px;
-    background-image: url("../images/background/body_bg.jpg");
-    background-size: 70%;
+  .article-last {
     .wrapper {
-      .articles-list {
+      .article-last--item {
+        .row-flex();
+        .article-last--description {
+          .col();
+          .col-6();
+        }
+        .article-last--image {
+          .col();
+          .col-6();
+          overflow: hidden;
+          img {
+            width: 100%;
+            display: block;
+            transition: 0.5s;
+            &:hover {
+              transform: scale(1.1);
+              transition: 0.5s;
+            }
+          }
+        }
+      }
+    }
+  }
+  .articles-list {
+    margin-top: -100px;
+    background: #ffffff;
+    .wrapper {
+      .articles-list--item {
         .row-flex();
         .align-items(start);
         .article {
@@ -29,12 +53,12 @@ body {
               display: block;
               transition: 0.5s;
               &:hover {
-                transform: scale(1.2);
+                transform: scale(1.1);
                 transition: 0.5s;
               }
             }
           }
-          .article-preview {
+          .article-description {
             padding: 30px;
             .article-author {
               display: block;

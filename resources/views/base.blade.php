@@ -9,26 +9,20 @@
 </head>
 
 <body>
-    <div class="navbar">
-        @section('navbar')
-        @show
-    </div>
     <div class="header">
         @section('header')
         @show
     </div>
 
-    <div class="content">
-        <div class="wrapper">
-            @section('content')
-            @show
-        </div>
-    </div>
+        @section('content')
+        @show
 
     <div class="footer">
         @section('footer')
         @show
     </div>
-</body>
+    @stack('mane_script')
     @stack('script')
+</body>
+
 </html>

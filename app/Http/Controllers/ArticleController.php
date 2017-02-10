@@ -16,6 +16,10 @@ class ArticleController extends Controller
 
     public function showAll()
     {
+        $articleLast = Article::where('published', 1)
+            ->orderBy('created_at', 'DESC')
+            ->firstOrFail();
+
       $articles = Article::where('published', 1)
           ->orderBy('created_at', 'DESC')
           ->get();
@@ -26,6 +30,7 @@ class ArticleController extends Controller
 
         return view('pages.articles', [
             'title' => 'MOON',
+            'articleLast' => $articleLast,
             'articles' => $articlesCash
         ]);
     }
