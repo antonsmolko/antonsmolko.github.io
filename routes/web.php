@@ -81,17 +81,17 @@ Route::group(['prefix' => 'administrator', 'namespace' => 'Admin', 'middleware' 
     Route::get('/articles', ['middleware' => ['ability:super_admin|article_admin|author|editor,create_articles|edit_articles|publish_articles|delete_articles'], 'uses' => 'ArticleController@showAll'])
         ->name('admin.articles');
 
-    Route::get('/articles/create', ['middleware' => ['ability:super_admin|article_admin|author,create_articles'], 'uses' => 'ArticleController@create'])
+    Route::get('/articles/create', ['uses' => 'ArticleController@create'])
         ->name('admin.articles.create');
 
-    Route::post('/articles/create', ['middleware' => ['ability:super_admin|article_admin|author,create_articles'], 'uses' => 'ArticleController@createPost'])
+    Route::post('/articles/create', ['uses' => 'ArticleController@createPost'])
         ->name('admin.articles.create.post');
 
-    Route::get('/articles/edit/{id}', ['middleware' => ['ability:super_admin|article_admin|editor,edit_articles'], 'uses' => 'ArticleController@edit'])
+    Route::get('/articles/edit/{id}', ['uses' => 'ArticleController@edit'])
         ->where('id', '[0-9]+')
         ->name('admin.articles.edit');
 
-    Route::post('/articles/edit/{id}', ['middleware' => ['ability:super_admin|article_admin|editor,edit_articles'], 'uses' => 'ArticleController@editPost'])
+    Route::post('/articles/edit/{id}', ['uses' => 'ArticleController@editPost'])
         ->where('id', '[0-9]+')
         ->name('admin.articles.edit.post');
 });

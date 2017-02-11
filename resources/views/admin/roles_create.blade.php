@@ -38,7 +38,7 @@
                 @foreach($permissions as $permission)
                     <div class="uk-form-row">
                         <label class="uk-form-label" style="width: 400px" for="form-p-{{ $permission->id }}">
-                            <a href="#modal-{{ $permission->id }}" data-uk-modal>{{ $permission->display_name }}</a>
+                            <a href="#modal-{{ $permission->id }}" data-uk-modal title="{{ $permission->description }}">{{ $permission->display_name }}</a>
                             <div id="modal-{{ $permission->id }}" class="uk-modal" aria-hidden="true" style="display: none; overflow-y: auto;">
                                 <div class="uk-modal-dialog">
                                     <a href="" class="uk-modal-close uk-close"></a>
@@ -47,13 +47,13 @@
                             </div>
                         </label>
                         <div class="uk-form-controls">
-                            <input id="form-p{{ $permission->id }}" type="checkbox" name="{{ $permission->name }}" value="1">
+                            <input id="form-p{{ $permission->id }}" type="checkbox" name="{{ $permission->name }}" value="1" {{ old($permission->name) ? 'checked' : '' }}>
                         </div>
                     </div>
                 @endforeach
         </fieldset>
         <div class="uk-margin-top">
-            <button class="uk-button uk-button-primary" type="submit"><i class="uk-icon-plus"></i>Создать</button>
+            <button class="uk-button uk-button-primary" type="submit" ><i class="uk-icon-plus"></i>Создать</button>
             <a href="{{ route('admin.roles') }}" class="uk-button"><i class="uk-icon-remove"></i>Отменить</a>
         </div>
     </form>

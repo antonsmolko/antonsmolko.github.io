@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+//use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Auth;
@@ -30,9 +32,14 @@ class ArticleController extends AdminController
 
     public function create()
     {
-        return view('admin.articles_create', [
-            'title' => 'Новая статья'
-        ]);
+        if (Gate::allows('create_articles')) {
+            return view('admin.articles_create', [
+                'title' => 'Новая статья'
+            ]);
+        }
+
+        abort(403);
+
     }
 
     public function createPost()
@@ -67,10 +74,14 @@ class ArticleController extends AdminController
     {
         $article = Article::findOrFail($id);
 
-        return view('admin.articles_edit', [
-            'title' => 'Редактор статьи',
-            'article' => $article
-        ]);
+        if (Auth::user()->can('edit', Article::class)) {
+            return view('admin.articles_edit', [
+                'title' => 'Редактор статьи',
+                'article' => $article
+            ]);
+        }
+
+        abort(403);
     }
 
     public function editPost($id)
