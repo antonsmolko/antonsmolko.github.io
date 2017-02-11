@@ -137,8 +137,11 @@ main {
   }
 }
 body {
-  background-image: url("../images/background/background.jpg");
-  background-size: auto;
+  background: url("../images/background/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
   margin: 0;
   font-family: 'Open Sans Condensed', Arial;
   color: #292c3d;
