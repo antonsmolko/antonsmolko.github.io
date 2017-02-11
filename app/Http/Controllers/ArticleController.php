@@ -18,11 +18,11 @@ class ArticleController extends Controller
     {
         $articleLast = Article::where('published', 1)
             ->orderBy('created_at', 'DESC')
-            ->firstOrFail();
+            ->first();
 
-      $articles = Article::where('published', 1)
-          ->orderBy('created_at', 'DESC')
-          ->get();
+        $articles = Article::where('published', 1)
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
 //        $articles = Article::all();
         Cache::put('articles', $articles, 10);

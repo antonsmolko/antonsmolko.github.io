@@ -5,13 +5,18 @@ body {
     .wrapper {
       .article-last--item {
         .row-flex();
+        background: #ffffff;
+        box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
+        margin-top: -50px;
         .article-last--description {
-          .col();
+          .col-padding();
           .col-6();
+          padding-left: 0;
         }
         .article-last--image {
-          .col();
+          .col-padding();
           .col-6();
+          padding-right: @offset / 2;
           overflow: hidden;
           img {
             width: 100%;
@@ -27,7 +32,7 @@ body {
     }
   }
   .articles-list {
-    margin-top: -100px;
+    margin-top: 30px;
     background: #ffffff;
     .wrapper {
       .articles-list--item {
@@ -40,7 +45,7 @@ body {
           .col-4();
           .col-lg-6();
           .col-sm-12();
-          border-radius: 2px;
+          //border-radius: 2px;
           box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
           background: #ffffff;
           margin-bottom: 30px;

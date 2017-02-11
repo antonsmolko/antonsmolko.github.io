@@ -16,26 +16,28 @@
     <div class="article-last">
         <div class="wrapper">
             <div class="article-last--item">
-                <div class="article-last--description">
-                    <h3>{{ $articleLast->title }}</h3>
-                    <span class="note">{{ getRusDate($articleLast->updated_at) }}</span>
-                    @if($articleLast->author[0]->name)
-                        <span class="article-author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
-                    @endif
-                    <div class="article-last--text">
-                        <p>
-                            {!! cutText($articleLast->content) !!}
-                        </p>
+                @if($articleLast)
+                    <div class="article-last--description">
+                        <h3>{{ $articleLast->title }}</h3>
+                        <span class="note">{{ getRusDate($articleLast->updated_at) }}</span>
+                        @if($articleLast->author[0]->name)
+                            <span class="article-author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
+                        @endif
+                        <div class="article-last--text">
+                            <p>
+                                {!! cutText($articleLast->content) !!}
+                            </p>
+                        </div>
+                        <a class="button" href="{{ route('article', ['id' => $articleLast->id]) }}">Подробнее</a>
                     </div>
-                    <a class="button" href="{{ route('article', ['id' => $articleLast->id]) }}">Подробнее</a>
-                </div>
-                <a class="article-last--image" href="{{ route('article', ['id' => $articleLast->id]) }}">
-                    @if(file_exists($articleLast->image_thumb))
-                        <img src="{{ $articleLast->image_thumb }}" alt="">
-                    @else
-                        <img src="http://placehold.it/600x400" alt="">
-                    @endif
-                </a>
+                    <a class="article-last--image" href="{{ route('article', ['id' => $articleLast->id]) }}">
+                        @if(file_exists($articleLast->image_thumb))
+                            <img src="{{ $articleLast->image_thumb }}" alt="">
+                        @else
+                            <img src="http://placehold.it/600x400" alt="">
+                        @endif
+                    </a>
+                @endif
             </div>
         </div>
     </div>

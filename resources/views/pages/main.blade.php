@@ -15,15 +15,15 @@
         <div class="header--item">
             <div class="logo">
                 <a href="{{ route('index') }}">
-                    <img src="images/logo/logo.svg" alt="">
+                    <img src="/images/logo/logo.svg" alt="">
                 </a>
             </div>
-            <div class="nav">
+            <div class="header--nav">
                 @ability('super_admin', 'admin_access')
-                <a class="button button-dark" href="{{ route('admin') }}">Панель администратора</a>
+                <a class="button button--nav" href="{{ route('admin') }}">Панель администратора</a>
                 @endability
                 @if(Auth::check())
-                    <a class="button button-dark" href="{{ route('logout') }}">Выйти</a>
+                    <a class="button button--nav" href="{{ route('logout') }}">Выйти</a>
                     <div class="user">
                         <h3><i class="icon--user"></i>{{ Auth::user()->name }}</h3>
                         @foreach(Auth::user()->roles as $role)
@@ -33,8 +33,8 @@
                         @endforeach
                     </div>
                 @else
-                    <a class="button button-dark" href="{{ route('register') }}">Регистрация</a>
-                    <a class="button button-dark" href="{{ route('login') }}">Войти</a>
+                    <a class="button button--nav" href="{{ route('register') }}">Регистрация</a>
+                    <a class="button button--nav" href="{{ route('login') }}">Войти</a>
                     <div class="user">
                         <h3><i class="icon--user"></i>Гость</h3>
                         <span class="role">Добро пожаловать!</span>

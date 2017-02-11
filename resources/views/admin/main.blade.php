@@ -4,8 +4,8 @@
     <title>{{ $title or '' }}</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/uikit.gradient.css">
-    <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <link rel="stylesheet" type="text/css" href="/css/codemirror/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/uikit.js"></script>
 
@@ -22,28 +22,29 @@
     <script src="/js/htmleditor.min.js"></script>
 @endsection
 
-@section('navbar')
+@section('header')
     <div class="wrapper">
-        <div class="logo">
-            <a href="{{ route('index') }}"></a>
-        </div>
-        <div class="nav">
-            @if(Auth::check())
-                <a class="button button-dark" href="{{ route('logout') }}">Выйти</a>
-                <div class="user">
-                    <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
-                    @foreach(Auth::user()->roles as $key)
-                        @if($key->name)
-                            <span class="role"> [ {{ $key->display_name }} ] </span>
-                        @endif
-                    @endforeach
-                </div>
-            @endif
+        <div class="header--item">
+            <div class="logo">
+                <a href="{{ route('index') }}">
+                    <img src="/images/logo/logo.svg" alt="">
+                </a>
+            </div>
+            <div class="header--nav">
+                @if(Auth::check())
+                    <a class="button button--nav" href="{{ route('logout') }}">Выйти</a>
+                    <div class="user">
+                        <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
+                        @foreach(Auth::user()->roles as $key)
+                            @if($key->name)
+                                <span class="role"> [ {{ $key->display_name }} ] </span>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
-@endsection
-
-@section('header')
 @endsection
 
 @section('admin_navbar')
