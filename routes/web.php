@@ -16,26 +16,31 @@ Route::get('/', 'ArticleController@showAll')
 Route::get('/article/{id}', 'ArticleController@showOne')
     ->where('id', '[0-9]+')
     ->name('article');
+Route::group(['namespace' => 'Auth'], function() {
 
-Route::get('/register', 'AuthController@register')
-    ->name('register');
+    Route::get('/register', 'AuthController@register')
+        ->name('register');
 
-Route::post('/register', 'AuthController@registerPost')
-    ->name('register');
+    Route::post('/register', 'AuthController@registerPost')
+        ->name('register');
 
-Route::get('/login', 'AuthController@login')
-    ->name('login');
+    Route::get('/login', 'AuthController@login')
+        ->name('login');
 
-Route::post('/login', 'AuthController@loginPost')
-    ->name('login');
+    Route::post('/login', 'AuthController@loginPost')
+        ->name('login');
 
-Route::get('/logout', 'AuthController@logout')
-    ->name('logout');
+    Route::get('/logout', 'AuthController@logout')
+        ->name('logout');
+});
 
 // АДМИНКА
 
-Route::get('administrator/', ['middleware' => ['ability:super_admin,admin_access'], 'uses' => 'AuthController@showAdmin'])
-    ->name('admin');
+Route::group(['prefix' => 'administrator', 'namespace' => 'Auth', 'middleware' => ['ability:super_admin,admin_access']], function() {
+    Route::get('/', ['uses' => 'AuthController@showAdmin'])
+        ->name('admin');
+});
+
 
 Route::group(['prefix' => 'administrator', 'namespace' => 'Admin', 'middleware' => ['permission:admin_access']], function() {
 
