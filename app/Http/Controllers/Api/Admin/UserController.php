@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\Admin\AdminController;
-use App\User;
+use App\Models\User;
 
 class UserController extends AdminController
 {

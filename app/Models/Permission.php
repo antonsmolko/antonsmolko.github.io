@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -14,6 +14,6 @@ class Permission extends EntrustPermission
 
     public function role()
     {
-        return $this->hasMany('App\Role');
+        return $this->hasMany('App\Models\Role');
     }
 }

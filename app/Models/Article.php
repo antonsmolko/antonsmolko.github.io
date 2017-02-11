@@ -11,6 +11,6 @@ class Article extends Model
 
     public function author()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\Models\User');
     }
 }

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Contracts\Validation\Validator;
-use App\Role;
-use App\Permission;
+use App\Models\Role;
+use App\Models\Permission;
 
 class RoleController extends AdminController
 {

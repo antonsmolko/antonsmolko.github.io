@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Contracts\Validation\Validator;
-use App\User;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 
 class UserController extends AdminController
 {
