@@ -18,10 +18,10 @@
             <div class="article-last--item">
                 @if($articleLast)
                     <div class="article-last--description">
-                        <h3>{{ $articleLast->title }}</h3>
-                        <span class="note">{{ getRusDate($articleLast->updated_at) }}</span>
+                        <h2>{{ $articleLast->title }}</h2>
+                        <span class="article-last--dt">{{ getRusDate($articleLast->updated_at) }}</span>
                         @if($articleLast->author[0]->name)
-                            <span class="article-author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
+                            <span class="article-last--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
                         @endif
                         <div class="article-last--text">
                             <p>
@@ -30,12 +30,11 @@
                         </div>
                         <a class="button" href="{{ route('article', ['id' => $articleLast->id]) }}">Подробнее</a>
                     </div>
-                    <a class="article-last--image" href="{{ route('article', ['id' => $articleLast->id]) }}">
-                        @if(file_exists($articleLast->image_thumb))
-                            <img src="{{ $articleLast->image_thumb }}" alt="">
-                        @else
-                            <img src="http://placehold.it/600x400" alt="">
-                        @endif
+                    @if(file_exists($articleLast->image_thumb))
+                        <a class="article-last--image" href="{{ route('article', ['id' => $articleLast->id]) }}" style="background-image: url('../{{ $articleLast->image_thumb }}');">
+                    @else
+                        <a class="article-last--image" href="{{ route('article', ['id' => $articleLast->id]) }}" style="background-image: url('http://placehold.it/600x400');">
+                    @endif
                     </a>
                 @endif
             </div>
@@ -43,7 +42,7 @@
     </div>
     <div class="articles-list">
         <div class="wrapper">
-            <div class="articles-list articles-list--item">
+            <div class="articles-list--item">
                 @foreach($articles as $article)
                     <div class="article" data-wow-offset="10">
                         <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
@@ -53,13 +52,11 @@
                                 <img src="http://placehold.it/600x400" alt="">
                             @endif
                         </a>
-                        <div class="article-description">
-                            <h3>{{ $article->title }}</h3>
-                            <span class="note">{{ getRusDate($article->updated_at) }}</span>
-                            @if($article->author[0]->name)
-                                <span class="article-author">Автор статьи: {{ $article->author[0]->name }}</span>
-                            @endif
-                            <a class="button" href="{{ route('article', ['id' => $article->id]) }}">Подробнее</a>
+                        <div class="article--title">
+                            <a href="{{ route('article', ['id' => $article->id]) }}">
+                                <h3>{{ $article->title }}</h3>
+                            </a>
+                            <span class="article--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
                         </div>
                     </div>
                 @endforeach

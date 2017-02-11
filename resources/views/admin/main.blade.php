@@ -6,6 +6,12 @@
     <link rel="stylesheet" type="text/css" href="/css/uikit.gradient.css">
     <link rel="stylesheet" type="text/css" href="/css/codemirror/codemirror.css">
     <link rel="stylesheet" type="text/css" href="/css/admin.css">
+
+    <!-- HTML editor CSS -->
+    <link rel="stylesheet" href="/css/htmleditor.gradient.min.css">
+@endsection
+
+@push('script')
     <script src="/js/jquery.min.js"></script>
     <script src="/js/uikit.js"></script>
 
@@ -17,10 +23,9 @@
     <script src="/js/codemirror/gfm.js"></script>
     <script src="/js/marked/marked.min.js"></script>
 
-    <!-- HTML editor CSS and JavaScript -->
-    <link rel="stylesheet" href="/css/htmleditor.gradient.min.css">
+    <!-- HTML JavaScript -->
     <script src="/js/htmleditor.min.js"></script>
-@endsection
+@endpush
 
 @section('header')
     <div class="wrapper">
@@ -68,11 +73,15 @@
 
 @section('footer')
     <div class="wrapper">
-        <div class="footer-logo">
-            <a href="{{ route('index') }}"></a>
-        </div>
-        <div class="copyright">
-            <i class="icon--copyright"></i><span>2016 Все права защищены</span>
+        <div class="footer--item">
+            <div class="footer--logo">
+                <a href="{{ route('index') }}">
+                    <img src="/images/logo/logo-footer.svg" alt="">
+                </a>
+            </div>
+            <div class="footer--copyright">
+                <i class="icon--copyright"></i><span>2016 Все права защищены</span>
+            </div>
         </div>
     </div>
 @endsection

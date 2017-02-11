@@ -24,9 +24,24 @@
 }
 
 body {
+  background: transparent;
+  .header {
+    background: #e7e4de;
+    background: linear-gradient(rgba(246, 242, 244, 1) 0%, rgba(230, 227, 221, 1) 100%);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1000;
+  }
   .content {
+    background-image: url("../images/background/background_02.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    padding: 20px 0;
     .container {
       background: rgba(255, 255, 255, 0.8);
+      border-radius: 2px;
+      box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
       position: relative;
       margin: 0 auto;
       padding: 30px;

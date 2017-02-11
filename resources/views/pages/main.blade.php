@@ -47,11 +47,15 @@
 
 @section('footer')
     <div class="wrapper">
-        <div class="footer-logo">
-            <a href="{{ route('index') }}"></a>
-        </div>
-        <div class="copyright">
-            <i class="icon--copyright"></i><span>2016 Все права защищены</span>
+        <div class="footer--item">
+            <div class="footer--logo">
+                <a href="{{ route('index') }}">
+                    <img src="/images/logo/logo-footer.svg" alt="">
+                </a>
+            </div>
+            <div class="footer--copyright">
+                <i class="icon--copyright"></i><span>2016 Все права защищены</span>
+            </div>
         </div>
     </div>
 @endsection

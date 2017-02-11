@@ -17,7 +17,7 @@ function getRusDate($dateTime, $format = '%DAYWEEK%, d %MONTH% Y H:i', $offset =
 function cutText($string)
 {
     $string = strip_tags($string);
-    $string = substr($string, 0, 250);
+    $string = substr($string, 0, 1000);
     $string = rtrim($string, "!,.-");
     $string = substr($string, 0, strrpos($string, ' '));
     return $string."… ";

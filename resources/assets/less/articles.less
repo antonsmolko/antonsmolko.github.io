@@ -2,55 +2,72 @@
 
 body {
   .article-last {
+    margin-top: 30px;
     .wrapper {
       .article-last--item {
         .row-flex();
-        background: #ffffff;
-        box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
-        margin-top: -50px;
         .article-last--description {
+          box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
+          border-radius: 2px 0 0 2px;
           .col-padding();
           .col-6();
           padding-left: 0;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          margin-left: @offset / 2;
+          background: rgba(255, 255, 255, 0.7);
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          h2,
+          .article-last--dt,
+          .article-last--author,
+          .article-last--text,
+          .button {
+            margin: 0 20px;
+          }
+          h2 {
+            margin-bottom:20px;
+          }
+          .article-last--dt,
+          .article-last--author {
+            color: #8b8b8b;
+          }
         }
         .article-last--image {
+          box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
+          border-radius: 0 2px 2px 0;
           .col-padding();
           .col-6();
-          padding-right: @offset / 2;
+          padding-left: 0;
           overflow: hidden;
-          img {
-            width: 100%;
-            display: block;
-            transition: 0.5s;
-            &:hover {
-              transform: scale(1.1);
-              transition: 0.5s;
-            }
-          }
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
         }
       }
     }
   }
   .articles-list {
     margin-top: 30px;
+    padding-top: 30px;
     background: #ffffff;
     .wrapper {
       .articles-list--item {
         .row-flex();
         .align-items(start);
         .article {
+          border-radius: 2px;
           .row-flex();
           .flex-direction(column);
           .col();
           .col-4();
           .col-lg-6();
           .col-sm-12();
-          //border-radius: 2px;
           box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
           background: #ffffff;
           margin-bottom: 30px;
-          position: relative;
-          z-index: 6001;
+          overflow: hidden;
           .article-image {
             overflow: hidden;
             img {
@@ -63,17 +80,14 @@ body {
               }
             }
           }
-          .article-description {
+          .article--title {
             padding: 30px;
-            .article-author {
-              display: block;
-              color: #adadae;
+            a {
+              text-decoration: none;
             }
-            .article-text {
-              p {
-                font-size: 16px;
-                color: #777777;
-              }
+            .article--author {
+              display: block;
+              color: #8b8b8b;
             }
           }
         }

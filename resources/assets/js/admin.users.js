@@ -1,11 +1,5 @@
 $(document).ready(function(){
 
-    $(".header").css('height', window.innerWidth / 3,987538940809969);
-
-    $( window ).resize(function() {
-        $(".header").css("height", window.innerWidth / 3,987538940809969);
-    });
-
     $('#users').addClass('uk-active');
 
     $(".activate > button").on("click", function (event) {
