@@ -1399,7 +1399,7 @@ namespace {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */
         public static function user(){
@@ -1503,7 +1503,7 @@ namespace {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User|false 
+         * @return \App\Models\User|false 
          * @static 
          */
         public static function loginUsingId($id, $remember = false){
@@ -1514,7 +1514,7 @@ namespace {
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \App\User|false 
+         * @return \App\Models\User|false 
          * @static 
          */
         public static function onceUsingId($id){
@@ -1608,7 +1608,7 @@ namespace {
         /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */
         public static function getUser(){
@@ -1650,7 +1650,7 @@ namespace {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \App\Models\User 
          * @static 
          */
         public static function getLastAttempted(){
@@ -1710,7 +1710,7 @@ namespace {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\User 
+         * @return \App\Models\User 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */
@@ -2400,38 +2400,7 @@ namespace {
          * @static 
          */
         public static function flush(){
-            \Illuminate\Cache\RedisStore::flush();
-        }
-        
-        /**
-         * Get the Redis connection instance.
-         *
-         * @return \Predis\ClientInterface 
-         * @static 
-         */
-        public static function connection(){
-            return \Illuminate\Cache\RedisStore::connection();
-        }
-        
-        /**
-         * Set the connection name to be used.
-         *
-         * @param string $connection
-         * @return void 
-         * @static 
-         */
-        public static function setConnection($connection){
-            \Illuminate\Cache\RedisStore::setConnection($connection);
-        }
-        
-        /**
-         * Get the Redis database instance.
-         *
-         * @return \Illuminate\Redis\Database 
-         * @static 
-         */
-        public static function getRedis(){
-            return \Illuminate\Cache\RedisStore::getRedis();
+            \Illuminate\Cache\ArrayStore::flush();
         }
         
         /**
@@ -2441,18 +2410,7 @@ namespace {
          * @static 
          */
         public static function getPrefix(){
-            return \Illuminate\Cache\RedisStore::getPrefix();
-        }
-        
-        /**
-         * Set the cache key prefix.
-         *
-         * @param string $prefix
-         * @return void 
-         * @static 
-         */
-        public static function setPrefix($prefix){
-            \Illuminate\Cache\RedisStore::setPrefix($prefix);
+            return \Illuminate\Cache\ArrayStore::getPrefix();
         }
         
     }
