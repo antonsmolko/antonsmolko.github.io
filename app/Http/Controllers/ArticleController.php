@@ -18,11 +18,19 @@ class ArticleController extends Controller
 
     public function showAll(ArticleRepository $articleRepository)
     {
-        Cache::put('articleLast', $articleRepository->getLast(), 10);
-        $articleLastCache = Cache::get('articleLast');
+        if ($articleRepository->getLast()) {
+            Cache::put('articleLast', $articleRepository->getLast(), 10);
+            $articleLastCache = Cache::get('articleLast');
+        } else {
+            $articleLastCache = '';
+        }
 
-        Cache::put('articlesButLast', $articleRepository->allButLast(), 10);
-        $articlesButLastCache = Cache::get('articlesButLast');
+        if ($articleRepository->getLast()) {
+            Cache::put('articlesButLast', $articleRepository->allButLast(), 10);
+            $articlesButLastCache = Cache::get('articlesButLast');
+        } else {
+            $articlesButLastCache = [];
+        }
 
         return view('pages.articles', [
             'title' => 'MOON',
