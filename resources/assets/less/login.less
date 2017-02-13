@@ -1,26 +1,57 @@
 @import 'styles';
 
 body {
+  background: #ffffff;
   .header {
-    height: 10px;
-    background: #FFFFFF;
-    margin-bottom: 0;
+    background: #e7e4de;
+    background: linear-gradient(rgba(246, 242, 244, 1) 0%, rgba(230, 227, 221, 1) 100%);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
   }
-  .content {
-    background-image: url("../images/background/body_bg.jpg");
-    background-size: 70%;
-    padding: 100px 0;
+  .auth {
+    background-image: url("../images/background/background_02.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position-x: center;
+    padding: 20px 0;
     .wrapper {
-      .auth {
-        .col();
-        .col-12();
-        .row-flex();
-        flex-wrap: nowrap;
-        background: #ffffff;
+      margin: 0 auto;
+      .auth--item {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+        box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
         padding: 30px;
-        box-sizing: content-box;
+        box-sizing: border-box;
+        .row-flex();
+        .flex-direction(column);
+        .align-items(center);
+        h2 {
+          .col();
+          .col-8();
+        }
+        form {
+          .col();
+          .col-8();
+          .auth--row {
+            .row-flex();
+            margin-bottom: 20px;
+            .auth--tag {
+              .col();
+              .col-2();
+            }
+            .auth--input {
+              .col();
+              .col-4();
+            }
+            .auth--check {
+              .col();
+            }
+            .danger {
+              .col();
+              .col-6();
+            }
+          }
+        }
       }
     }
-
   }
 }

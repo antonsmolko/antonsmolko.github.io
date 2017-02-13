@@ -1,11 +1,11 @@
 @extends('admin.main')
 
 @push('meta')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
 
 @push('script')
-<script src="../js/admin.users.js"></script>
+    <script src="../js/admin.users.js"></script>
 @endpush
 
 @section('content')
@@ -14,10 +14,11 @@
         <div class="uk-width-1-1">
             <form action="" method="post">
                 {{ csrf_field() }}
+                @can('create', \App\Models\User::class)
                 <a href="{{ route('admin.users.create') }}" class="uk-button uk-button-primary">
-                    <i class="uk-icon-plus"></i>
-                    Создать
+                    <i class="uk-icon-plus"></i>Создать
                 </a>
+                @endcan
                 <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
                     <thead>
                     <tr>
@@ -44,7 +45,12 @@
                                 @if($user->login == SUPER_ADMIN_LOGIN)
                                     <span>{{ $user->name }}</span>
                                 @else
-                                    <a href="/administrator/users/edit/{{ $user->id }}">{{ $user->name }}</a>
+                                    @can('edit', \App\Models\User::class)
+                                        <a href="/administrator/users/edit/{{ $user->id }}">{{ $user->name }}</a>
+                                    @endcan
+                                    @cannot('edit', \App\Models\User::class)
+                                        <span>{{ $user->name }}</span>
+                                    @endcannot
                                 @endif
                             </td>
                             <td>{{ $user->login }}</td>
@@ -53,15 +59,25 @@
                                 <div class="activate" id="{{ $user->id }}">
                                     <button class="uk-button uk-active" disabled><i class="uk-icon-check"></i></button>
                                 </div>
-                                @elseif($user->activate == 1 && $user->login != SUPER_ADMIN_LOGIN)
+                                @elseif($user->activate == 1)
                                 <div class="activate uk-button-group" id="{{ $user->id }}">
-                                    <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
-                                    <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
+                                    @can('activate', \App\Models\User::class)
+                                        <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
+                                        <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
+                                    @endcan
+                                    @cannot('activate', \App\Models\User::class)
+                                        <button class="uk-button uk-active" disabled><i class="uk-icon-check"></i></button>
+                                    @endcannot
                                 </div>
                                 @else
                                 <div class="activate uk-button-group" id="{{ $user->id }}">
-                                    <button class="uk-button button-on"><i class="uk-icon-check"></i></button>
-                                    <button class="uk-button uk-active button-off"><i class="uk-icon-ban"></i></button>
+                                    @can('activate', \App\Models\User::class)
+                                        <button class="uk-button button-on"><i class="uk-icon-check"></i></button>
+                                        <button class="uk-button uk-active button-off"><i class="uk-icon-ban"></i></button>
+                                    @endcan
+                                    @cannot('activate', \App\Models\User::class)
+                                        <button class="uk-button uk-active" disabled><i class="uk-icon-ban"></i></button>
+                                    @endcannot
                                 </div>
                                 @endif
                             </td>
@@ -83,7 +99,12 @@
                                     </div>
                                 @else
                                     <div class="delete" id="{{ $user->id }}">
-                                        <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
+                                        @can('delete', \App\Models\User::class)
+                                            <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
+                                        @endcan
+                                        @cannot('delete', \App\Models\User::class)
+                                            <button class="uk-button" disabled><i class="uk-icon-close"></i></button>
+                                        @endcannot
                                     </div>
                                 @endif
                             </td>

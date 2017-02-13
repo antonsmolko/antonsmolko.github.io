@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+//use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class Article extends Model
 {
-    use EntrustUserTrait;
+//    use EntrustUserTrait;
 
     public function author()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\Models\User');
     }
 }

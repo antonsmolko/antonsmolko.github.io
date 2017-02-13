@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $('#users').addClass('uk-active');
+    $('#users').removeClass('uk-parent').addClass('uk-active');
 
     $(".activate > button").on("click", function (event) {
         event.preventDefault();

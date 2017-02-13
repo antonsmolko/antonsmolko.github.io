@@ -1,5 +1,9 @@
 @extends('admin.main')
 
+@push('script')
+<script src="../js/admin.users.js"></script>
+@endpush
+
 @section('content')
     <h2>Менеджер пользователей: создать пользователя</h2>
     <form class="uk-form uk-form-horizontal" action="" method="post">

@@ -1,6 +1,6 @@
 $(function () {
 
-    var $container = $(".articles-list");
+    var $container = $(".articles-list--item");
     $container.imagesLoaded(function () {
         $container.masonry({
             columnWidth: ".article",
@@ -10,19 +10,10 @@ $(function () {
 
     $('.article').addClass('wow fadeIn');
 
-    $(".header").css('height', window.innerWidth / 3.496503496503497);
-
-    $( window ).resize(function() {
-        $(".header").css("height", window.innerWidth / 3.496503496503497);
-    });
-
-    // $.fn.extend({
-    //     animateCss: function (animationName) {
-    //         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-    //         this.addClass('animated ' + animationName).one(animationEnd, function() {
-    //             $(this).removeClass('animated ' + animationName);
-    //         });
-    //     }
+    // $(".header").css('height', window.innerWidth / 3,987538940809969);
+    //
+    // $( window ).resize(function() {
+    //     $(".header").css("height", window.innerWidth / 3,987538940809969);
     // });
 
     new WOW().init();

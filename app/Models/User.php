@@ -1,16 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+//use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -32,11 +32,11 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsToMany('App\Role');
+        return $this->belongsToMany('App\Models\Role');
     }
 
-    public function article()
+    public function articles()
     {
-        return $this->hasMany('App\Article');
+        return $this->hasMany('App\Models\Article');
     }
 }

@@ -1,0 +1,43 @@
+@import 'styles';
+
+body {
+  background: url("../images/background/background_02.jpg") no-repeat;
+  background-size: auto;
+  background-position-x: center;
+  .error {
+    padding: 0 50px;
+    .wrapper {
+      margin: 0 auto;
+      position: relative;
+      height: 100vh;
+      .error--item {
+        position: absolute;
+        height: 50vh;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        box-sizing: border-box;
+        .row-flex();
+        .flex-direction(column);
+        .align-items(center);
+        .justify-content(center);
+        h1 {
+          .col();
+          font-size: 48px;
+        }
+        span {
+          .col();
+          text-transform: uppercase;
+          font-size: 24px;
+          margin-bottom: 50px;
+        }
+      }
+    }
+  }
+}

@@ -8,34 +8,30 @@
 <script src="../js/article.js"></script>
 @endpush
 
-@section('header')
-@endsection
+
 
 @section('content')
     <div class="article">
-        @if(file_exists($article->image_full))
-            <div class="article-image" style="background-image: url('../{{ $article->image_full }}')">
-        @else
-            <div class="article-image" style="background-image: url('http://placehold.it/2500x1500')">
-        @endif
-                <h2>{{ $article->title }}</h2>
-                <span class="new--dt note">
-                    {{ getRusDate($article->updated_at) }}
-                </span>
-                @if($article->author[0]->name)
-                    <span class="article-author">
-                        Автор статьи: {{ $article->author[0]->name }}
-                    </span>
+        <div class="wrapper">
+            <div class="article--item">
+                @if(file_exists($article->image_full))
+                    <div class="article--image" style="background-image: url('../{{ $article->image_full }}')">
+                @else
+                    <div class="article--image" style="background-image: url('http://placehold.it/2500x1500')">
                 @endif
-            </div>
-            <div class="article-content">
-
-                <div class="new--body">
-                    <p>{!! $article['content'] !!}</p>
+                <h2>{{ $article->title }}</h2>
+                <span class="article--dt">{{ getRusDate($article->updated_at) }}</span>
+                @if($article->author[0]->name)
+                    <span class="article--author">Автор статьи: {{ $article->author[0]->name }}</span>
+                @endif
                 </div>
-                <div class="new--control">
+                <div class="article--content">
+                    <div class="article--text">
+                        {!! $article['content'] !!}
+                    </div>
                     <a class="button" href="{{ route('index') }}">К списку новостей</a>
                 </div>
             </div>
+        </div>
     </div>
 @endsection

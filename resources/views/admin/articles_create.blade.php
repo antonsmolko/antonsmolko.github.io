@@ -35,13 +35,14 @@
                     @endif
                 </div>
             </div>
-
-            <div class="uk-form-row">
-                <label class="uk-form-label" for="form-ip">Опубликовать</label>
-                <div class="uk-form-controls">
-                    <input id="form-ip" type="checkbox" name="publish" value="1">
+            @can('publish', \App\Models\Article::class)
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="form-ip">Опубликовать</label>
+                    <div class="uk-form-controls">
+                        <input id="form-ip" type="checkbox" name="publish" value="1">
+                    </div>
                 </div>
-            </div>
+            @endcan
             <input type="hidden" name="authorId" value="{{ Auth::user()->id }}">
         </fieldset>
         <div class="uk-margin-top">

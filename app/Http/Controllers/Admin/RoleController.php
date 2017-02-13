@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Contracts\Validation\Validator;
-use App\Role;
-use App\Permission;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Role;
+use App\Models\Permission;
 
 class RoleController extends AdminController
 {
@@ -17,92 +18,110 @@ class RoleController extends AdminController
 
     public function showAll()
     {
-        $roles = Role::all();
+        if (Auth::user()->can('rule', Role::class)) {
+            $roles = Role::all();
 
-        return view('admin.roles', [
-            'title' => 'Менеджер ролей',
-            'roles' => $roles
-        ]);
+            return view('admin.roles', [
+                'title' => 'Менеджер ролей',
+                'roles' => $roles
+            ]);
+        }
+
+        abort(403);
     }
 
     public function create()
     {
-        $permissions = Permission::all();
+        if (Auth::user()->can('rule', Role::class)) {
+            $permissions = Permission::all();
 
-        return view('admin.roles_create', [
-            'title' => 'Новая роль',
-            'permissions' => $permissions
-        ]);
+            return view('admin.roles_create', [
+                'title' => 'Новая роль',
+                'permissions' => $permissions
+            ]);
+        }
+
+        abort(403);
     }
 
     public function createPost()
     {
-        $this->validate($this->request, [
-            'role_name' => 'required|unique:roles,display_name|min:2|max:50',
-            'role_alias' => 'required|unique:roles,name|min:2|max:50|regex:/^[a-zA-Z0-9_\-]+$/',
-            'role_description' => 'max:250'
-        ]);
+        if (Auth::user()->can('rule', Role::class)) {
+            $this->validate($this->request, [
+                'role_name' => 'required|unique:roles,display_name|min:2|max:50',
+                'role_alias' => 'required|unique:roles,name|min:2|max:50|regex:/^[a-zA-Z0-9_\-]+$/',
+                'role_description' => 'max:250'
+            ]);
 
-        $permissions = Permission::all();
+            $permissions = Permission::all();
 
-        $role = new Role;
-        $role->display_name = trim($this->request->input('role_name'));
-        $role->name = strtolower(trim($this->request->input('role_alias')));
-        $role->description = trim($this->request->input('role_description'));
-        $role->save();
+            $role = new Role;
+            $role->display_name = trim($this->request->input('role_name'));
+            $role->name = strtolower(trim($this->request->input('role_alias')));
+            $role->description = trim($this->request->input('role_description'));
+            $role->save();
 
-        foreach ($permissions as $permission) {
-            if ($this->request->has($permission->name)) {
-                $role->permission()->attach($permission->id);
+            foreach ($permissions as $permission) {
+                if ($this->request->has($permission->name)) {
+                    $role->permissions()->attach($permission->id);
+                }
             }
+
+            return redirect()->route('admin.roles');
         }
 
-        return redirect()->route('admin.roles');
+        abort(403);
     }
 
     public function edit($id)
     {
-        $role = Role::findOrFail($id);
-        $permissions = Permission::all();
+        if (Auth::user()->can('rule', Role::class)) {
+            $role = Role::findOrFail($id);
+            $permissions = Permission::all();
 
-        // Пока не нашел более рационального решения
+            // Пока не нашел более рационального решения
 
-        foreach($role->permission as $key) {
-            $permission[$key->id] = $key;
+            foreach($role->permissions as $key) {
+                $permission[$key->id] = $key;
+            }
+
+            return view('admin.roles_edit', [
+                'title' => 'Редактор роли',
+                'role' => $role,
+                'permission' => $permission,
+                'permissions' => $permissions
+            ]);
         }
-
-        return view('admin.roles_edit', [
-            'title' => 'Редактор роли',
-            'role' => $role,
-            'permission' => $permission,
-            'permissions' => $permissions
-        ]);
+            abort(403);
     }
 
     public function editPost($id)
     {
-        $role = Role::findOrFail($id);
-        $permissions = Permission::all();
+        if (Auth::user()->can('rule', Role::class)) {
+            $role = Role::findOrFail($id);
+            $permissions = Permission::all();
 
-        $this->validate($this->request, [
-            'role_name' => 'required|unique:roles,display_name,'.$role->id.'|min:2|max:50',
-            'role_alias' => 'required|unique:roles,name,'.$role->id.'|min:2|max:50|regex:/^[a-zA-Z0-9_\-]+$/',
-            'role_description' => 'max:250'
-        ]);
+            $this->validate($this->request, [
+                'role_name' => 'required|unique:roles,display_name,'.$role->id.'|min:2|max:50',
+                'role_alias' => 'required|unique:roles,name,'.$role->id.'|min:2|max:50|regex:/^[a-zA-Z0-9_\-]+$/',
+                'role_description' => 'max:250'
+            ]);
 
-        $role->name = strtolower(trim($this->request->input('role_alias')));
-        $role->display_name = trim($this->request->input('role_name'));
-        $role->description = trim($this->request->input('role_description'));
+            $role->name = strtolower(trim($this->request->input('role_alias')));
+            $role->display_name = trim($this->request->input('role_name'));
+            $role->description = trim($this->request->input('role_description'));
 
-        foreach ($permissions as $permission) {
-            if ($this->request->has($permission['name'])) {
-                $rolePermissions[] = $permission['id'];
+            foreach ($permissions as $permission) {
+                if ($this->request->has($permission['name'])) {
+                    $rolePermissions[] = $permission['id'];
+                }
             }
+
+            $role->permissions()->sync($rolePermissions);
+            $role->save();
+
+            return redirect()->route('admin.roles');
         }
-
-        $role->permission()->sync($rolePermissions);
-        $role->save();
-
-        return redirect()->route('admin.roles');
+            abort(403);
     }
 }

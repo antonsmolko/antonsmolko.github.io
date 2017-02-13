@@ -4,47 +4,54 @@
     <title>{{ $title or '' }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="../js/jquery.min.js"></script>
 @endsection
 
-@section('navbar')
+@push('mane_script')
+    <script src="../js/jquery.min.js"></script>
+@endpush
+
+@section('header')
     <div class="wrapper">
-        <div class="logo">
-            <a href="{{ route('index') }}"></a>
-        </div>
-        <div class="nav">
-            @ability('super_admin', 'admin_access')
-            <a class="button button-dark" href="{{ route('admin') }}">Панель администратора</a>
-            @endability
-            @if(Auth::check())
-                <a class="button button-dark" href="{{ route('logout') }}">Выйти</a>
-                <div class="user">
-                    <h3><i class="icon--user"></i>{{ Auth::user()->name }}</h3>
-                    @foreach(Auth::user()->roles as $role)
-                        @if($role['name'])
-                            <span class="role"> [ {{ $role['display_name'] }} ] </span>
+        <div class="header--item">
+            <div class="logo">
+                <a href="{{ route('index') }}">
+                    <img src="/images/logo/logo.svg" alt="">
+                </a>
+            </div>
+            <div class="header--nav">
+                @can('isAdmin', \App\Models\Permission::class)
+                    <a class="button button--nav" href="{{ route('admin') }}">Панель администратора</a>
+                @endcan
+                @if(Auth::check())
+                    <a class="button button--nav" href="{{ route('logout') }}">Выйти</a>
+                    <div class="user">
+                        <h3><i class="icon--user"></i>{{ Auth::user()->name }}</h3>
+                        @if(isset(Auth::user()->role[0]->name))
+                            <span class="role">[ {{ Auth::user()->role[0]->display_name }} ]</span>
+                        @else
+                            <span class="role">Добро пожаловать!</span>
                         @endif
-                    @endforeach
-                </div>
-            @else
-                <a class="button button-dark" href="{{ route('register') }}">Регистрация</a>
-                <a class="button button-dark" href="{{ route('login') }}">Войти</a>
-                <div class="user">
-                    <h3><i class="icon--user"></i>Гость</h3>
-                    <span class="role">Добро пожаловать!</span>
-                </div>
-            @endif
+                    </div>
+                @else
+                    <a class="button button--nav" href="{{ route('register') }}">Регистрация</a>
+                    <a class="button button--nav" href="{{ route('login') }}">Войти</a>
+                @endif
+            </div>
         </div>
     </div>
 @endsection
 
 @section('footer')
     <div class="wrapper">
-        <div class="footer-logo">
-            <a href="{{ route('index') }}"></a>
-        </div>
-        <div class="copyright">
-            <i class="icon--copyright"></i><span>2016 Все права защищены</span>
+        <div class="footer--item">
+            <div class="footer--logo">
+                <a href="{{ route('index') }}">
+                    <img src="/images/logo/logo-footer.svg" alt="">
+                </a>
+            </div>
+            <div class="footer--copyright">
+                <i class="icon--copyright"></i><span>2016 Все права защищены</span>
+            </div>
         </div>
     </div>
 @endsection

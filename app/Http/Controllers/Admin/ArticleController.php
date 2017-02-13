@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+//use Illuminate\Auth\Access\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +18,10 @@ class ArticleController extends AdminController
 
     public function showAll()
     {
-        $articles = Article::all();
-
+        $articles = Article::where('id', '<>', 0)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
         return view('admin.articles', [
             'title' => 'Менеджер статей',
             'articles' => $articles
@@ -26,9 +30,13 @@ class ArticleController extends AdminController
 
     public function create()
     {
-        return view('admin.articles_create', [
-            'title' => 'Новая статья'
-        ]);
+        if (Auth::user()->can('create', Article::class)) {
+            return view('admin.articles_create', [
+                'title' => 'Новая статья'
+            ]);
+        }
+
+        abort(403);
     }
 
     public function createPost()
@@ -39,7 +47,9 @@ class ArticleController extends AdminController
             'image' => 'file|image|mimes:jpeg,bmp,png,gif,tiff|min:10|max:10240'
         ]);
 
-        $fileName = uploadImage($this->request->file('image'));
+        if ($this->request->hasFile('image') && $this->request->file('image')->isValid()) {
+            $fileName = uploadImage($this->request->file('image'));
+        }
 
         $article = new Article;
         $article->title = trim($this->request->input('title'));
@@ -61,10 +71,14 @@ class ArticleController extends AdminController
     {
         $article = Article::findOrFail($id);
 
-        return view('admin.articles_edit', [
-            'title' => 'Редактор статьи',
-            'article' => $article
-        ]);
+        if (Auth::user()->can('edit', Article::class)) {
+            return view('admin.articles_edit', [
+                'title' => 'Редактор статьи',
+                'article' => $article
+            ]);
+        }
+
+        abort(403);
     }
 
     public function editPost($id)
@@ -77,7 +91,9 @@ class ArticleController extends AdminController
             'image' => 'file|image|mimes:jpeg,bmp,png,gif,tiff|min:10|max:10240'
         ]);
 
-        $fileName = uploadImage($this->request->file('image'));
+        if ($this->request->hasFile('image') && $this->request->file('image')->isValid()) {
+            $fileName = uploadImage($this->request->file('image'));
+        }
 
         $article->title = trim($this->request->input('title'));
         $article->content = trim($this->request->input('content'));

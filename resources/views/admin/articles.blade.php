@@ -14,10 +14,11 @@
             <div class="uk-width-medium-1-1">
                 <form action="" method="post">
                     {{ csrf_field() }}
-                    <a href="{{ route('admin.articles.create') }}" class="uk-button uk-button-primary">
-                        <i class="uk-icon-plus"></i>
-                        Создать
-                    </a>
+                    @can('create', \App\Models\Article::class)
+                        <a href="{{ route('admin.articles.create') }}" class="uk-button uk-button-primary">
+                            <i class="uk-icon-plus"></i>Создать
+                        </a>
+                    @endcan
                     <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
                         <thead>
                         <tr>
@@ -39,16 +40,31 @@
                             <tr>
                                 <td>{!! $i++ !!}</td>
                                 <td>
-                                    <a href="{{ route('admin.articles.edit', ['id' => $article->id]) }}">{{ $article->title }}</a>
+                                    @can('edit', \App\Models\Article::class)
+                                        <a href="{{ route('admin.articles.edit', ['id' => $article->id]) }}">{{ $article->title }}</a>
+                                    @endcan
+                                    @cannot('edit', \App\Models\Article::class)
+                                        <span>{{ $article->title }}</span>
+                                    @endcannot
                                 </td>
                                 <td>
                                     <div class="activate us uk-button-group" id="{{ $article->id }}">
                                     @if($article->published == 1)
-                                        <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
-                                        <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
+                                        @can('publish', \App\Models\Article::class)
+                                            <button class="uk-button uk-active button-on"><i class="uk-icon-check"></i></button>
+                                            <button class="uk-button button-off"><i class="uk-icon-ban"></i></button>
+                                        @endcan
+                                        @cannot('publish', \App\Models\Article::class)
+                                            <button class="uk-button uk-active" disabled><i class="uk-icon-check"></i></button>
+                                        @endcannot
                                     @else
-                                        <button class="uk-button button-on"><i class="uk-icon-check"></i></button>
-                                        <button class="uk-button uk-active button-off"><i class="uk-icon-ban"></i></button>
+                                        @can('publish', \App\Models\Article::class)
+                                            <button class="uk-button button-on"><i class="uk-icon-check"></i></button>
+                                            <button class="uk-button uk-active button-off"><i class="uk-icon-ban"></i></button>
+                                        @endcan
+                                        @cannot('publish', \App\Models\Article::class)
+                                                <button class="uk-button uk-active" disabled><i class="uk-icon-ban"></i></button>
+                                        @endcannot
                                     @endif
                                     </div>
                                 </td>
@@ -64,7 +80,12 @@
                                 <td>{{ $article->id }}</td>
                                 <td>
                                     <div class="delete" id="{{ $article->id }}">
-                                        <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
+                                        @can('delete', \App\Models\Article::class)
+                                            <button class="uk-button uk-button-danger"><i class="uk-icon-close"></i></button>
+                                        @endcan
+                                        @cannot('delete', \App\Models\Article::class)
+                                            <button class="uk-button" disabled><i class="uk-icon-close"></i></button>
+                                        @endcannot
                                     </div>
                                 </td>
                             </tr>

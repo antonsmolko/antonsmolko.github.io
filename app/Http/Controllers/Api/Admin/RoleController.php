@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\Admin\AdminController;
-use App\Role;
+use App\Models\Role;
 use DB;
 
 class RoleController extends AdminController

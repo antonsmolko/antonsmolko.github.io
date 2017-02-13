@@ -10,10 +10,6 @@
 </head>
 
 <body>
-<div class="navbar">
-    @section('navbar')
-    @show
-</div>
 <div class="header">
     @section('header')
     @show
@@ -32,6 +28,7 @@
     @section('footer')
     @show
 </div>
-</body>
     @stack('script')
+</body>
+
 </html>

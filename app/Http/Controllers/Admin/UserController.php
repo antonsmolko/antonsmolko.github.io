@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Contracts\Validation\Validator;
-use App\User;
-use App\Role;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Role;
 
 class UserController extends AdminController
 {
@@ -17,58 +18,77 @@ class UserController extends AdminController
 
     public function showAll()
     {
-        $users = User::all();
+        if (Auth::user()->can('rule', User::class)) {
+            $users = User::all();
 
-        return view('admin.users', [
-            'title' => 'Пользователи',
-            'users' => $users,
-        ]);
+            return view('admin.users', [
+                'title' => 'Пользователи',
+                'users' => $users,
+            ]);
+        }
+
+        abort(403);
     }
 
     public function create()
     {
-        $roles = Role::all();
+        if (Auth::user()->can('create', User::class)) {
 
-        return view('admin.users_create', [
-            'title' => 'Новый пользователь',
-            'roles' => $roles
-        ]);
+            $roles = Role::all();
+
+            return view('admin.users_create', [
+                'title' => 'Новый пользователь',
+                'roles' => $roles
+            ]);
+        }
+
+        abort(403);
     }
 
     public function createPost()
     {
-        $this->validate($this->request, [
-            'name' => 'required|min:2|max:50',
-            'login' => 'required|unique:users,login|min:4|max:50|regex:/^[a-zA-Z0-9]+$/',
-            'password' => 'required|min:6|max:50|regex:/^[a-zA-Z0-9]+$/',
-            'password2' => 'required|same:password',
-            'email' => 'required|email|unique:users,email|max:50'
-        ]);
+        if (Auth::user()->can('create', User::class)) {
 
-        $user = new User;
-        $user->name = trim($this->request->input('name'));
-        $user->login = trim($this->request->input('login'));
-        $user->password = bcrypt(trim($this->request->input('password')));
-        $user->email = trim($this->request->input('email'));
-        $user->activate = $this->request->input('activate');
-        $user->save();
-        if ($this->request->has('role')) {
-            $user->roles()->attach($this->request->input('role'));
+            $this->validate($this->request, [
+                'name' => 'required|min:2|max:50',
+                'login' => 'required|unique:users,login|min:4|max:50|regex:/^[a-zA-Z0-9]+$/',
+                'password' => 'required|min:6|max:50|regex:/^[a-zA-Z0-9]+$/',
+                'password2' => 'required|same:password',
+                'email' => 'required|email|unique:users,email|max:50'
+            ]);
+
+            $user = new User;
+            $user->name = trim($this->request->input('name'));
+            $user->login = trim($this->request->input('login'));
+            $user->password = bcrypt(trim($this->request->input('password')));
+            $user->email = trim($this->request->input('email'));
+            $user->activate = $this->request->input('activate');
+            $user->save();
+            if ($this->request->has('role')) {
+                $user->role()->attach($this->request->input('role'));
+            }
+
+            return redirect()->route('admin.users');
         }
 
-        return redirect()->route('admin.users');
+        abort(403);
     }
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        $roles = Role::all();
+        if (Auth::user()->can('edit', User::class)) {
 
-        return view('admin.users_edit', [
-            'title' => 'Редактор пользователя',
-            'user' => $user,
-            'roles' => $roles
-        ]);
+            $user = User::findOrFail($id);
+            $roles = Role::all();
+
+            return view('admin.users_edit', [
+                'title' => 'Редактор пользователя',
+                'user' => $user,
+                'roles' => $roles
+            ]);
+        }
+
+        abort(403);
     }
 
     public function editPost($id)
@@ -94,7 +114,7 @@ class UserController extends AdminController
         $user->activate = trim($this->request->input('activate'));
 
         if ($this->request->has('roleId')) {
-            $user->roles()->sync([$this->request->input('roleId')]);
+            $user->role()->sync([$this->request->input('roleId')]);
         }
 
         $user->save();
