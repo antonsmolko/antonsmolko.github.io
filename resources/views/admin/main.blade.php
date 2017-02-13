@@ -40,11 +40,7 @@
                     <a class="button button--nav" href="{{ route('logout') }}">Выйти</a>
                     <div class="user">
                         <h3><i class="header__icon icon--user"></i>{{ Auth::user()->name }}</h3>
-                        @foreach(Auth::user()->roles as $key)
-                            @if($key->name)
-                                <span class="role"> [ {{ $key->display_name }} ] </span>
-                            @endif
-                        @endforeach
+                        <span class="role"> [ {{ Auth::user()->role[0]->display_name }} ] </span>
                     </div>
                 @endif
             </div>
@@ -55,15 +51,15 @@
 @section('admin_navbar')
     <nav class="uk-navbar uk-width-1-1">
         <ul class="uk-navbar-nav">
-            @ability(['super_admin', 'user_admin'], 'view_users')
+            @can('rule', \App\Models\User::class)
             <li class="uk-parent" id="users"><a href="{{ route('admin.users') }}">Пользователи</a></li>
-            @endability
-            @ability('super_admin', 'create_edit_delete_roles')
+            @endcan
+            @can('rule', \App\Models\Role::class)
             <li class="uk-parent" id="roles"><a href="{{ route('admin.roles') }}">Роли</a></li>
-            @endability
-            @ability(['super_admin','article_admin', 'author', 'editor'], ['creare_articles', 'edit_articles', 'publish_articles', 'delete_articles'])
+            @endcan
+            @can('rule', \App\Models\Article::class)
             <li class="uk-parent" id="articles"><a href="{{ route('admin.articles') }}">Блог</a></li>
-            @endability
+            @endcan
         </ul>
     </nav>
 @endsection

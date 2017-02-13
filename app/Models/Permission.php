@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
-use Zizaco\Entrust\EntrustPermission;
+//use Zizaco\Entrust\Traits\EntrustUserTrait;
+//use Zizaco\Entrust\EntrustPermission;
 
-class Permission extends EntrustPermission
+class Permission extends Model
 {
-    use EntrustUserTrait;
+//    use EntrustUserTrait;
     //
 
     public function role()

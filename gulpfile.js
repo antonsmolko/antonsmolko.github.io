@@ -34,6 +34,10 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
+    mix.less('errors.less');
+});
+
+elixir(function(mix) {
     mix.less('uikit.theme.less');
 });
 

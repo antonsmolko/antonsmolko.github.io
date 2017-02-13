@@ -36,49 +36,49 @@ Route::group(['namespace' => 'Auth'], function() {
 
 // АДМИНКА
 
-Route::group(['prefix' => 'administrator', 'namespace' => 'Auth', 'middleware' => ['ability:super_admin,admin_access']], function() {
+Route::group(['prefix' => 'administrator', 'namespace' => 'Auth'], function() {
     Route::get('/', ['uses' => 'AuthController@showAdmin'])
         ->name('admin');
 });
 
 
-Route::group(['prefix' => 'administrator', 'namespace' => 'Admin', 'middleware' => ['permission:admin_access']], function() {
+Route::group(['prefix' => 'administrator', 'namespace' => 'Admin'], function() {
 
-    Route::get('/users', ['middleware' => ['ability:super_admin|user_admin,view_users'], 'uses' => 'UserController@showAll'])
+    Route::get('/users', ['uses' => 'UserController@showAll'])
         ->name('admin.users');
 
-    Route::get('/users/create', ['middleware' => ['ability:super_admin|user_admin,create_users'], 'uses' => 'UserController@create'])
+    Route::get('/users/create', ['uses' => 'UserController@create'])
         ->name('admin.users.create');
 
-    Route::post('/users/create', ['middleware' => ['ability:super_admin|user_admin,create_users'], 'uses' => 'UserController@createPost'])
+    Route::post('/users/create', ['uses' => 'UserController@createPost'])
         ->name('admin.users.create.post');
 
-    Route::get('/users/edit/{id}', ['middleware' => ['ability:super_admin|user_admin,edit_users'], 'uses' => 'UserController@edit'])
+    Route::get('/users/edit/{id}', ['uses' => 'UserController@edit'])
         ->where('id', '[0-9]+')
         ->name('admin.users.edit');
 
-    Route::post('/users/edit/{id}', ['middleware' => ['ability:super_admin|user_admin,edit_users'], 'uses' => 'UserController@editPost'])
+    Route::post('/users/edit/{id}', ['uses' => 'UserController@editPost'])
         ->where('id', '[0-9]+')
         ->name('admin.users.edit.post');
 
-    Route::get('/roles', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@showAll'])
+    Route::get('/roles', ['uses' => 'RoleController@showAll'])
         ->name('admin.roles');
 
-    Route::get('/roles/create', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@create'])
+    Route::get('/roles/create', ['uses' => 'RoleController@create'])
         ->name('admin.roles.create');
 
-    Route::post('/roles/create', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@createPost'])
+    Route::post('/roles/create', ['uses' => 'RoleController@createPost'])
         ->name('admin.roles.createPost');
 
-    Route::get('/roles/edit/{id}', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@edit'])
+    Route::get('/roles/edit/{id}', ['uses' => 'RoleController@edit'])
         ->where('id', '[0-9]+')
         ->name('admin.roles.edit');
 
-    Route::post('/roles/edit/{id}', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@editPost'])
+    Route::post('/roles/edit/{id}', ['uses' => 'RoleController@editPost'])
         ->where('id', '[0-9]+')
         ->name('admin.roles.editPost');
 
-    Route::get('/articles', ['middleware' => ['ability:super_admin|article_admin|author|editor,create_articles|edit_articles|publish_articles|delete_articles'], 'uses' => 'ArticleController@showAll'])
+    Route::get('/articles', ['uses' => 'ArticleController@showAll'])
         ->name('admin.articles');
 
     Route::get('/articles/create', ['uses' => 'ArticleController@create'])
@@ -100,21 +100,106 @@ Route::group(['prefix' => 'administrator', 'namespace' => 'Admin', 'middleware' 
 
 Route::group(['prefix' => 'api'], function() {
 
-    Route::group(['namespace' => 'Api\Admin', 'middleware' => ['permission:admin_access']], function() {
+    Route::group(['namespace' => 'Api\Admin'], function() {
 
-        Route::post('/article/activate', ['middleware' => ['ability:super_admin|article_admin,publish_articles'], 'uses' => 'ArticleController@activate'])
+        Route::post('/article/activate', ['uses' => 'ArticleController@activate'])
             ->name('api.article.activate');
 
-        Route::post('/article/delete', ['middleware' => ['ability:super_admin|article_admin,delete_articles'], 'uses' => 'ArticleController@delete'])
+        Route::post('/article/delete', ['uses' => 'ArticleController@delete'])
             ->name('api.article.delete');
 
-        Route::post('/user/activate', ['middleware' => ['ability:super_admin|user_admin,activate_users'], 'uses' => 'UserController@activate'])
+        Route::post('/user/activate', ['uses' => 'UserController@activate'])
             ->name('api.user.activate');
 
-        Route::post('/user/delete', ['middleware' => ['ability:super_admin|user_admin,delete_users'], 'uses' => 'UserController@delete'])
+        Route::post('/user/delete', ['uses' => 'UserController@delete'])
             ->name('api.user.delete');
 
-        Route::post('/role/delete', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@delete'])
+        Route::post('/role/delete', ['uses' => 'RoleController@delete'])
             ->name('api.role.delete');
     });
 });
+
+//// АДМИНКА
+//
+//Route::group(['prefix' => 'administrator', 'namespace' => 'Auth', 'middleware' => ['ability:super_admin,admin_access']], function() {
+//    Route::get('/', ['uses' => 'AuthController@showAdmin'])
+//        ->name('admin');
+//});
+//
+//
+//Route::group(['prefix' => 'administrator', 'namespace' => 'Admin', 'middleware' => ['permission:admin_access']], function() {
+//
+//    Route::get('/users', ['middleware' => ['ability:super_admin|user_admin,view_users'], 'uses' => 'UserController@showAll'])
+//        ->name('admin.users');
+//
+//    Route::get('/users/create', ['middleware' => ['ability:super_admin|user_admin,create_users'], 'uses' => 'UserController@create'])
+//        ->name('admin.users.create');
+//
+//    Route::post('/users/create', ['middleware' => ['ability:super_admin|user_admin,create_users'], 'uses' => 'UserController@createPost'])
+//        ->name('admin.users.create.post');
+//
+//    Route::get('/users/edit/{id}', ['middleware' => ['ability:super_admin|user_admin,edit_users'], 'uses' => 'UserController@edit'])
+//        ->where('id', '[0-9]+')
+//        ->name('admin.users.edit');
+//
+//    Route::post('/users/edit/{id}', ['middleware' => ['ability:super_admin|user_admin,edit_users'], 'uses' => 'UserController@editPost'])
+//        ->where('id', '[0-9]+')
+//        ->name('admin.users.edit.post');
+//
+//    Route::get('/roles', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@showAll'])
+//        ->name('admin.roles');
+//
+//    Route::get('/roles/create', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@create'])
+//        ->name('admin.roles.create');
+//
+//    Route::post('/roles/create', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@createPost'])
+//        ->name('admin.roles.createPost');
+//
+//    Route::get('/roles/edit/{id}', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@edit'])
+//        ->where('id', '[0-9]+')
+//        ->name('admin.roles.edit');
+//
+//    Route::post('/roles/edit/{id}', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@editPost'])
+//        ->where('id', '[0-9]+')
+//        ->name('admin.roles.editPost');
+//
+//    Route::get('/articles', ['middleware' => ['ability:super_admin|article_admin|author|editor,create_articles|edit_articles|publish_articles|delete_articles'], 'uses' => 'ArticleController@showAll'])
+//        ->name('admin.articles');
+//
+//    Route::get('/articles/create', ['uses' => 'ArticleController@create'])
+//        ->name('admin.articles.create');
+//
+//    Route::post('/articles/create', ['uses' => 'ArticleController@createPost'])
+//        ->name('admin.articles.create.post');
+//
+//    Route::get('/articles/edit/{id}', ['uses' => 'ArticleController@edit'])
+//        ->where('id', '[0-9]+')
+//        ->name('admin.articles.edit');
+//
+//    Route::post('/articles/edit/{id}', ['uses' => 'ArticleController@editPost'])
+//        ->where('id', '[0-9]+')
+//        ->name('admin.articles.edit.post');
+//});
+//
+//// API
+//
+//Route::group(['prefix' => 'api'], function() {
+//
+//    Route::group(['namespace' => 'Api\Admin', 'middleware' => ['permission:admin_access']], function() {
+//
+//        Route::post('/article/activate', ['middleware' => ['ability:super_admin|article_admin,publish_articles'], 'uses' => 'ArticleController@activate'])
+//            ->name('api.article.activate');
+//
+//        Route::post('/article/delete', ['middleware' => ['ability:super_admin|article_admin,delete_articles'], 'uses' => 'ArticleController@delete'])
+//            ->name('api.article.delete');
+//
+//        Route::post('/user/activate', ['middleware' => ['ability:super_admin|user_admin,activate_users'], 'uses' => 'UserController@activate'])
+//            ->name('api.user.activate');
+//
+//        Route::post('/user/delete', ['middleware' => ['ability:super_admin|user_admin,delete_users'], 'uses' => 'UserController@delete'])
+//            ->name('api.user.delete');
+//
+//        Route::post('/role/delete', ['middleware' => ['ability:super_admin,create_edit_delete_roles'], 'uses' => 'RoleController@delete'])
+//            ->name('api.role.delete');
+//    });
+//});

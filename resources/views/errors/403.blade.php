@@ -7,7 +7,7 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="../css/errors.css">
+<link rel="stylesheet" type="text/css" href="../css/errors.css">
 @endpush
 
 @section('header')
@@ -17,8 +17,8 @@
     <div class="error">
         <div class="wrapper">
             <div class="error--item">
-                <h1>ОШИБКА 404</h1>
-                <span>Страница не найдена!</span>
+                <h1>ОШИБКА 403</h1>
+                <span>Доступ запрещён!</span>
                 <a class="button" href="{{ route('index') }}">На главную страницу</a>
             </div>
         </div>

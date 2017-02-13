@@ -18,11 +18,9 @@ class ArticleController extends AdminController
 
     public function showAll()
     {
-        $articles = Article::all();
-
-//        $articles = Article::where('published', 1)
-//            ->orderBy('created_at', 'DESC')
-//            ->get();
+        $articles = Article::where('id', '<>', 0)
+            ->orderBy('created_at', 'DESC')
+            ->get();
         
         return view('admin.articles', [
             'title' => 'Менеджер статей',
@@ -32,14 +30,13 @@ class ArticleController extends AdminController
 
     public function create()
     {
-        if (Gate::allows('create_articles')) {
+        if (Auth::user()->can('create', Article::class)) {
             return view('admin.articles_create', [
                 'title' => 'Новая статья'
             ]);
         }
 
         abort(403);
-
     }
 
     public function createPost()

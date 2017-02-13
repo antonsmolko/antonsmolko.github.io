@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Repositories\ArticleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ArticleController extends Controller
 {
@@ -14,24 +16,18 @@ class ArticleController extends Controller
         parent::__construct($request);
     }
 
-    public function showAll()
+    public function showAll(ArticleRepository $articleRepository)
     {
-        $articleLast = Article::where('published', 1)
-            ->orderBy('created_at', 'DESC')
-            ->first();
+        Cache::put('articleLast', $articleRepository->getLast(), 10);
+        $articleLastCache = Cache::get('articleLast');
 
-        $articles = Article::where('published', 1)
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-//        $articles = Article::all();
-        Cache::put('articles', $articles, 10);
-        $articlesCash = Cache::get('articles');
+        Cache::put('articlesButLast', $articleRepository->allButLast(), 10);
+        $articlesButLastCache = Cache::get('articlesButLast');
 
         return view('pages.articles', [
             'title' => 'MOON',
-            'articleLast' => $articleLast,
-            'articles' => $articlesCash
+            'articleLast' => $articleLastCache,
+            'articles' => $articlesButLastCache
         ]);
     }
 

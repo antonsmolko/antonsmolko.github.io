@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +45,7 @@ class AuthController extends Controller
         $user->activate = '1';
         $user->save();
 
-        return redirect()->route('index');
+        return redirect()->route('login');
     }
 
     public function login()
@@ -57,11 +60,11 @@ class AuthController extends Controller
 
     public function showAdmin() {
 
-        if (Auth::user()->ability('super_admin,user_admin', 'view_users,create_users,edit_users,activate_users,delete_users')) {
+        if (Auth::user()->can('rule', User::class)) {
             return redirect()->route('admin.users');
-        } elseif (Auth::user()->ability('super_admin', 'create_edit_delete_roles')) {
+        } elseif (Auth::user()->can('rule', Role::class)) {
             return redirect()->route('admin.roles');
-        } elseif (Auth::user()->ability('super_admin,articles_admin,author,editor', 'view_vip_articles,create_articles,edit_articles,publish_articles,delete_articles')) {
+        } elseif (Auth::user()->can('rule', Article::class)) {
             return redirect()->route('admin.articles');
         } else {
             return redirect()->route('index');

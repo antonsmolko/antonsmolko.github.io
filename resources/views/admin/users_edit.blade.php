@@ -1,5 +1,9 @@
 @extends('admin.main')
 
+@push('script')
+<script src="../js/admin.users.js"></script>
+@endpush
+
 @section('content')
     <h2>Менеджер пользователей: редактировать пользователя</h2>
     <form class="uk-form uk-form-horizontal" action="" method="post">
@@ -56,7 +60,7 @@
                 <label class="uk-form-label" for="form-sr">Назначить роль</label>
                 <div class="uk-form-controls">
                     <select class="uk-form-width-medium" id="form-sr" name="roleId">
-                        @if(!$user->role[0]->display_name)
+                        @if(!isset($user->role[0]->display_name))
                             <option value="" selected>Не назначена</option>
                             @foreach($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->display_name }}</option>

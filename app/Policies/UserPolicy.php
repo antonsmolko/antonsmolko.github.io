@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Article;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ArticlePolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -23,7 +22,7 @@ class ArticlePolicy
     public function rule(User $user)
     {
         foreach ($user->role[0]->permissions as $permission) {
-            if ($permission->name == 'create_articles' || $permission->name == 'edit_articles' || $permission->name == 'publish_articles' || $permission->name == 'delete_articles') {
+            if ($permission->name == 'view_users' || $permission->name == 'create_users' || $permission->name == 'edit_users' || $permission->name == 'activate_users' || $permission->name == 'delete_users') {
                 return true;
             }
         }
@@ -34,7 +33,7 @@ class ArticlePolicy
     public function create(User $user)
     {
         foreach ($user->role[0]->permissions as $permission) {
-            if ($permission->name == 'create_articles') {
+            if ($permission->name == 'create_users') {
                 return true;
             }
         }
@@ -45,7 +44,7 @@ class ArticlePolicy
     public function edit(User $user)
     {
         foreach ($user->role[0]->permissions as $permission) {
-            if ($permission->name == 'edit_articles') {
+            if ($permission->name == 'edit_users') {
                 return true;
             }
         }
@@ -53,10 +52,10 @@ class ArticlePolicy
         return false;
     }
 
-    public function publish(User $user)
+    public function activate(User $user)
     {
         foreach ($user->role[0]->permissions as $permission) {
-            if ($permission->name == 'publish_articles') {
+            if ($permission->name == 'activate_users') {
                 return true;
             }
         }
@@ -67,7 +66,7 @@ class ArticlePolicy
     public function delete(User $user)
     {
         foreach ($user->role[0]->permissions as $permission) {
-            if ($permission->name == 'delete_articles') {
+            if ($permission->name == 'delete_users') {
                 return true;
             }
         }

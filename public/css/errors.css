@@ -398,79 +398,32 @@ h3 {
   text-align: center;
   margin-bottom: 70px;
 }
-body .article-last {
-  margin-top: 30px;
+body {
+  background: url("../images/background/background_02.jpg") no-repeat;
+  background-size: auto;
+  background-position-x: center;
 }
-body .article-last .wrapper .article-last--item {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -15px;
-  margin-right: -15px;
+body .error {
+  padding: 0 50px;
 }
-body .article-last .wrapper .article-last--item .article-last--description {
-  box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
-  border-radius: 2px 0 0 2px;
-  padding-left: 15px;
-  padding-right: 15px;
-  word-wrap: break-word;
-  width: calc(50% - 30px);
-  padding-left: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-left: 15px;
-  background: rgba(255, 255, 255, 0.7);
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
-  -webkit-box-align: start;
-  align-items: flex-start;
+body .error .wrapper {
+  margin: 0 auto;
+  position: relative;
+  height: 100vh;
 }
-body .article-last .wrapper .article-last--item .article-last--description h2,
-body .article-last .wrapper .article-last--item .article-last--description .article-last--dt,
-body .article-last .wrapper .article-last--item .article-last--description .article-last--author,
-body .article-last .wrapper .article-last--item .article-last--description .article-last--text,
-body .article-last .wrapper .article-last--item .article-last--description .button {
-  margin: 0 20px;
-}
-body .article-last .wrapper .article-last--item .article-last--description h2 {
-  margin-bottom: 20px;
-}
-body .article-last .wrapper .article-last--item .article-last--description .article-last--dt,
-body .article-last .wrapper .article-last--item .article-last--description .article-last--author {
-  color: #8b8b8b;
-}
-body .article-last .wrapper .article-last--item .article-last--image {
-  box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
-  border-radius: 0 2px 2px 0;
-  padding-left: 15px;
-  padding-right: 15px;
-  word-wrap: break-word;
-  width: calc(50% - 30px);
-  padding-left: 0;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-body .articles-list {
-  margin-top: 30px;
-  padding-top: 30px;
-  background: #ffffff;
-}
-body .articles-list .wrapper .articles-list--item {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -15px;
-  margin-right: -15px;
-  -webkit-box-align: start;
-  align-items: start;
-}
-body .articles-list .wrapper .articles-list--item .article {
+body .error .wrapper .error--item {
+  position: absolute;
+  height: 50vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 2px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  box-sizing: border-box;
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
@@ -479,50 +432,26 @@ body .articles-list .wrapper .articles-list--item .article {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+body .error .wrapper .error--item h1 {
   box-sizing: border-box;
   margin-left: 15px;
   margin-right: 15px;
   word-wrap: break-word;
-  width: calc(33.333333333333336% - 30px);
-  box-shadow: 0 5px 8px 0 rgba(160, 166, 168, 0.35);
-  background: #ffffff;
-  margin-bottom: 30px;
-  overflow: hidden;
+  font-size: 48px;
 }
-@media screen and (max-width: 1100px) {
-  body .articles-list .wrapper .articles-list--item .article {
-    width: calc(50% - 30px);
-  }
-}
-@media screen and (max-width: 780px) {
-  body .articles-list .wrapper .articles-list--item .article {
-    width: calc(100% - 30px);
-  }
-}
-body .articles-list .wrapper .articles-list--item .article .article-image {
-  overflow: hidden;
-}
-body .articles-list .wrapper .articles-list--item .article .article-image img {
-  width: 100%;
-  display: block;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-body .articles-list .wrapper .articles-list--item .article .article-image img:hover {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-}
-body .articles-list .wrapper .articles-list--item .article .article--title {
-  padding: 30px;
-}
-body .articles-list .wrapper .articles-list--item .article .article--title a {
-  text-decoration: none;
-}
-body .articles-list .wrapper .articles-list--item .article .article--title .article--author {
-  display: block;
-  color: #8b8b8b;
+body .error .wrapper .error--item span {
+  box-sizing: border-box;
+  margin-left: 15px;
+  margin-right: 15px;
+  word-wrap: break-word;
+  text-transform: uppercase;
+  font-size: 24px;
+  margin-bottom: 50px;
 }
 
-/*# sourceMappingURL=articles.css.map */
+/*# sourceMappingURL=errors.css.map */

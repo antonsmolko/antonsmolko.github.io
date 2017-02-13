@@ -40,9 +40,19 @@
                 <label class="uk-form-label" for="form-ip">Опубликовать</label>
                 <div class="uk-form-controls">
                     @if($article->published == 1)
-                        <input id="form-ip" type="checkbox" name="publish" value="1" checked>
+                        @can('publish', \App\Models\Article::class)
+                            <input id="form-ip" type="checkbox" name="publish" value="1" checked>
+                        @endcan
+                        @cannot('publish', \App\Models\Article::class)
+                            <input id="form-ip" type="checkbox" name="publish" value="1" checked disabled>
+                        @endcannot
                     @else
-                        <input id="form-ip" type="checkbox" name="publish" value="1">
+                        @can('publish', \App\Models\Article::class)
+                            <input id="form-ip" type="checkbox" name="publish" value="1">
+                        @endcan
+                        @cannot('publish', \App\Models\Article::class)
+                            <input id="form-ip" type="checkbox" name="publish" value="1" disabled>
+                        @endcannot
                     @endif
                 </div>
             </div>
