@@ -20,7 +20,7 @@
                     <div class="article-last--description">
                         <h2>{{ $articleLast->title }}</h2>
                         <span class="article-last--dt">{{ getRusDate($articleLast->updated_at) }}</span>
-                        @if($articleLast->author[0]->name)
+                        @if(isset($articleLast->author[0]->name))
                             <span class="article-last--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
                         @endif
                         <div class="article-last--text">
@@ -56,7 +56,9 @@
                             <a href="{{ route('article', ['id' => $article->id]) }}">
                                 <h3>{{ $article->title }}</h3>
                             </a>
-                            <span class="article--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
+                            @if(isset($articleLast->author[0]->name))
+                                <span class="article--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
+                            @endif
                         </div>
                     </div>
                 @endforeach
