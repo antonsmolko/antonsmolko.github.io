@@ -63,6 +63,7 @@
                     </div>
                 @endforeach
             </div>
+            {{ $articles->links() }}
         </div>
     </div>
 @endsection

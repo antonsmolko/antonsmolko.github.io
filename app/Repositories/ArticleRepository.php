@@ -8,17 +8,38 @@ class ArticleRepository
 {
     public function getLast()
     {
-        return Article::where('published', 1)
-            ->orderBy('created_at', 'DESC')
+        $articleLast = Article::where('published', 1)
+            ->latest()
             ->first();
+
+        if ($articleLast) {
+            Cache::put('articleLast', $articleLast, env('CACHE_TIME', 0));
+            return Cache::get('articleLast');
+        } else {
+            return '';
+        }
     }
 
-    public function allButLast()
+    public function getAllButLast()
     {
-        $lastArticle = $this->getLast();
+        $articlesButLast = Article::where('id', '<>', $this->getLast()->id)
+            ->latest()
+            ->paginate(config('blog.itemsPerPage'));
 
-        return Article::where('id', '<>', $lastArticle->id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+        if ($articlesButLast) {
+            Cache::put('articlesButLast', $articlesButLast, env('CACHE_TIME', 0));
+            return Cache::get('articlesButLast');
+        } else {
+            return [];
+        }
+    }
+
+    public function getOne($id)
+    {
+        $article = Article::findOrFail($id);
+        $article->views += 1;
+        $article->save();
+
+        return $article;
     }
 }
