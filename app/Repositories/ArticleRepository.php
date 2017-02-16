@@ -6,40 +6,38 @@ use Illuminate\Support\Facades\Cache;
 
 class ArticleRepository
 {
+    protected $article;
+    protected $id;
+
     public function getLast()
     {
-        $articleLast = Article::where('published', 1)
-            ->latest()
-            ->first();
-
-        if ($articleLast) {
-            Cache::put('articleLast', $articleLast, env('CACHE_TIME', 0));
-            return Cache::get('articleLast');
-        } else {
-            return '';
-        }
+        return Cache::remember('articleLast', env('CACHE_TIME', 0), function () {
+            return Article::published()
+                ->latest()
+                ->first();
+        });
     }
 
     public function getAllButLast()
     {
-        $articlesButLast = Article::where('id', '<>', $this->getLast()->id)
-            ->latest()
-            ->paginate(config('blog.itemsPerPage'));
-
-        if ($articlesButLast) {
-            Cache::put('articlesButLast', $articlesButLast, env('CACHE_TIME', 0));
-            return Cache::get('articlesButLast');
-        } else {
-            return [];
-        }
+        return Cache::remember('articlesButLast', env('CACHE_TIME', 0), function () {
+            return Article::where('id', '<>', $this->getLast()->id)
+                ->published()
+                ->latest()
+                ->paginate(config('blog.itemsPerPage'));
+        });
     }
 
     public function getOne($id)
     {
-        $article = Article::findOrFail($id);
-        $article->views += 1;
-        $article->save();
+        $this->id = $id;
 
-        return $article;
+        return Cache::remember('article', env('CACHE_TIME', 0), function () {
+            $this->article = Article::findOrFail($this->id);
+            $this->article->views += 1;
+            $this->article->save();
+
+            return $this->article;
+        });
     }
 }
