@@ -398,6 +398,34 @@ h3 {
   text-align: center;
   margin-bottom: 70px;
 }
+.pagination {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.pagination .button {
+  margin: 0 10px;
+}
+.pagination .button-disabled {
+  border: 1px solid #888888;
+  box-shadow: none;
+  background: #eeeeee;
+}
+.pagination .button-disabled:hover,
+.pagination .button-disabled:active {
+  background: #eeeeee;
+}
+.pagination .button-active {
+  border: 1px solid #888888;
+  box-shadow: none;
+  background: #eeeeee;
+}
+.pagination .button-active:hover,
+.pagination .button-active:active {
+  background: #eeeeee;
+}
 body {
   background: #ffffff;
 }

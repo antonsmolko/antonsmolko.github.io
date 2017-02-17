@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\View;
 
 class ArticleController extends Controller
 {
-    protected $articles;
+//    protected $articles;
     protected $article;
 
     public function  __construct(Request $request)
@@ -19,15 +19,11 @@ class ArticleController extends Controller
 
     public function showAll(ArticleRepository $articleRepository)
     {
-        $this->articles = $articleRepository;
-
-        return View::share('showAll', Cache::remember('showAll', env('CACHE_TIME', 0), function () {
-            return view('pages.articles', [
-                'title' => 'Laravel.blog',
-                'articleLast' => $this->articles->getLast(),
-                'articles' => $this->articles->getAllButLast()
-            ])->render();
-        }));
+        return view('pages.articles', [
+            'title' => 'Laravel.blog',
+            'articleLast' => $articleRepository->getLast(),
+            'articles' => $articleRepository->getAllButLast()
+        ]);
     }
 
     public function showOne($id, ArticleRepository $articleRepository)
