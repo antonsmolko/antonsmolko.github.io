@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
 use App\Repositories\ArticleRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class ArticleController extends Controller
 {
+//    protected $articles;
+    protected $article;
+
     public function  __construct(Request $request)
     {
         parent::__construct($request);
@@ -18,37 +19,22 @@ class ArticleController extends Controller
 
     public function showAll(ArticleRepository $articleRepository)
     {
-        if ($articleRepository->getLast()) {
-            Cache::put('articleLast', $articleRepository->getLast(), 10);
-            $articleLastCache = Cache::get('articleLast');
-        } else {
-            $articleLastCache = '';
-        }
-
-        if ($articleRepository->getLast()) {
-            Cache::put('articlesButLast', $articleRepository->allButLast(), 10);
-            $articlesButLastCache = Cache::get('articlesButLast');
-        } else {
-            $articlesButLastCache = [];
-        }
-
         return view('pages.articles', [
-            'title' => 'MOON',
-            'articleLast' => $articleLastCache,
-            'articles' => $articlesButLastCache
+            'title' => 'Laravel.blog',
+            'articleLast' => $articleRepository->getLast(),
+            'articles' => $articleRepository->getAllButLast()
         ]);
     }
 
-    public function showOne($id)
+    public function showOne($id, ArticleRepository $articleRepository)
     {
-        $article = Article::findOrFail($id);
+        $this->article = $articleRepository->getOne($id);
 
-        $article->views += 1;
-        $article->save();
-
-        return view('pages.article', [
-            'title' => 'Просмотр статьи',
-            'article' => $article
-        ]);
+        return View::share('showOne', Cache::remember('showOne', env('CACHE_TIME', 0), function () {
+            return view('pages.article', [
+                'title' => 'Просмотр статьи',
+                'article' => $this->article
+            ])->render();
+        }));
     }
 }

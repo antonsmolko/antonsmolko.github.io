@@ -19,7 +19,7 @@ class ArticleController extends AdminController
     public function showAll()
     {
         $articles = Article::where('id', '<>', 0)
-            ->orderBy('created_at', 'DESC')
+            ->latest()
             ->get();
         
         return view('admin.articles', [

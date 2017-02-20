@@ -11,7 +11,6 @@
     <script src="../js/wow.min.js"></script>
     <script src="../js/articles.js"></script>
 @endpush
-
 @section('content')
     <div class="article-last">
         <div class="wrapper">
@@ -20,7 +19,7 @@
                     <div class="article-last--description">
                         <h2>{{ $articleLast->title }}</h2>
                         <span class="article-last--dt">{{ getRusDate($articleLast->updated_at) }}</span>
-                        @if($articleLast->author[0]->name)
+                        @if(isset($articleLast->author[0]->name))
                             <span class="article-last--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
                         @endif
                         <div class="article-last--text">
@@ -43,7 +42,7 @@
     <div class="articles-list">
         <div class="wrapper">
             <div class="articles-list--item">
-                @foreach($articles as $article)
+                @forelse($articles as $key => $article)
                     <div class="article" data-wow-offset="10">
                         <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
                             @if(file_exists($article->image_thumb))
@@ -56,11 +55,16 @@
                             <a href="{{ route('article', ['id' => $article->id]) }}">
                                 <h3>{{ $article->title }}</h3>
                             </a>
-                            <span class="article--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
+                            @if(isset($articleLast->author[0]->name))
+                                <span class="article--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
+                            @endif
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p>Нет статей для отображения</p>
+                @endforelse
             </div>
+            {{ $articles->links() }}
         </div>
     </div>
 @endsection

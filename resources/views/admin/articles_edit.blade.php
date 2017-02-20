@@ -59,7 +59,7 @@
             <div class="uk-form-row">
                 <label class="uk-form-label" for="form-h-ia">Автор статьи</label>
                 <div class="uk-form-controls">
-                    @if(!$article->author[0]->name)
+                    @if(!isset($article->author[0]->name))
                         <input class="uk-form-width-medium" type="text" id="form-h-ia" name="" value="{{ Auth::user()->name }}" disabled>
                     @else
                         <input class="uk-form-width-medium" type="text" id="form-h-ia" name="" value="{{ $article->author[0]->name }}" disabled>
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </fieldset>
-        @if(!$article->author[0]->name)
+        @if(!isset($article->author[0]->name))
             <input type="hidden" name="authorId" value="{{ Auth::user()->id }}">
         @else
             <input type="hidden" name="authorId" value="{{ $article->author[0]->id }}">
