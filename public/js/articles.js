@@ -8,11 +8,15 @@ $(function () {
     //     });
     // });
 
-    $('.articles-list--item').masonry({
-        // options...
-        itemSelector: '.article',
-        columnWidth: '.article'
+    $(document).onload(function () {
+        $('.articles-list--item').masonry({
+            // options...
+            itemSelector: '.article',
+            columnWidth: '.article'
+        });
     });
+
+
 
     $('.article').addClass('wow fadeIn');
 

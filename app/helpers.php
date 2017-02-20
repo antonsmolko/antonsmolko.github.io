@@ -45,7 +45,7 @@ function resizeImage($file_input, $file_output, $w_o, $h_o) {
     $img_o = imagecreatetruecolor($w_o, $h_o);
     imagecopyresampled($img_o, $img, 0, 0, 0, 0, $w_o, $h_o, $w_i, $h_i);
     if ($type == 2) {
-        return imagejpeg($img_o,$file_output . "." . $ext,90);
+        return imagejpeg($img_o,$file_output . "." . $ext,100);
     } else {
         $func = 'image'.$ext;
         return $func($img_o,$file_output . "." . $ext);
