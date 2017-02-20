@@ -18,6 +18,8 @@ class ArticleController extends AdminController
 
     public function showAll()
     {
+        $this->authorize('rule', Article::class);
+
         $articles = Article::where('id', '<>', 0)
             ->latest()
             ->get();
@@ -30,17 +32,17 @@ class ArticleController extends AdminController
 
     public function create()
     {
-        if (Auth::user()->can('create', Article::class)) {
-            return view('admin.articles_create', [
-                'title' => 'Новая статья'
-            ]);
-        }
+        $this->authorize('create', Article::class);
 
-        abort(403);
+        return view('admin.articles_create', [
+            'title' => 'Новая статья'
+        ]);
     }
 
     public function createPost()
     {
+        $this->authorize('create', Article::class);
+
         $this->validate($this->request, [
             'title' => 'required|unique:articles,title|min:1|max:250',
             'content' => 'required|min:1|max:5000',
@@ -69,20 +71,20 @@ class ArticleController extends AdminController
 
     public function edit($id)
     {
+        $this->authorize('edit', Article::class);
+
         $article = Article::findOrFail($id);
 
-        if (Auth::user()->can('edit', Article::class)) {
-            return view('admin.articles_edit', [
-                'title' => 'Редактор статьи',
-                'article' => $article
-            ]);
-        }
-
-        abort(403);
+        return view('admin.articles_edit', [
+            'title' => 'Редактор статьи',
+            'article' => $article
+        ]);
     }
 
     public function editPost($id)
     {
+        $this->authorize('edit', Article::class);
+
         $article = Article::findOrFail($id);
 
         $this->validate($this->request, [
