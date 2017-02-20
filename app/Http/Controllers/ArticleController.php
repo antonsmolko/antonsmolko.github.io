@@ -6,6 +6,7 @@ use App\Repositories\ArticleRepository;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {

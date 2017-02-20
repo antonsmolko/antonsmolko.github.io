@@ -21,9 +21,11 @@ class PermissionPolicy
 
     public function isAdmin(User $user)
     {
-        foreach ($user->role[0]->permissions as $permission) {
-            if ($permission->name == 'admin_access') {
-                return true;
+        if (isset($user->role[0])) {
+            foreach ($user->role[0]->permissions as $permission) {
+                if ($permission->name == 'admin_access') {
+                    return true;
+                }
             }
         }
 

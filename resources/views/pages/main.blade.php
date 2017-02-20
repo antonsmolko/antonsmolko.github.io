@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="header--nav">
-                @can('isAdmin', Auth::user())
+                @can('isAdmin', \App\Models\Permission::class)
                     <a class="button button--nav" href="{{ route('admin') }}">Панель администратора</a>
                 @endcan
                 @if(Auth::check())

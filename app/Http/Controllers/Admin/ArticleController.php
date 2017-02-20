@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
+use App\Policies\PermissionPolicy;
+use App\Models\Permission;
 
 class ArticleController extends AdminController
 {
