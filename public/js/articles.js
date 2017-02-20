@@ -8,12 +8,10 @@ $(function () {
     //     });
     // });
 
-    $(document).onload(function () {
-        $('.articles-list--item').masonry({
-            // options...
-            itemSelector: '.article',
-            columnWidth: '.article'
-        });
+    $('.articles-list--item').masonry({
+        // options...
+        itemSelector: '.article',
+        columnWidth: '.article'
     });
 
 
