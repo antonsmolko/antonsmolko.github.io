@@ -18,7 +18,7 @@
  */
 
 /* global jQuery */
-var imagesLoaded = require('imagesloaded');
+// var imagesLoaded = require('imagesloaded');
 (function (factory) {
   "use strict";
   if (typeof define === 'function' && define.amd) {
@@ -34,7 +34,7 @@ var imagesLoaded = require('imagesloaded');
   "use strict";
 
   // provide jQuery argument
-  imagesLoaded.makeJQueryPlugin($);
+  // imagesLoaded.makeJQueryPlugin($);
 
   $.fn.imagefill = function(options) {
     var $container = this,

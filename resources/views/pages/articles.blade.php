@@ -6,8 +6,8 @@
 @endpush
 @push('script')
     {{--<script src="../js/require.min.js"></script>--}}
-    {{--<script src="../js/imagesloaded.pkgd.min.js"></script>--}}
-    {{--<script src="../js/imagefill.js"></script>--}}
+    <script src="../js/imagesloaded.pkgd.min.js"></script>
+    <script src="../js/imagefill.js"></script>
     <script src="../js/masonry.pkgd.min.js"></script>
     <script src="../js/wow.min.js"></script>
     <script src="../js/articles.js"></script>

@@ -1,18 +1,18 @@
 $(function () {
 
-    // var $container = $(".articles-list--item");
-    // $container.imagesLoaded(function () {
-    //     $container.masonry({
-    //         columnWidth: ".article",
-    //         itemSelector: ".article"
-    //     });
-    // });
-
-    $('.articles-list--item').masonry({
-        // options...
-        itemSelector: '.article',
-        columnWidth: '.article'
+    var $container = $(".articles-list--item");
+    $container.imagesLoaded(function () {
+        $container.masonry({
+            columnWidth: ".article",
+            itemSelector: ".article"
+        });
     });
+
+    // $('.articles-list--item').masonry({
+    //     // options...
+    //     itemSelector: '.article',
+    //     columnWidth: '.article'
+    // });
 
 
 

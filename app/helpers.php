@@ -45,7 +45,7 @@ function resizeImage($file_input, $file_output, $w_o, $h_o) {
     $img_o = imagecreatetruecolor($w_o, $h_o);
     imagecopyresampled($img_o, $img, 0, 0, 0, 0, $w_o, $h_o, $w_i, $h_i);
     if ($type == 2) {
-        return imagejpeg($img_o,$file_output . "." . $ext,100);
+        return imagejpeg($img_o,$file_output . "." . $ext,90);
     } else {
         $func = 'image'.$ext;
         return $func($img_o,$file_output . "." . $ext);
@@ -60,7 +60,7 @@ function uploadImage($file)
 
         $file_name = sha1(microtime(true));
         resizeImage($file, UPLOAD_DIR . FULL_DIR . $file_name, 1500, 0);
-        resizeImage($file, UPLOAD_DIR . THUMB_DIR . $file_name, 800, 0);
+        resizeImage($file, UPLOAD_DIR . THUMB_DIR . $file_name, 600, 0);
 
         return $file_name . "." . $ext;
 }
