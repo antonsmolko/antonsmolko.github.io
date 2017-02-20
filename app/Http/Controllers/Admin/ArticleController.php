@@ -44,7 +44,7 @@ class ArticleController extends AdminController
         $this->validate($this->request, [
             'title' => 'required|unique:articles,title|min:1|max:250',
             'content' => 'required|min:1|max:5000',
-            'image' => 'file|image|mimes:jpeg,bmp,png,gif,tiff|min:10|max:10240'
+            'image' => 'file|image|mimes:jpeg,bmp,png,gif,tiff|min:100|max:102400'
         ]);
 
         if ($this->request->hasFile('image') && $this->request->file('image')->isValid()) {
