@@ -11,26 +11,25 @@ class ArticleRepository
 
     public function getLast()
     {
-        return Cache::remember('articleLast', env('CACHE_TIME', 0), function () {
+//        return Cache::remember('articleLast', env('CACHE_TIME', 0), function () {
             return Article::published()
                 ->latest()
                 ->first();
-        });
+//        });
     }
 
     public function getAllButLast()
     {
-        if ($this->getLast()) {
-            return Cache::remember('articlesButLast', env('CACHE_TIME', 0), function () {
+//        return Cache::remember('articlesButLast', env('CACHE_TIME', 0), function () {
+            if ($this->getLast()) {
                 return Article::where('id', '<>', $this->getLast()->id)
                     ->published()
                     ->latest()
                     ->paginate(config('blog.itemsPerPage'));
-            });
-        }
+            };
 
-        return false;
-
+            return false;
+//        });
     }
 
     public function getOne($id)

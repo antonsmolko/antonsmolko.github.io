@@ -41,30 +41,30 @@
     </div>
     <div class="articles-list">
         <div class="wrapper">
-            @if($articles)
-                <div class="articles-list--item">
-                    @foreach($articles as $key => $article)
-                        <div class="article" data-wow-offset="10">
-                            <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
-                                @if(file_exists($article->image_thumb))
-                                    <img src="{{ $article->image_thumb }}" alt="">
-                                @else
-                                    <img src="http://placehold.it/600x400" alt="">
-                                @endif
+            <div class="articles-list--item">
+                @forelse($articles as $key => $article)
+                    <div class="article" data-wow-offset="10">
+                        <a class="article-image" href="{{ route('article', ['id' => $article->id]) }}">
+                            @if(file_exists($article->image_thumb))
+                                <img src="{{ $article->image_thumb }}" alt="">
+                            @else
+                                <img src="http://placehold.it/600x400" alt="">
+                            @endif
+                        </a>
+                        <div class="article--title">
+                            <a href="{{ route('article', ['id' => $article->id]) }}">
+                                <h3>{{ $article->title }}</h3>
                             </a>
-                            <div class="article--title">
-                                <a href="{{ route('article', ['id' => $article->id]) }}">
-                                    <h3>{{ $article->title }}</h3>
-                                </a>
-                                @if(isset($articleLast->author[0]->name))
-                                    <span class="article--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
-                                @endif
-                            </div>
+                            @if(isset($articleLast->author[0]->name))
+                                <span class="article--author">Автор статьи: {{ $articleLast->author[0]->name }}</span>
+                            @endif
                         </div>
-                    @endforeach
-                </div>
-                {{ $articles->links() }}
-            @endif
+                    </div>
+                @empty
+                    <p>Нет статей для отображения</p>
+                @endforelse
+            </div>
+            {{ $articles->links() }}
         </div>
     </div>
 @endsection
