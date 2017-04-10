@@ -31,11 +31,11 @@ class ArticleController extends Controller
     {
         $this->article = $articleRepository->getOne($id);
 
-        return View::share('showOne', Cache::remember('showOne', env('CACHE_TIME', 0), function () {
+//        return View::share('showOne', Cache::remember('showOne', env('CACHE_TIME', 0), function () {
             return view('pages.article', [
                 'title' => 'Просмотр статьи',
                 'article' => $this->article
             ])->render();
-        }));
+//        }));
     }
 }

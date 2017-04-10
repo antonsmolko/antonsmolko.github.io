@@ -36,12 +36,12 @@ class ArticleRepository
     {
         $this->id = $id;
 
-        return Cache::remember('article', env('CACHE_TIME', 0), function () {
+//        return Cache::remember('article', env('CACHE_TIME', 0), function () {
             $this->article = Article::findOrFail($this->id);
             $this->article->views += 1;
             $this->article->save();
 
             return $this->article;
-        });
+//        });
     }
 }
