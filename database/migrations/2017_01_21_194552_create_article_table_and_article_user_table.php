@@ -17,7 +17,7 @@ class CreateArticleTableAndArticleUserTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 250)->nullable();
-            $table->string('content', 100000)->nullable();
+            $table->text('content', 10000)->nullable();
             $table->string('image_full');
             $table->string('image_thumb');
             $table->tinyInteger('published')->default(0);
